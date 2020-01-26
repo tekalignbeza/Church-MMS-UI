@@ -1,0 +1,55 @@
+<div class="grid-container">
+  <mat-grid-list cols="3" rowHeight="2:2">
+    <mat-grid-tile [colspan]="1" [rowspan]="2">
+      <mat-card class="dashboard-card">
+        <mat-card-header>
+          <mat-card-title>
+            Vendor Details
+          </mat-card-title>
+        </mat-card-header>
+        <mat-card-content class="dashboard-card-content">
+          <form class="example-form">
+            <mat-form-field class="example-full-width">
+              <input matInput placeholder="Vendor Name" value="Georgia Power">
+            </mat-form-field>
+            <mat-form-field class="example-full-width">
+              <input matInput placeholder="Contact person" value="Tekaligh Habtemichael">
+            </mat-form-field>
+            <mat-form-field class="example-full-width">
+              <input matInput placeholder="Contact phone" value="6412230315">
+            </mat-form-field>
+            <mat-form-field class="example-full-width">
+              <input matInput placeholder="Contact email" value="tekalignbeza@gmail.com">
+            </mat-form-field>
+            <mat-form-field class="example-full-width">
+              <input matInput placeholder="Street1" value="2619 Havasu Tr">
+            </mat-form-field>
+            <mat-form-field class="example-full-width">
+              <input matInput placeholder="City" value="Norcross">
+            </mat-form-field>
+            <mat-form-field class="example-full-width">
+              <input matInput placeholder="State" value="GA">
+            </mat-form-field>
+            <mat-form-field class="example-full-width">
+              <input matInput placeholder="Zip Code" value="30071">
+            </mat-form-field>
+          </form>
+          <div class="saveCancel-button-row">
+            <button mat-raised-button color="primary">Save</button>
+            <button mat-raised-button color="warn">Cancel</button>
+          </div>
+        </mat-card-content>
+      </mat-card>
+    </mat-grid-tile>
+    <mat-grid-tile [colspan]="2" [rowspan]="2">
+      <mat-card class="dashboard-card">
+        <mat-card-header>
+          <mat-card-title>
+            Expenses
+          </mat-card-title>
+        </mat-card-header>
+        <app-expense-data-table></app-expense-data-table>
+      </mat-card>
+    </mat-grid-tile>
+  </mat-grid-list>
+</div>

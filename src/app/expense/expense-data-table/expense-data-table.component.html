@@ -1,0 +1,38 @@
+<script src="../../../../../configuration.ts"></script>
+<div class="table-height mat-elevation-z0 table-div">
+  <table mat-table [dataSource]="dataSource">
+    <!-- firstName Column -->
+    <ng-container matColumnDef="vendorName">
+      <th mat-header-cell *matHeaderCellDef>Vendor Name</th>
+      <td mat-cell *matCellDef="let element"> {{element.vendor.name}} </td>
+    </ng-container>
+
+    <!-- lastName Column -->
+    <ng-container matColumnDef="amount">
+      <th mat-header-cell *matHeaderCellDef> amount</th>
+      <td mat-cell *matCellDef="let element"> {{element.amount}} </td>
+    </ng-container>
+
+    <!-- Symbol Column -->
+    <ng-container matColumnDef="transactionMethod">
+      <th mat-header-cell *matHeaderCellDef> transactionMethod </th>
+      <td mat-cell *matCellDef="let element"> {{element.transactionMethod}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="expenseType">
+      <th mat-header-cell *matHeaderCellDef> expenseType </th>
+      <td mat-cell *matCellDef="let element"> {{element.expenseType.name}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="expenseName">
+      <th mat-header-cell *matHeaderCellDef> expenseName </th>
+      <td mat-cell *matCellDef="let element"> {{element.expenseName}} </td>
+    </ng-container>
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;" (dblclick)="getRecord(row)"></tr>
+  </table>
+</div>
+<div class="table-buttons">
+  <mat-icon (click)="addNewMember()" color="primary">add_circle</mat-icon>
+  <mat-icon (click)="openSnackBar()" color="warn">remove_circle</mat-icon>
+</div>

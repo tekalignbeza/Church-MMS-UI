@@ -1,0 +1,16 @@
+.dashboard-card {
+  position: absolute;
+  top: 0px;
+  left: 15px;
+  right: 15px;
+  bottom: 15px;
+}
+.example-form {
+  min-width: 150px;
+  max-width: 500px;
+  width: 100%;
+}
+
+.example-full-width {
+  width: 100%;
+}

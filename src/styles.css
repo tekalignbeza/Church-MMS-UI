@@ -1,1 +1,115 @@
 /* You can add global styles to this file, and also import other style files */
+
+/* for sidenav to take a whole page */
+
+/* Main body css */
+html, body {
+  margin: 0;
+  height: 100%;
+}
+
+/* Detail components css */
+.bio-form-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.bio-form-container > * {
+  width: 100%;
+}
+mat-radio-group {
+  padding: 0 0 10px 0;
+}
+mat-radio-button {
+  padding: 0 10px 0 0;
+}
+.img-form-container{
+  text-align: center;
+}
+mat-file-upload {
+  display: block;
+  margin: 20px;
+}
+
+
+/* Main data table css */
+
+table {
+  width: 100%;
+}
+.table-div{
+  height: 250px;
+  overflow: auto;
+}
+.mat-header-cell {
+  text-align: center;
+}
+.mat-header-row {
+  height: 45px;
+}
+
+.mat-row:hover{
+  background: #c4c1e7;
+}
+.mat-cell {
+  padding: 8px 8px 8px 0;
+}
+.mat-paginator{
+  padding: 0px;
+  margin: 0px;
+  height: auto;
+}
+.mat-paginator-container{
+  text-align: left;
+  inline-size: auto;
+  float: left;
+  inline-size: auto;
+}
+.table-buttons{
+  float: right;
+  margin-top: 15px;
+  margin-right: 50px;
+}
+.mat-icon{
+  height: 30px;
+  width: 30px;
+  margin: 0 5px;
+  cursor: pointer;
+}
+
+.table-height{
+  height: fit-content;
+  max-height: 300px;
+  overflow: auto;
+}
+
+/* Main Detail layout css */
+.more-button {
+  position: absolute;
+  top: 5px;
+  right: 10px;
+}
+.saveCancel-button-row{
+  margin-left:8%;
+}
+.saveCancel-button-row button,
+.saveCancel-button-row a {
+  margin-right: 15px;
+}
+.grid-container {
+  margin: 20px;
+}
+
+.dashboard-card-content {
+  text-align: center;
+}
+
+/*Search criteria*/
+
+.searchCriteria{
+  padding: 15px 50px;
+}
+.leftAlign{
+  text-align: left;
+}
+

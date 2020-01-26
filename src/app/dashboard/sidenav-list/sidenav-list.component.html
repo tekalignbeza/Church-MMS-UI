@@ -1,0 +1,63 @@
+<mat-toolbar>Menu</mat-toolbar>
+<mat-nav-list>
+  <mat-accordion>
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          Members
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+      <div> <a routerLink="members/families"><mat-icon>group</mat-icon><span>Families</span></a></div>
+      <div> <a routerLink="members/list"><mat-icon>person</mat-icon><span>Members</span></a></div>
+      <div> <a routerLink="members/new"><mat-icon>group_add</mat-icon><span>New family</span></a></div>
+    </mat-expansion-panel>
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          Meeting
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+      <div> <a routerLink="meetings/list"> <mat-icon>event</mat-icon><span>Meetings</span></a></div>
+      <div> <a routerLink="meetings/new"> <mat-icon>event_available</mat-icon><span>New meeting</span></a></div>
+    </mat-expansion-panel>
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          Payment
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+      <div> <a routerLink="payments/list"> <mat-icon>credit_card</mat-icon><span>Payments</span></a></div>
+      </mat-expansion-panel>
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          Expense
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+      <div> <a routerLink="expenses/list"><mat-icon>shopping_cart</mat-icon><span>Expenses</span></a></div>
+      </mat-expansion-panel>
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          Miscellaneous
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+      <div> <a routerLink="miscellaneous/list"><mat-icon>business</mat-icon><span>Miscellaneous</span></a></div>
+      <div> <a routerLink="miscellaneous/new"> <mat-icon>note_add</mat-icon><span>New vendor</span></a></div>
+    </mat-expansion-panel>
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          Report
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+      <div> <a routerLink="expenses/vendors"><mat-icon>bar_chart</mat-icon><span>Members report</span></a></div>
+      <div> <a routerLink="expenses/newVendor"> <mat-icon>multiline_chart</mat-icon><span>Payments report</span></a></div>
+      <div> <a routerLink="expenses/newVendor"> <mat-icon>show_chart</mat-icon><span>Expenses report</span></a></div>
+      <div> <a routerLink="expenses/newVendor"> <mat-icon>table_chart</mat-icon><span>Over all report</span></a></div>
+    </mat-expansion-panel>
+
+  </mat-accordion>
+</mat-nav-list>
+
+

@@ -1,0 +1,63 @@
+<div class="grid-container">
+  <mat-grid-list cols="1" rows="3" rowHeight="4:1">
+    <mat-grid-tile [colspan]="1" [rowspan]="1">
+      <mat-card class="dashboard-card">
+        <mat-card-header>
+          <mat-card-title>
+            Search Member
+          </mat-card-title>
+        </mat-card-header>
+        <mat-card-content class="dashboard-card-content">
+          <form class="example-form">
+            <table class="searchCriteria">
+              <tr>
+                <td>
+                  <mat-form-field class="example-full-width">
+                    <input matInput placeholder="First Name" value="Tekaligh Habtemichael">
+                  </mat-form-field>
+                  <mat-form-field class="example-full-width">
+                    <input matInput placeholder="Middle Name" value="Tekaligh Habtemichael">
+                  </mat-form-field>
+                </td>
+                <td>
+                  <mat-form-field class="example-full-width">
+                    <input matInput placeholder="Last Name" value="Tekaligh Habtemichael">
+                  </mat-form-field>
+                  <mat-form-field class="example-full-width">
+                    <input matInput placeholder="Phone Number" value="Tekaligh Habtemichael">
+                  </mat-form-field>
+                </td>
+                <td>
+                  <mat-form-field class="example-full-width">
+                    <input matInput placeholder="Email address" value="Tekaligh Habtemichael">
+                  </mat-form-field>
+                  <mat-form-field class="example-full-width">
+                    <input matInput placeholder="Family Id" value="Tekaligh Habtemichael">
+                  </mat-form-field>
+                </td>
+              </tr>
+              <tr>
+                <td colspan="3" class="leftAlign">
+                  <div class="saveCancel-button-row">
+                    <button mat-stroked-button color="primary">search</button>
+                    <button mat-stroked-button color="warn">reset</button>
+                  </div>
+                </td>
+              </tr>
+            </table>
+          </form>
+        </mat-card-content>
+      </mat-card>
+    </mat-grid-tile>
+    <mat-grid-tile [colspan]="1" [rowspan]="3">
+      <mat-card class="dashboard-card">
+        <mat-card-header>
+          <mat-card-title>
+            Members result
+          </mat-card-title>
+        </mat-card-header>
+        <app-member-data-table></app-member-data-table>
+      </mat-card>
+    </mat-grid-tile>
+  </mat-grid-list>
+</div>

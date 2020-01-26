@@ -1,0 +1,67 @@
+<div class="grid-container">
+  <mat-grid-list cols="3" rowHeight="2:2">
+    <mat-grid-tile [colspan]="1" [rowspan]="2">
+      <mat-card class="dashboard-card">
+        <mat-card-header>
+          <mat-card-title>
+            Meeting Details
+          </mat-card-title>
+        </mat-card-header>
+        <mat-card-content class="dashboard-card-content">
+          <form class="example-form">
+            <mat-form-field class="example-full-width">
+              <input matInput placeholder="Meeting Title" value="Yearly Meeting">
+            </mat-form-field>
+            <mat-form-field class="example-full-width">
+              <input matInput placeholder="Contact person" value="Tekaligh Habtemichael">
+            </mat-form-field>
+            <mat-form-field class="example-full-width">
+              <input matInput placeholder="Contact phone" value="6412230315">
+            </mat-form-field>
+            <mat-form-field class="example-full-width">
+              <input matInput placeholder="Contact email" value="tekalignbeza@gmail.com">
+            </mat-form-field>
+            <mat-form-field class="example-full-width">
+              <input matInput [matDatepicker]="picker" placeholder="Choose meeting date">
+              <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+              <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field>
+            <mat-form-field class="example-full-width">
+              <mat-select placeholder="Meeting time">
+                <mat-option *ngFor="let meetingTime of meetingTimes" [value]="meetingTime.value">
+                  {{ meetingTime.viewValue }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+            <mat-form-field class="example-full-width">
+              <input matInput placeholder="Street1" value="2619 Havasu Tr">
+            </mat-form-field>
+            <mat-form-field class="example-full-width">
+              <input matInput placeholder="City" value="Norcross">
+            </mat-form-field>
+            <mat-form-field class="example-full-width">
+              <input matInput placeholder="State" value="GA">
+            </mat-form-field>
+            <mat-form-field class="example-full-width">
+              <input matInput placeholder="Zip Code" value="30071">
+            </mat-form-field>
+          </form>
+          <div class="saveCancel-button-row">
+            <button mat-raised-button color="primary">Save</button>
+            <button mat-raised-button color="warn">Cancel</button>
+          </div>
+        </mat-card-content>
+      </mat-card>
+    </mat-grid-tile>
+    <mat-grid-tile [colspan]="2" [rowspan]="2">
+      <mat-card class="dashboard-card">
+        <mat-card-header>
+          <mat-card-title>
+            Attendance
+          </mat-card-title>
+        </mat-card-header>
+        <app-attendace-data-table></app-attendace-data-table>
+      </mat-card>
+    </mat-grid-tile>
+  </mat-grid-list>
+</div>

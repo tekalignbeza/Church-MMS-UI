@@ -1,0 +1,79 @@
+<mat-horizontal-stepper [linear]=false #stepper>
+  <mat-step [stepControl]="firstFormGroup">
+    <form [formGroup]="firstFormGroup">
+      <ng-template matStepLabel>Fill Member Bio</ng-template>
+      <div class="bio-form-container">
+        <mat-form-field>
+          <input matInput placeholder="First Name" formControlName = "firstName">
+        </mat-form-field>
+
+        <mat-form-field>
+          <input matInput placeholder="Middle Name" formControlName = "middleName">
+        </mat-form-field>
+
+        <mat-form-field>
+          <input matInput placeholder="Last Name" formControlName = "lastName">
+        </mat-form-field>
+
+        <mat-radio-group aria-label="Gender" formControlName = "gender">
+          <mat-radio-button value="Male" >Male</mat-radio-button>
+          <mat-radio-button value="Female" >Female</mat-radio-button>
+        </mat-radio-group>
+
+        <mat-form-field>
+          <input matInput placeholder="Email" formControlName = "email">
+        </mat-form-field>
+
+        <mat-form-field>
+          <input matInput placeholder="Phone Number" formControlName = "cellPhone">
+        </mat-form-field>
+      </div>
+      <div>
+        <button mat-button matStepperNext>Next</button>
+      </div>
+    </form>
+  </mat-step>
+  <mat-step [stepControl]="secondFormGroup">
+    <form [formGroup]="secondFormGroup" class="img-form-container" >
+      <ng-template matStepLabel>Upload your Image</ng-template>
+      <img _ngcontent-tvf-c10="" [src]="imageSrc" height="270px" width="250px" >
+      <mat-file-upload labelText="Upload photo" selectButtonText = "Choose File" uploadButtonText="Upload"
+        allowMultipleFiles = "false" acceptedTypes=".png, .jpg, .jpeg"
+        (uploadClicked)="onUploadClicked($event)"
+        (selectedFilesChanged)="onSelectedFilesChanged($event)"
+      ></mat-file-upload>
+      <div>
+        <button mat-button matStepperPrevious>Back</button>
+        <button mat-button matStepperNext>Next</button>
+      </div>
+    </form>
+  </mat-step>
+  <mat-step>
+    <ng-template matStepLabel>Done</ng-template>
+    You are now done. Please your info the info below
+    <div class="bio-form-container">
+      <mat-form-field>
+        <input disabled="true" matInput placeholder="First Name" formControlName = "firstName">
+      </mat-form-field>
+
+      <mat-form-field>
+        <input disabled="true" matInput placeholder="Middle Name" formControlName = "middleName">
+      </mat-form-field>
+
+      <mat-form-field>
+        <input disabled="true" matInput placeholder="Last Name" formControlName = "lastName">
+      </mat-form-field>
+    </div>
+    <div class="img-form-container" >
+      <img _ngcontent-tvf-c10="" [src]="imageSrc" height="270px" width="250px" >
+    </div>
+    <div>
+      <button mat-button matStepperPrevious>Back</button>
+      <button mat-button (click)="stepper.reset()">Reset</button>
+    </div>
+  </mat-step>
+</mat-horizontal-stepper>
+<!--<div mat-dialog-actions>-->
+<!--  <button mat-button (click)="onNoClick()">No Thanks</button>-->
+<!--  <button mat-button [mat-dialog-close]="data.animal" cdkFocusInitial>Ok</button>-->
+<!--</div>-->

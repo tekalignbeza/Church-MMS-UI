@@ -1,0 +1,73 @@
+<div class="grid-container">
+  <mat-grid-list cols="3" rowHeight="2:2">
+    <mat-grid-tile [colspan]="1" [rowspan]="3">
+      <mat-card class="dashboard-card">
+        <mat-card-header>
+          <mat-card-title>
+            Family Details
+          </mat-card-title>
+        </mat-card-header>
+        <mat-card-content class="dashboard-card-content">
+          <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT7VHJcKn_dK4W8JHjJccjVoOYcBqdWyXIIluHvoCxKJK7gQMd4&amp;s">
+          <form class="example-form">
+            <mat-form-field class="example-full-width">
+              <input matInput placeholder="Family Name" value="Tekaligh Habtemichael">
+            </mat-form-field>
+            <mat-form-field class="example-full-width">
+              <input matInput placeholder="Family's Head" value="Tekaligh Habtemichael">
+            </mat-form-field>
+            <mat-form-field class="example-full-width">
+              <input matInput placeholder="Street1" value="2619 Havasu Tr">
+            </mat-form-field>
+            <mat-form-field class="example-full-width">
+              <input matInput placeholder="Street2" value="">
+            </mat-form-field>
+            <mat-form-field class="example-full-width">
+              <input matInput placeholder="City" value="Norcross">
+            </mat-form-field>
+            <mat-form-field class="example-full-width">
+              <input matInput placeholder="State" value="GA">
+            </mat-form-field>
+            <mat-form-field class="example-full-width">
+              <input matInput placeholder="Zip Code" value="30071">
+            </mat-form-field>
+          </form>
+          <div class="saveCancel-button-row">
+            <button mat-raised-button color="primary">Save</button>
+            <button mat-raised-button color="warn">Cancel</button>
+          </div>
+        </mat-card-content>
+      </mat-card>
+    </mat-grid-tile>
+    <mat-grid-tile [colspan]="2" [rowspan]="1">
+      <mat-card class="dashboard-card">
+        <mat-card-header>
+          <mat-card-title>
+            Members
+          </mat-card-title>
+        </mat-card-header>
+          <app-member-data-table></app-member-data-table>
+      </mat-card>
+    </mat-grid-tile>
+    <mat-grid-tile [colspan]="2" [rowspan]="1">
+      <mat-card class="dashboard-card">
+        <mat-card-header>
+          <mat-card-title>
+           Payments
+          </mat-card-title>
+        </mat-card-header>
+        <app-payment-data-table></app-payment-data-table>
+      </mat-card>
+    </mat-grid-tile>
+    <mat-grid-tile [colspan]="2" [rowspan]="1">
+      <mat-card class="dashboard-card">
+        <mat-card-header>
+          <mat-card-title>
+            Meeting Attendances
+          </mat-card-title>
+        </mat-card-header>
+        <app-attendace-data-table></app-attendace-data-table>
+      </mat-card>
+    </mat-grid-tile>
+  </mat-grid-list>
+</div>
