@@ -15,6 +15,9 @@ import {MiscellaneousModule} from "./miscellaneous/miscellaneous.module";
 import {DataService} from "./back-service/DataService/DataService";
 import {PaymentDetailsComponent} from "./payment/payment-details/payment-details.component";
 import {ExpenseDetailsComponent} from "./expense/expenset-details/expense-details.component";
+import {PaymentTypeDetailsComponent} from "./miscellaneous/payment-type-details/payment-type-details.component";
+import {ExpenseTypeDetailsComponent} from "./miscellaneous/expense-type-details/expense-type-details.component";
+import {ReportModule} from "./report/report.module";
 
 
 
@@ -31,9 +34,10 @@ import {ExpenseDetailsComponent} from "./expense/expenset-details/expense-detail
     MemberModule,
     PaymentModule,
     DashboardModule,
-    MiscellaneousModule
+    MiscellaneousModule,
+    ReportModule
   ],
-  entryComponents: [MemberDetailsComponent,AttendanceDetailsComponent,PaymentDetailsComponent,ExpenseDetailsComponent],
+  entryComponents: [ExpenseTypeDetailsComponent,PaymentTypeDetailsComponent,MemberDetailsComponent,AttendanceDetailsComponent,PaymentDetailsComponent,ExpenseDetailsComponent],
   providers: [DataService],
   bootstrap: [AppComponent]
 })

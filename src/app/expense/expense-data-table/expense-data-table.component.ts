@@ -59,8 +59,8 @@ export class ExpenseDataTableComponent implements OnInit {
 
   addNewMember() {
     const dialogRef = this.dialog.open(ExpenseDetailsComponent, {
-      width: '500px',
-      height: '600px',
+      width: '40%',
+      height: '80%',
       data: {}
     });
     dialogRef.afterClosed().subscribe(result => {

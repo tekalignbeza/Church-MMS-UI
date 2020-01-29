@@ -64,8 +64,8 @@ export class AttendaceDataTableComponent implements OnInit {
 
   addNewMember() {
     const dialogRef = this.dialog.open(AttendanceDetailsComponent, {
-      width: '500px',
-      height: '600px',
+      width: '40%',
+      height: '80%',
       data: {}
     });
     dialogRef.afterClosed().subscribe(result => {

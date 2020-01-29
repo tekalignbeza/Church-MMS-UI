@@ -14,10 +14,15 @@ import {VendorDetailsComponent} from "./miscellaneous/vendor-details/vendor-deta
 import {FamilyDetailsComponent} from "./member/family-details/family-details.component";
 import {FamilyListComponent} from "./member/family-list/family-list.component";
 import {MiscellaneousListComponent} from "./miscellaneous/miscellaneous-list/miscellaneous-list.component";
+import {HomeComponent} from "./dashboard/home/home.component";
+import {MemberReportComponent} from "./report/member-report/member-report.component";
+import {IncomeReportComponent} from "./report/income-report/income-report.component";
+import {ExpenseReportComponent} from "./report/expense-report/expense-report.component";
+import {SummaryReportComponent} from "./report/summary-report/summary-report.component";
 
 
 const routes: Routes = [
-      {path:"home",component:AppComponent},
+      {path:"home",component:HomeComponent},
       {path:"members/families", component:FamilyListComponent},
       {path:"members/new", component:FamilyDetailsComponent},
       {path:"members/list", component:MemberListComponent},
@@ -34,7 +39,12 @@ const routes: Routes = [
       {path:"expenses/newTypes", component:ExpenseTypeDetailsComponent},
 
       {path:"miscellaneous/new", component:VendorDetailsComponent},
-      {path:"miscellaneous/list", component:MiscellaneousListComponent}
+      {path:"miscellaneous/list", component:MiscellaneousListComponent},
+
+      {path:"report/member", component:MemberReportComponent},
+      {path:"report/payment", component:IncomeReportComponent},
+      {path:"report/expense", component:ExpenseReportComponent},
+      {path:"report/summary", component:SummaryReportComponent}
 ];
 
 @NgModule({

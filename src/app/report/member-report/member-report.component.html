@@ -1,0 +1,72 @@
+<div class="grid-container">
+  <mat-grid-list cols="1" rows="3" rowHeight="4:1">
+    <mat-grid-tile [colspan]="1" [rowspan]="1">
+      <mat-accordion class="dashboard-card">
+        <mat-expansion-panel [expanded]="true">
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              Payment Report
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+          <div>
+          <mat-form-field class="example-full-width">
+            <mat-select placeholder="Payment Type">
+              <mat-option *ngFor="let paymentType of paymentTypes" [value]="paymentType.value">
+                {{ paymentType.viewValue }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+          </div>
+          <mat-form-field class="example-full-width">
+            <input matInput [matDatepicker]="fromPicker1" placeholder="From date">
+            <mat-datepicker-toggle matSuffix [for]="fromPicker1"></mat-datepicker-toggle>
+            <mat-datepicker #fromPicker1></mat-datepicker>
+          </mat-form-field>
+          <mat-form-field class="example-full-width">
+            <input matInput [matDatepicker]="toPicker1" placeholder="To date">
+            <mat-datepicker-toggle matSuffix [for]="toPicker1"></mat-datepicker-toggle>
+            <mat-datepicker #toPicker1></mat-datepicker>
+          </mat-form-field>
+          <div class="table-buttons">
+            <mat-icon color="primary">add_circle</mat-icon>
+            <mat-icon color="primary">add_circle</mat-icon>
+            <mat-icon color="warn">remove_circle</mat-icon>
+          </div>
+
+        </mat-expansion-panel>
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              Attendance Report
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+          <mat-form-field class="example-full-width">
+            <input matInput [matDatepicker]="fromPicker2" placeholder="From date">
+            <mat-datepicker-toggle matSuffix [for]="fromPicker2"></mat-datepicker-toggle>
+            <mat-datepicker #fromPicker2></mat-datepicker>
+          </mat-form-field>
+          <mat-form-field class="example-full-width">
+            <input matInput [matDatepicker]="toPicker2" placeholder="To date">
+            <mat-datepicker-toggle matSuffix [for]="toPicker2"></mat-datepicker-toggle>
+            <mat-datepicker #toPicker2></mat-datepicker>
+          </mat-form-field>
+          <div class="table-buttons">
+            <mat-icon color="primary">add_circle</mat-icon>
+            <mat-icon color="primary">add_circle</mat-icon>
+            <mat-icon color="warn">remove_circle</mat-icon>
+          </div>
+        </mat-expansion-panel>
+      </mat-accordion>
+    </mat-grid-tile>
+    <mat-grid-tile [colspan]="1" [rowspan]="4">
+      <mat-card class="dashboard-card">
+        <mat-card-header>
+          <mat-card-title>
+            Members result
+          </mat-card-title>
+        </mat-card-header>
+        <app-member-data-table></app-member-data-table>
+      </mat-card>
+    </mat-grid-tile>
+  </mat-grid-list>
+</div>

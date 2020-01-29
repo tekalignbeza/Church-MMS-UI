@@ -2,6 +2,7 @@ import {Component, OnInit, ViewChild} from '@angular/core';
 import {MatDialog, MatPaginator, MatSnackBar, MatTableDataSource} from "@angular/material";
 import {AttendanceDetailsComponent} from "../../meeting/attendance-details/attendance-details.component";
 import {PaymentTypeDTO} from "../../back-service/model/paymentTypeDTO";
+import {PaymentTypeDetailsComponent} from "../payment-type-details/payment-type-details.component";
 
 const ELEMENT_DATA: PaymentTypeDTO[] = [{
     name: "Monthly payment",
@@ -33,9 +34,9 @@ export class PaymentTypeDataTableComponent implements OnInit {
   }
 
   getRecord(row: PaymentTypeDTO) {
-    const dialogRef = this.dialog.open(AttendanceDetailsComponent, {
-      width: '500px',
-      height: '600px',
+    const dialogRef = this.dialog.open(PaymentTypeDetailsComponent, {
+      width: '40%',
+      height: '46%',
       data: row
     });
     dialogRef.afterClosed().subscribe(result => {
@@ -46,9 +47,9 @@ export class PaymentTypeDataTableComponent implements OnInit {
   }
 
   addNewMember() {
-    const dialogRef = this.dialog.open(AttendanceDetailsComponent, {
-      width: '500px',
-      height: '600px',
+    const dialogRef = this.dialog.open(PaymentTypeDetailsComponent, {
+      width: '40%',
+      height: '46%',
       data: {}
     });
     dialogRef.afterClosed().subscribe(result => {

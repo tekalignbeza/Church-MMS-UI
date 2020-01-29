@@ -1,0 +1,49 @@
+<div class="grid-container">
+  <mat-grid-list cols="1" rows="4" rowHeight="5:1">
+    <mat-grid-tile [colspan]="1" [rowspan]="1">
+      <mat-card class="dashboard-card">
+        <mat-card-header>
+          <mat-card-title>
+            Payment Report
+          </mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <div>
+            <mat-form-field class="example-full-width">
+              <mat-select placeholder="Payment Type">
+                <mat-option *ngFor="let paymentType of paymentTypes" [value]="paymentType.value">
+                  {{ paymentType.viewValue }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <mat-form-field class="example-full-width">
+            <input matInput [matDatepicker]="fromPicker1" placeholder="From date">
+            <mat-datepicker-toggle matSuffix [for]="fromPicker1"></mat-datepicker-toggle>
+            <mat-datepicker #fromPicker1></mat-datepicker>
+          </mat-form-field>
+          <mat-form-field class="example-full-width">
+            <input matInput [matDatepicker]="toPicker1" placeholder="To date">
+            <mat-datepicker-toggle matSuffix [for]="toPicker1"></mat-datepicker-toggle>
+            <mat-datepicker #toPicker1></mat-datepicker>
+          </mat-form-field>
+          <div class="table-buttons">
+            <mat-icon color="primary">add_circle</mat-icon>
+            <mat-icon color="primary">add_circle</mat-icon>
+            <mat-icon color="warn">remove_circle</mat-icon>
+          </div>
+        </mat-card-content>
+      </mat-card>
+    </mat-grid-tile>
+    <mat-grid-tile [colspan]="1" [rowspan]="3">
+      <mat-card class="dashboard-card">
+        <mat-card-header>
+          <mat-card-title>
+            Income result
+          </mat-card-title>
+        </mat-card-header>
+        <app-payment-data-table></app-payment-data-table>
+      </mat-card>
+    </mat-grid-tile>
+  </mat-grid-list>
+</div>

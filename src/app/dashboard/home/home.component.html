@@ -1,1 +1,13 @@
-<p>home works!</p>
+<div class="grid-container">
+  <mat-grid-list cols="4" rows="5" rowHeight="3:1">
+    <mat-grid-tile [colspan]="4" [rowspan]="1"></mat-grid-tile>
+    <mat-grid-tile [colspan]="1" [rowspan]="1"></mat-grid-tile>
+    <mat-grid-tile [colspan]="2" [rowspan]="2">
+      <mat-card class="dashboard-card">
+        <img src="https://yt3.ggpht.com/a/AGF-l79N_HsnQbzZAl3kCAnTyYt8ML1rsHvLjBdE_Q=s900-c-k-c0xffffffff-no-rj-mo" height="50%" width="100%">
+      </mat-card>
+    </mat-grid-tile>
+    <mat-grid-tile [colspan]="1" [rowspan]="1"></mat-grid-tile>
+    <mat-grid-tile [colspan]="4" [rowspan]="1"></mat-grid-tile>
+  </mat-grid-list>
+</div>

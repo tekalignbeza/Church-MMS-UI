@@ -25,6 +25,6 @@ import {PaymentModule} from "../payment/payment.module";
     MeetingModule,
     PaymentModule
   ],
-  exports:[MemberDetailsComponent, MemberListComponent, FamilyDetailsComponent, FamilyListComponent,FamilyDataTableComponent]
+  exports: [MemberDetailsComponent, MemberListComponent, FamilyDetailsComponent, FamilyListComponent, FamilyDataTableComponent, MemberDataTableComponent]
 })
 export class MemberModule { }
