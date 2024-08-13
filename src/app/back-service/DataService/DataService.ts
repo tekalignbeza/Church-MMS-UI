@@ -6,4 +6,7 @@ export class DataService {
   public family:FamilyDTO;
   public meeting:MeetingDTO;
   public vendor:VendorDTO;
+  public familyId:number;
+  public meetingId:number;
+  public vendorId:number;
 }

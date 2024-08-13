@@ -1,7 +1,8 @@
-import {Component, Inject, OnInit} from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from "@angular/forms";
+import {Component, Inject, Input, OnInit} from '@angular/core';
 import {MemberDTO} from "../../back-service/model/memberDTO";
 import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material";
+import {MemberServiceService} from "../../back-service/member-service.service";
+import {UserDTO} from "../../back-service/model/userDTO";
 
 @Component({
   selector: 'app-member-details',
@@ -10,17 +11,15 @@ import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material";
 })
 export class MemberDetailsComponent implements OnInit {
 
-  firstFormGroup: FormGroup;
-  secondFormGroup: FormGroup;
-  memberDTO:MemberDTO;
+  @Input() memberDTO:MemberDTO = {
+      id : 0
+    }
   imageSrc:any;
   closeButton =  "none";
   file:FileList;
-  constructor(private _formBuilder: FormBuilder,
-              public dialogRef: MatDialogRef<MemberDetailsComponent>,
+  constructor(private memberApi:MemberServiceService, public dialogRef: MatDialogRef<MemberDetailsComponent>,
               @Inject(MAT_DIALOG_DATA) public data: MemberDTO) {
     this.memberDTO = data;
-
   }
   onSelectedFilesChanged(event):void{
     this.closeButton = "cancel";
@@ -34,27 +33,28 @@ export class MemberDetailsComponent implements OnInit {
     console.log(this.file.item(0));
   }
   onUploadClicked(event){
-
-  }
-  onNoClick(): void {
-    this.dialogRef.close();
+    console.log('upload started');
+    this.memberApi.uploadPhoto(event.item(0),this.memberDTO.id).subscribe((data)=>{
+      console.log(data);
+      if(data===true){
+        this.dialogRef.close();
+      }
+    });
   }
 
   ngOnInit() {
-    this.firstFormGroup = this._formBuilder.group({
-      firstName: [this.memberDTO.firstName, Validators.required],
-      cellPhone: [this.memberDTO.cellPhone, Validators.required],
-      lastName: [this.memberDTO.lastName, Validators.required],
-      gender: ['Male', Validators.required],
-      familyHead: [this.memberDTO.familyHead],
-      email: [this.memberDTO.email],
-      middleName: [this.memberDTO.middleName],
-      spouse: [this.memberDTO.spouse],
-      yearOfBirth: [this.memberDTO.yearOfBirth],
-    });
-    this.imageSrc = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT7VHJcKn_dK4W8JHjJccjVoOYcBqdWyXIIluHvoCxKJK7gQMd4&amp;s";
-    this.secondFormGroup = this._formBuilder.group({
-      secondCtrl: ['', Validators.required]
+
+  }
+
+  test() {
+    console.log('Im clicked'+ JSON.stringify(this.memberDTO));
+    this.memberDTO.userDTO = {
+      email : this.memberDTO.email,
+      role : UserDTO.RoleEnum.User
+    }
+    this.memberDTO.id = 0;
+    this.memberApi.addMemberToFamily(this.memberDTO.family.id,this.memberDTO).subscribe((data: {}) => {
+      console.log('create family');
     });
   }
 }

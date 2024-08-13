@@ -9,14 +9,36 @@ import {Router} from "@angular/router";
 const ELEMENT_DATA: MeetingDTO[] = [{
       city: "Norcross",
       state: "GA",
-      address1: "2423 Hava ",
+      address1: "2423 Havasu Trace ",
       zipCode: "3009",
       id: 123445,
       cellPhone: "632432434",
       dateTime: new Date("2019-04-21"),
       duration: 3,
       email: "tedafd@gmail.com",
-      title: "Title"
+      title: "Monthly Meeting"
+},{
+  city: "Clarkston",
+  state: "GA",
+  address1: "Clarkston High school",
+  zipCode: "3009",
+  id: 123445,
+  cellPhone: "632432434",
+  dateTime: new Date("2019-04-21"),
+  duration: 3,
+  email: "tedafd@gmail.com",
+  title: "Annual Meeting"
+},{
+  city: "Clarkston",
+  state: "GA",
+  address1: "Clarkston Community center",
+  zipCode: "3009",
+  id: 123445,
+  cellPhone: "632432434",
+  dateTime: new Date("2019-04-21"),
+  duration: 3,
+  email: "tedafd@gmail.com",
+  title: "Monthly Meeting"
 }
 ];
 

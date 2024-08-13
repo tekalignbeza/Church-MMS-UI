@@ -6,15 +6,46 @@ import {ExpenseDetailsComponent} from "../expenset-details/expense-details.compo
 
 const ELEMENT_DATA: ExpenseDTO[] = [{
   amount: 100,
-  vendor: {name: "Tekalign's Family"},
+  vendor: {name: "Georgia Power"},
   id: 12,
   transactionMethod: "CREDIT",
-  expenseName: "For Power" ,
+  expenseName: "For Utility" ,
   status: "COMPLETE",
   expenseType:{
     name: "Monthly payment"
   }
-}];
+},{
+  amount: 100,
+  vendor: {name: "Georgia Water"},
+  id: 12,
+  transactionMethod: "CREDIT",
+  expenseName: "For Utility" ,
+  status: "COMPLETE",
+  expenseType:{
+    name: "Monthly payment"
+  }
+},
+  {
+    amount: 100,
+    vendor: {name: "Clarkston Police"},
+    id: 12,
+    transactionMethod: "CREDIT",
+    expenseName: "For Security" ,
+    status: "COMPLETE",
+    expenseType:{
+      name: "Monthly payment"
+    }
+  },{
+    amount: 100,
+    vendor: {name: "Priest X"},
+    id: 12,
+    transactionMethod: "CREDIT",
+    expenseName: "For Salary" ,
+    status: "COMPLETE",
+    expenseType:{
+      name: "Monthly payment"
+    }
+  }];
 @Component({
   selector: 'app-expense-data-table',
   templateUrl: './expense-data-table.component.html',

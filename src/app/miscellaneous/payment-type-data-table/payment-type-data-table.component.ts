@@ -3,12 +3,28 @@ import {MatDialog, MatPaginator, MatSnackBar, MatTableDataSource} from "@angular
 import {AttendanceDetailsComponent} from "../../meeting/attendance-details/attendance-details.component";
 import {PaymentTypeDTO} from "../../back-service/model/paymentTypeDTO";
 import {PaymentTypeDetailsComponent} from "../payment-type-details/payment-type-details.component";
+import {PaymentServiceService} from "../../back-service/payment-service.service";
 
 const ELEMENT_DATA: PaymentTypeDTO[] = [{
-    name: "Monthly payment",
+    name: "Monthly membership payment",
     description: "",
     id: 1
-}];
+},
+  {
+    name: "Selet payment",
+    description: "",
+    id: 2
+  },
+  {
+    name: "Christening membership payment",
+    description: "",
+    id: 3
+  },
+  {
+    name: "Other service payment",
+    description: "",
+    id: 4
+  }];
 @Component({
   selector: 'app-payment-type-data-table',
   templateUrl: './payment-type-data-table.component.html',
@@ -20,9 +36,10 @@ export class PaymentTypeDataTableComponent implements OnInit {
   paymentTypeDTO: PaymentTypeDTO ;
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
   ngOnInit() {
+    this.dataSource = new MatTableDataSource<PaymentTypeDTO>(ELEMENT_DATA);
     this.dataSource.paginator = this.paginator;
   }
-  constructor(private _snackBar: MatSnackBar,public dialog: MatDialog) {}
+  constructor(private payment:PaymentServiceService,private _snackBar: MatSnackBar,public dialog: MatDialog) {}
   openSnackBar() {
     this.showSnackBar("Member removed from family","Remove");
   }

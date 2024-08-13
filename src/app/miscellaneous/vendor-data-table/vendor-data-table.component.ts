@@ -6,7 +6,7 @@ import {DataService} from "../../back-service/DataService/DataService";
 import {Router} from "@angular/router";
 
 const ELEMENT_DATA: VendorDTO[] = [{
-  name: "Tekalign's Family",
+  name: "Georgia Power",
   addressDTO: {
     city: "Norcross",
     state: "GA",
@@ -14,7 +14,36 @@ const ELEMENT_DATA: VendorDTO[] = [{
     zipCode: "3009"
   },
 id: 1,
-}];
+},
+  {
+    name: "Georgia water",
+    addressDTO: {
+      city: "Norcross",
+      state: "GA",
+      streetAddress1: "2423 Hava ",
+      zipCode: "3009"
+    },
+    id: 2,
+  },{
+    name: "Priest X",
+    addressDTO: {
+      city: "Norcross",
+      state: "GA",
+      streetAddress1: "2423 Hava ",
+      zipCode: "3009"
+    },
+    id: 3,
+  },
+  {
+    name: "Clarkston Police",
+    addressDTO: {
+      city: "Norcross",
+      state: "GA",
+      streetAddress1: "2423 Hava ",
+      zipCode: "3009"
+    },
+    id: 4,
+  }];
 @Component({
   selector: 'app-vendor-data-table',
   templateUrl: './vendor-data-table.component.html',

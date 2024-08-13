@@ -15,6 +15,39 @@ status: "COMPLETE",
 type:{
   name: "Monthly payment"
 }
+},{
+  amount: 100,
+  familyDTO: {name: "Kebedes's Family"},
+  id: 12,
+  memberId: 1,
+  paymentMethod: "CASH",
+  reason: "For FEB" ,
+  status: "COMPLETE",
+  type:{
+    name: "Monthly payment"
+  }
+},{
+  amount: 50,
+  familyDTO: {name: "Abeba's Family"},
+  id: 12,
+  memberId: 1,
+  paymentMethod: "CASH",
+  reason: "For FEB" ,
+  status: "COMPLETE",
+  type:{
+    name: "Monthly payment"
+  }
+},{
+  amount: 300,
+  familyDTO: {name: "Samuel's Family"},
+  id: 12,
+  memberId: 1,
+  paymentMethod: "CASH",
+  reason: "For FEB" ,
+  status: "COMPLETE",
+  type:{
+    name: "Monthly payment"
+  }
 }];
 @Component({
   selector: 'app-payment-data-table',

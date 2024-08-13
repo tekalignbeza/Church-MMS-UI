@@ -18,6 +18,7 @@ import {ExpenseDetailsComponent} from "./expense/expenset-details/expense-detail
 import {PaymentTypeDetailsComponent} from "./miscellaneous/payment-type-details/payment-type-details.component";
 import {ExpenseTypeDetailsComponent} from "./miscellaneous/expense-type-details/expense-type-details.component";
 import {ReportModule} from "./report/report.module";
+import {HttpClientModule} from "@angular/common/http";
 
 
 
@@ -27,6 +28,7 @@ import {ReportModule} from "./report/report.module";
   ],
   imports: [
     BrowserModule,
+    HttpClientModule,
     AppRoutingModule,
     MaterialModule,
     ExpenseModule,

@@ -11,10 +11,11 @@
  */
 
 
-export interface MemberSearchCriteria { 
+export interface MemberSearchCriteriaDTO {
     cellPhone?: string;
     email?: string;
     firstName?: string;
     lastName?: string;
     middleName?: string;
+    familyId?:string;
 }

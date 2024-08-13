@@ -5,9 +5,21 @@ import {ExpenseTypeDTO} from "../../back-service/model/expenseTypeDTO";
 import {ExpenseTypeDetailsComponent} from "../expense-type-details/expense-type-details.component";
 
 const ELEMENT_DATA: ExpenseTypeDTO[] = [{
-  name: "Monthly payment",
+  name: "Monthly expense",
   description: "",
   id: 1
+},{
+  name: "Power expense",
+  description: "",
+  id: 2
+},{
+  name: "Security expense",
+  description: "",
+  id: 3
+},{
+  name: "Water expense",
+  description: "",
+  id: 4
 }];
   @Component({
     selector: 'app-expense-type-data-table',

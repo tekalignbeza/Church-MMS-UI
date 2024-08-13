@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {PaymentServiceService} from "../../back-service/payment-service.service";
 
 @Component({
   selector: 'app-payment-type-details',
@@ -7,13 +8,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PaymentTypeDetailsComponent implements OnInit {
 
-  constructor() { }
+  constructor(private payment:PaymentServiceService) { }
 
   ngOnInit() {
   }
 
   save() {
-
+    //this.payment.postPaymenType();
   }
 
   cancel() {

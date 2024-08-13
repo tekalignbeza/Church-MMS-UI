@@ -7,7 +7,7 @@ export * from './familyDTO';
 export * from './inputStream';
 export * from './meetingDTO';
 export * from './memberDTO';
-export * from './memberSearchCriteria';
+export * from './memberSearchCriteriaDTO';
 export * from './modelFile';
 export * from './paymentDTO';
 export * from './paymentTypeDTO';
