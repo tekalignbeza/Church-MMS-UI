@@ -1,5 +1,8 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
-import {MatPaginator, MatSnackBar, MatTableDataSource} from "@angular/material";
+import { MatDialog } from '@angular/material/dialog';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatTableDataSource } from '@angular/material/table';
 import {FamilyDTO} from "../../back-service/model/familyDTO";
 import {DataService} from "../../back-service/DataService/DataService"
 import {Router} from "@angular/router";

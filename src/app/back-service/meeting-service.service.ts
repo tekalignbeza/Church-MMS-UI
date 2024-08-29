@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import { HttpClient,HttpHeaders } from '@angular/common/http';
-import { Observable } from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';
 import {MeetingDTO} from "./model/meetingDTO";
 import {AttendanceDTO} from "./model/attendanceDTO";
+import { Observable, throwError } from 'rxjs';
 
 
 @Injectable({
@@ -27,9 +27,11 @@ export class MeetingService {
     return body;
   }
 
-  private handleError(error : any){
-    let errMsg = (error.message) ? error.message : error.status ? `${error.status} - ${error.statusText}` : 'Server error'
-    return Observable.throw(errMsg);
+  private handleError(error: any) {
+    const errMsg = (error.message) ? error.message :
+                   error.status ? `${error.status} - ${error.statusText}` :
+                   'Server error';
+    return throwError(errMsg);
   }
 
   public getMeetingById(id :string):Observable<any>{

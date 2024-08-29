@@ -1,6 +1,9 @@
 import {Component, Inject, Input, OnInit} from '@angular/core';
 import {MemberDTO} from "../../back-service/model/memberDTO";
-import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material";
+import { MAT_DIALOG_DATA,MatDialogRef, MatDialog } from '@angular/material/dialog';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatTableDataSource } from '@angular/material/table';
 import {MemberServiceService} from "../../back-service/member-service.service";
 import {UserDTO} from "../../back-service/model/userDTO";
 
