@@ -9,7 +9,7 @@ import {MemberDTO} from "./model/memberDTO";
   providedIn: 'root'
 })
 export class MemberServiceService {
-  private apiURL = "http://tekesoft.azurewebsites.net"
+  private apiURL = "https://tekesoft.azurewebsites.net"
   httpOptions = {
     headers: new HttpHeaders({
       'Content-Type': 'application/json'
