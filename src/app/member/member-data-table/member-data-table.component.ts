@@ -28,7 +28,7 @@ const ELEMENT_DATA: MemberDTO[] = [{
   styleUrls: ['./member-data-table.component.css']
 })
 export class MemberDataTableComponent implements OnInit {
-  displayedColumns: string[] = ['firstName', 'lastName', 'cellPhone', 'id'];
+  displayedColumns: string[] = ['firstName', 'lastName', 'cellPhone', 'id', 'download'];
   dataSource = new MatTableDataSource<MemberDTO>();
   memberData: MemberDTO ;
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
@@ -81,5 +81,30 @@ export class MemberDataTableComponent implements OnInit {
       console.log(JSON.stringify(data));
       this.dataSource = new MatTableDataSource<MemberDTO>(data.memberDTOList);
     });
+  }
+
+  downloadIdCard(id: string) {
+    const url = `http://localhost:8080/member/idcard/${id}`;
+    fetch(url)
+    .then(response => response.blob())
+    .then(blob => {
+      // Create a temporary anchor element
+      const link = document.createElement('a');
+      link.href = window.URL.createObjectURL(blob);
+
+      // Specify the filename for download
+      link.download = `${id}-idcard.jpg`;
+
+      // Append the anchor to the document body
+      document.body.appendChild(link);
+
+      // Trigger a click on the anchor
+      link.click();
+
+      // Clean up
+      window.URL.revokeObjectURL(link.href);
+      document.body.removeChild(link);
+    })
+    .catch(error => console.error('Download error:', error));
   }
 }

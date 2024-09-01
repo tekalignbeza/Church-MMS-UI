@@ -19,7 +19,7 @@ import {MemberReportComponent} from "./report/member-report/member-report.compon
 import {IncomeReportComponent} from "./report/income-report/income-report.component";
 import {ExpenseReportComponent} from "./report/expense-report/expense-report.component";
 import {SummaryReportComponent} from "./report/summary-report/summary-report.component";
-
+import { AttedanceLiveComponent } from './meeting/attedance-live/attedance-live.component';
 
 const routes: Routes = [
       {path:"home",component:HomeComponent},
@@ -29,6 +29,7 @@ const routes: Routes = [
 
       {path:"meetings/list", component:MeetingListComponent},
       {path:"meetings/new", component:MeetingDetailsComponent},
+      {path:"meetings/attedance", component:AttedanceLiveComponent},
 
       {path:"payments/list", component:PaymentListComponent},
       {path:"payments/new", component:PaymentDetailsComponent},

@@ -9,7 +9,7 @@ import {MemberDTO} from "./model/memberDTO";
   providedIn: 'root'
 })
 export class MemberServiceService {
-  private apiURL = "https://tekesoft.azurewebsites.net"
+  private apiURL = "http://localhost:8080"
   httpOptions = {
     headers: new HttpHeaders({
       'Content-Type': 'application/json'
@@ -17,6 +17,13 @@ export class MemberServiceService {
   }
 
   constructor(private http: HttpClient) { }
+
+  getIdCard(imageUrl: string): Observable<Blob> {
+    console.log("url"+imageUrl)    
+    var full = this.apiURL+"/member/idcard/"+imageUrl;
+    console.log("full"+full);
+    return this.http.get(full, { responseType: 'blob' });
+  }
 
   getFamilyList(): Observable<FamilyDTO[]> {
     return this.http.get<FamilyDTO[]>(this.apiURL + '/member/family')

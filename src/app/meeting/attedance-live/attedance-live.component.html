@@ -1,0 +1,43 @@
+<div class="scanner-container">
+    <input
+      #barcodeInput
+      type="text"
+      placeholder="Scan member's barcode"
+      (keydown.enter)="onScan(barcodeInput.value)"
+    />
+    <div *ngIf="currentFlag" class="flag-container" [ngClass]="currentFlag">
+      <div class="flag">{{ currentFlag.toUpperCase() }}</div>
+    </div>
+  </div>
+  
+  <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+    <!-- Barcode Column -->
+    <ng-container matColumnDef="barcode">
+      <th mat-header-cell *matHeaderCellDef> Barcode </th>
+      <td mat-cell *matCellDef="let member"> {{ member.barcode }} </td>
+    </ng-container>
+  
+    <!-- First Name Column -->
+    <ng-container matColumnDef="firstName">
+      <th mat-header-cell *matHeaderCellDef> First Name </th>
+      <td mat-cell *matCellDef="let member"> {{ member.firstName }} </td>
+    </ng-container>
+  
+    <!-- Last Name Column -->
+    <ng-container matColumnDef="lastName">
+      <th mat-header-cell *matHeaderCellDef> Last Name </th>
+      <td mat-cell *matCellDef="let member"> {{ member.lastName }} </td>
+    </ng-container>
+  
+    <!-- Flag Column -->
+    <ng-container matColumnDef="flag">
+      <th mat-header-cell *matHeaderCellDef> Flag </th>
+      <td mat-cell *matCellDef="let member" [ngClass]="member.flag"> 
+        {{ member.flag.toUpperCase() }} 
+      </td>
+    </ng-container>
+  
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+  

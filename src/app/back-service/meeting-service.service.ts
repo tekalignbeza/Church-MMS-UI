@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient,HttpHeaders } from '@angular/common/http';
-import { catchError, map, tap } from 'rxjs/operators';
+import { catchError,retry, map, tap } from 'rxjs/operators';
 import {MeetingDTO} from "./model/meetingDTO";
 import {AttendanceDTO} from "./model/attendanceDTO";
 import { Observable, throwError } from 'rxjs';
@@ -11,15 +11,14 @@ import { Observable, throwError } from 'rxjs';
 })
 export class MeetingService {
 
-  meetingUrl : string;
+  meetingUrl = "http://localhost:8080/meeting"
   response : MeetingDTO;
   responses : MeetingDTO[];
   httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
   };
 
-  constructor(private httpClient : HttpClient) {
-    this.meetingUrl = "/api/meeting/"
+  constructor(private httpClient : HttpClient) {    
   }
 
   private extractData(response : Response){
@@ -34,16 +33,18 @@ export class MeetingService {
     return throwError(errMsg);
   }
 
+  public createMeeting(meetingDTO): Observable<MeetingDTO> {
+    return this.httpClient.post<MeetingDTO>(this.meetingUrl+"/", JSON.stringify(meetingDTO), this.httpOptions)
+      .pipe(
+        retry(1),
+        catchError(this.handleError)
+      )
+  }
+
   public getMeetingById(id :string):Observable<any>{
     return this.httpClient.get(this.meetingUrl+id);
   }
 
-  public createMeeting(meeting : MeetingDTO) : Observable<any>{
-    return this.httpClient.post<MeetingDTO>(this.meetingUrl, meeting, this.httpOptions).pipe(
-      tap((newMeeting: MeetingDTO) =>console.log("New Meeting Created")),
-      catchError(this.handleError)
-    );
-  }
 
   public getMeeitngInvite(id :string):Observable<any>{
     return this.httpClient.get(this.meetingUrl+"invite/"+id);

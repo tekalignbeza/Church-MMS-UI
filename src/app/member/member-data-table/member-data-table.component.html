@@ -13,18 +13,27 @@
       <td mat-cell *matCellDef="let element"> {{element.lastName}} </td>
     </ng-container>
 
-    <!-- Weight Column -->
+    <!-- CellPhone Column -->
     <ng-container matColumnDef="cellPhone">
       <th mat-header-cell *matHeaderCellDef> Cell Phone </th>
       <td mat-cell *matCellDef="let element"> {{element.cellPhone}} </td>
     </ng-container>
 
-    <!-- Symbol Column -->
+    <!-- ID Column -->
     <ng-container matColumnDef="id">
       <th mat-header-cell *matHeaderCellDef> Id </th>
       <td mat-cell *matCellDef="let element"> {{element.id}} </td>
     </ng-container>
 
+    <!-- Download Column -->
+    <ng-container matColumnDef="download">
+      <th mat-header-cell *matHeaderCellDef> Download </th>
+      <td mat-cell *matCellDef="let element">
+        <mat-icon (click)="downloadIdCard(element.idCard)" color="primary">download</mat-icon>
+      </td>
+    </ng-container>
+
+    <!-- Header and Rows -->
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
     <tr mat-row *matRowDef="let row; columns: displayedColumns;" (dblclick)="getRecord(row)"></tr>
   </table>
