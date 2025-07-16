@@ -4,12 +4,13 @@ import {Observable, throwError} from "rxjs";
 import {FamilyDTO} from "./model/familyDTO";
 import {catchError, retry} from "rxjs/operators";
 import {MemberDTO} from "./model/memberDTO";
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class MemberServiceService {
-  private apiURL = "http://localhost:8080"
+  private apiURL = environment.apiBaseUrl;
   httpOptions = {
     headers: new HttpHeaders({
       'Content-Type': 'application/json'
@@ -28,7 +29,7 @@ export class MemberServiceService {
   getFamilyList(): Observable<FamilyDTO[]> {
     return this.http.get<FamilyDTO[]>(this.apiURL + '/member/family')
       .pipe(
-        retry(1),
+        retry(0),
         catchError(this.handleError)
       )
   }
@@ -36,7 +37,7 @@ export class MemberServiceService {
   getFamily(id): Observable<FamilyDTO> {
     return this.http.get<FamilyDTO>(this.apiURL + '/member/family/' + id)
       .pipe(
-        retry(1),
+        retry(0),
         catchError(this.handleError)
       )
   }
@@ -44,7 +45,7 @@ export class MemberServiceService {
   creteFamily(FamilyDTO): Observable<FamilyDTO> {
     return this.http.post<FamilyDTO>(this.apiURL + '/member/family/', JSON.stringify(FamilyDTO), this.httpOptions)
       .pipe(
-        retry(1),
+        retry(0),
         catchError(this.handleError)
       )
   }
@@ -52,7 +53,7 @@ export class MemberServiceService {
   addMemberToFamily(familyId, MemberDTO): Observable<FamilyDTO> {
     return this.http.put<FamilyDTO>(this.apiURL + '/member/addFamilyMember/' + familyId, JSON.stringify(MemberDTO), this.httpOptions)
       .pipe(
-        retry(1),
+        retry(0),
         catchError(this.handleError)
       )
   }
@@ -60,7 +61,7 @@ export class MemberServiceService {
   removeMemberFromFamily(familyid,id){
     return this.http.delete<FamilyDTO>(this.apiURL + '/member/removeFamilyMember/'+familyid+'/member/' + id, this.httpOptions)
       .pipe(
-        retry(1),
+        retry(0),
         catchError(this.handleError)
       )
   }
@@ -84,7 +85,7 @@ export class MemberServiceService {
   getMemberList(): Observable<MemberDTO> {
     return this.http.get<MemberDTO>(this.apiURL + '/member/')
       .pipe(
-        retry(1),
+        retry(0),
         catchError(this.handleError)
       )
   }
@@ -92,7 +93,7 @@ export class MemberServiceService {
   getMember(id): Observable<MemberDTO> {
     return this.http.get<MemberDTO>(this.apiURL + '/member/' + id)
       .pipe(
-        retry(1),
+        retry(0),
         catchError(this.handleError)
       )
   }
@@ -108,15 +109,15 @@ export class MemberServiceService {
   updateMember(MemberDTO,id): Observable<MemberDTO> {
     return this.http.put<MemberDTO>(this.apiURL + '/member/'+id, JSON.stringify(MemberDTO), this.httpOptions)
       .pipe(
-        retry(1),
+        retry(0),
         catchError(this.handleError)
       )
   }
 
-  searchMember(MemberSearchCriteriaDTO): Observable<MemberDTO> {
-    return this.http.post<MemberDTO>(this.apiURL + '/member/search', JSON.stringify(MemberSearchCriteriaDTO), this.httpOptions)
+  searchMember(MemberSearchCriteriaDTO): Observable<MemberDTO[]> {
+    return this.http.post<MemberDTO[]>(this.apiURL + '/member/search', JSON.stringify(MemberSearchCriteriaDTO), this.httpOptions)
       .pipe(
-        retry(1),
+        retry(0),
         catchError(this.handleError)
       )
   }

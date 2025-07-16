@@ -4,14 +4,14 @@ import { catchError,retry, map, tap } from 'rxjs/operators';
 import {MeetingDTO} from "./model/meetingDTO";
 import {AttendanceDTO} from "./model/attendanceDTO";
 import { Observable, throwError } from 'rxjs';
-
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class MeetingService {
 
-  meetingUrl = "http://localhost:8080/meeting"
+  meetingUrl = environment.apiBaseUrl+"/meeting/"
   response : MeetingDTO;
   responses : MeetingDTO[];
   httpOptions = {
@@ -34,9 +34,9 @@ export class MeetingService {
   }
 
   public createMeeting(meetingDTO): Observable<MeetingDTO> {
-    return this.httpClient.post<MeetingDTO>(this.meetingUrl+"/", JSON.stringify(meetingDTO), this.httpOptions)
+    return this.httpClient.post<MeetingDTO>(this.meetingUrl, JSON.stringify(meetingDTO), this.httpOptions)
       .pipe(
-        retry(1),
+        retry(0),
         catchError(this.handleError)
       )
   }
@@ -45,6 +45,9 @@ export class MeetingService {
     return this.httpClient.get(this.meetingUrl+id);
   }
 
+  public getMeetingAll():Observable<MeetingDTO[]>{
+    return this.httpClient.get<MeetingDTO[]>(this.meetingUrl+"all");
+  }
 
   public getMeeitngInvite(id :string):Observable<any>{
     return this.httpClient.get(this.meetingUrl+"invite/"+id);
@@ -61,11 +64,16 @@ export class MeetingService {
     return this.httpClient.delete(this.meetingUrl+id);
   }
 
-  public meetingAttendance(attendance : AttendanceDTO) : Observable<any>{
-    return this.httpClient.put<MeetingDTO>(this.meetingUrl+"attendance", attendance, this.httpOptions).pipe(
-      tap((newMeeting: MeetingDTO) =>console.log("Checking Attendance")),
-      catchError(this.handleError)
-    );
+  public createAttedance(attendance): Observable<AttendanceDTO> {
+    return this.httpClient.post<AttendanceDTO>(this.meetingUrl+"attendance/meeting/"+attendance.meetingId, JSON.stringify(attendance), this.httpOptions)
+      .pipe(
+        retry(0),
+        catchError(this.handleError)
+      )
+  }
+
+  public getAttendanceByMeeting(meetingId:number){
+    return this.httpClient.get<AttendanceDTO[]>(this.meetingUrl+"attendanceByMeeting/"+meetingId,this.httpOptions);
   }
 
   public getMeeitngAttendance(id :string):Observable<any>{

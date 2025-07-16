@@ -27,4 +27,5 @@ export interface MemberDTO {
     spouse?: boolean;
     userDTO?: UserDTO;
     yearOfBirth?: number;
+    membershipPayment?: string;
 }

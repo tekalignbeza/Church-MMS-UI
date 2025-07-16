@@ -12,14 +12,22 @@ import {PaymentTypeDataTableComponent} from "./payment-type-data-table/payment-t
 import {VendorDetailsComponent} from "./vendor-details/vendor-details.component";
 import {VendorDataTableComponent} from "./vendor-data-table/vendor-data-table.component";
 import {ExpenseModule} from "../expense/expense.module";
+import { SettingDataTableComponent } from './setting-data-table/setting-data-table.component';
+import { SettingDataDetailsComponent } from './setting-data-details/setting-data-details.component';
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
+import { IngestorComponent } from './ingestor/ingestor.component';
+import {MatFileUploadModule} from "mat-file-upload";
+import { IngestorDataTableComponent } from './ingestor-data-table/ingestor-data-table.component';
+import { UploadPaymentComponent } from './upload-payment/upload-payment.component';
+import { UploadPaymentDataTableComponent } from './upload-payment-data-table/upload-payment-data-table.component';
 
 
 
 @NgModule({
-  declarations: [MiscellaneousListComponent,ExpenseTypeDetailsComponent,ExpenseTypeDataTableComponent,PaymentTypeDetailsComponent,PaymentTypeDataTableComponent,VendorDetailsComponent,VendorDataTableComponent],
+  declarations: [MiscellaneousListComponent,ExpenseTypeDetailsComponent,ExpenseTypeDataTableComponent,PaymentTypeDetailsComponent,PaymentTypeDataTableComponent,VendorDetailsComponent,VendorDataTableComponent, SettingDataTableComponent, SettingDataDetailsComponent, IngestorComponent, IngestorDataTableComponent, UploadPaymentComponent, UploadPaymentDataTableComponent],
   imports: [
-    CommonModule, MaterialModule, ExpenseModule
+    CommonModule, MaterialModule, ExpenseModule,FormsModule,MatFileUploadModule
   ],
-  exports: [MiscellaneousListComponent,ExpenseTypeDetailsComponent,ExpenseTypeDataTableComponent,PaymentTypeDetailsComponent,PaymentTypeDataTableComponent,VendorDetailsComponent,VendorDataTableComponent]
+  exports: [ReactiveFormsModule,MiscellaneousListComponent,ExpenseTypeDetailsComponent,ExpenseTypeDataTableComponent,PaymentTypeDetailsComponent,PaymentTypeDataTableComponent,VendorDetailsComponent,VendorDataTableComponent]
 })
 export class MiscellaneousModule { }

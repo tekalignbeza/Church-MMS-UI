@@ -1,6 +1,13 @@
 .scanner-container {
-    position: relative;
-    margin-bottom: 20px;
+  position: absolute;
+  top: 30px; /* Adjust this to move it down */
+  left: 50%;
+  transform: translateX(-50%); /* Center it horizontally */
+  background: rgba(0, 0, 0, 0.7); /* Semi-transparent background */
+  color: white;
+  
+  border-radius: 8px;
+  z-index: 1000; /* Ensure it's above other content */
   }
   
   .flag-container {
@@ -22,16 +29,16 @@
     color: white;
   }
   
-  .green {
+  .GREEN {
     background-color: #28a745;
   }
   
-  .yellow {
+  .YELLOW {
     background-color: #ffc107;
     color: #333;
   }
   
-  .red {
+  .RED {
     background-color: #dc3545;
   }
   
@@ -54,27 +61,13 @@
     }
   }
   
-  table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 20px;
+ 
+  
+  .dashboard-card {
+    position: absolute;
+    top: 0px;
+    left: 15px;
+    right: 15px;
   }
   
-  th, td {
-    padding: 10px;
-    border: 1px solid #ddd;
-    text-align: left;
-  }
-  
-  th {
-    background-color: #f4f4f4;
-  }
-  
-  tbody tr:nth-child(even) {
-    background-color: #f9f9f9;
-  }
-  
-  tbody tr:hover {
-    background-color: #f1f1f1;
-  }
   

@@ -6,66 +6,25 @@ import { MatTableDataSource } from '@angular/material/table';
 import {PaymentDTO} from "../../back-service/model/paymentDTO";
 import {AttendanceDetailsComponent} from "../../meeting/attendance-details/attendance-details.component";
 import {PaymentDetailsComponent} from "../payment-details/payment-details.component";
+import {DataService} from "../../back-service/DataService/DataService";
 
-const ELEMENT_DATA: PaymentDTO[] = [{
-amount: 100,
-familyDTO: {name: "Tekalign's Family"},
-id: 12,
-memberId: 1,
-paymentMethod: "CASH",
-  reason: "For FEB" ,
-status: "COMPLETE",
-type:{
-  name: "Monthly payment"
-}
-},{
-  amount: 100,
-  familyDTO: {name: "Kebedes's Family"},
-  id: 12,
-  memberId: 1,
-  paymentMethod: "CASH",
-  reason: "For FEB" ,
-  status: "COMPLETE",
-  type:{
-    name: "Monthly payment"
-  }
-},{
-  amount: 50,
-  familyDTO: {name: "Abeba's Family"},
-  id: 12,
-  memberId: 1,
-  paymentMethod: "CASH",
-  reason: "For FEB" ,
-  status: "COMPLETE",
-  type:{
-    name: "Monthly payment"
-  }
-},{
-  amount: 300,
-  familyDTO: {name: "Samuel's Family"},
-  id: 12,
-  memberId: 1,
-  paymentMethod: "CASH",
-  reason: "For FEB" ,
-  status: "COMPLETE",
-  type:{
-    name: "Monthly payment"
-  }
-}];
+
 @Component({
   selector: 'app-payment-data-table',
   templateUrl: './payment-data-table.component.html',
   styleUrls: ['./payment-data-table.component.css']
 })
 export class PaymentDataTableComponent implements OnInit {
-  displayedColumns: string[] = ['familyName', 'amount', 'paymentMethod','paymentType','reason'];
-  dataSource = new MatTableDataSource<PaymentDTO>(ELEMENT_DATA);
+  displayedColumns: string[] = ['familyName', 'amount','paymentType','reason'];
+  dataSource :PaymentDTO[];
   paymentDTO: PaymentDTO ;
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
   ngOnInit() {
-    this.dataSource.paginator = this.paginator;
+    if(this.dataService.family!=undefined){
+    this.dataSource = this.dataService.family.paymentDTOList;
+    }
   }
-  constructor(private _snackBar: MatSnackBar,public dialog: MatDialog) {}
+  constructor(private _snackBar: MatSnackBar,public dialog: MatDialog, public dataService :DataService) {}
   openSnackBar() {
     this.showSnackBar("Member removed from family","Remove");
   }

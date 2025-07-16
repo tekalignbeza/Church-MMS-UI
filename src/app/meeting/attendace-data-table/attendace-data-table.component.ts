@@ -4,29 +4,10 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatTableDataSource } from '@angular/material/table';
 import {AttendanceDTO} from "../../back-service/model/attendanceDTO";
-import {MemberDetailsComponent} from "../../member/member-details/member-details.component";
 import {AttendanceDetailsComponent} from "../attendance-details/attendance-details.component";
+import { DataService } from 'src/app/back-service/DataService/DataService';
+import { MeetingService } from 'src/app/back-service/meeting-service.service';
 
-
-const ELEMENT_DATA: AttendanceDTO[] = [{
-  familyDTO: {
-    addressDTO:{
-      city: "Norcross",
-      state: "GA",
-      streetAddress1: "2423 Hava ",
-      zipCode: "3009"
-    },
-    attendanceDTOList: [],
-    id: 123445,
-    memberDTOList:[],
-    name: "Tekalign's Family",
-    paymentDTOList: []
-  },
-  id:123,
-  meetingDTO:{},
-  memberId:1121
-}
-];
 
 @Component({
   selector: 'app-attendace-data-table',
@@ -34,14 +15,18 @@ const ELEMENT_DATA: AttendanceDTO[] = [{
   styleUrls: ['./attendace-data-table.component.css']
 })
 export class AttendaceDataTableComponent implements OnInit {
-  displayedColumns: string[] = ['name', 'memberId', 'id'];
-  dataSource = new MatTableDataSource<AttendanceDTO>(ELEMENT_DATA);
+  displayedColumns: string[] = ['name', 'memberBarCode', 'flag'];
+  dataSource :AttendanceDTO[];
   attendanceDTO: AttendanceDTO ;
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
   ngOnInit() {
-    this.dataSource.paginator = this.paginator;
+    if(this.dataService.family!=null){
+      this.dataSource = this.dataService.family.attendanceDTOList;
+    }else{
+    this.load();
+    }
   }
-  constructor(private _snackBar: MatSnackBar,public dialog: MatDialog) {}
+  constructor(private _snackBar: MatSnackBar,public dialog: MatDialog,public dataService :DataService,private meetingApi:MeetingService) {}
   openSnackBar() {
     this.showSnackBar("Member removed from family","Remove");
   }
@@ -52,29 +37,17 @@ export class AttendaceDataTableComponent implements OnInit {
     });
   }
 
-  getRecord(row: AttendanceDTO) {
-    const dialogRef = this.dialog.open(AttendanceDetailsComponent, {
-       width: '40%',
-       height: '80%',
-      data: row
-    });
-    dialogRef.afterClosed().subscribe(result => {
-      row = result;
-      console.log('The dialog was closed');
-      this.showSnackBar("Member added","Member Add");
+  
+  public load() {
+    this.meetingApi.getAttendanceByMeeting(this.dataService.meetingId).subscribe(data => {
+      this.dataSource = data;
     });
   }
 
+  getRecord(row: AttendanceDTO) {
+  
+  }
+
   addNewMember() {
-    const dialogRef = this.dialog.open(AttendanceDetailsComponent, {
-      width: '40%',
-      height: '80%',
-      data: {}
-    });
-    dialogRef.afterClosed().subscribe(result => {
-      this.attendanceDTO = result;
-      console.log('The dialog was closed');
-      this.showSnackBar("Member added","Member Add");
-    });
   }
 }

@@ -102,6 +102,8 @@ table {
 
 .dashboard-card-content {
   text-align: center;
+  max-height: 80vh; 
+  overflow-y: auto;
 }
 
 /*Search criteria*/
@@ -113,3 +115,12 @@ table {
   text-align: left;
 }
 
+.disabled-link {
+  pointer-events: none;
+  color: grey; /* Optional: change the color to indicate it's disabled */
+  text-decoration: none; /* Remove underline if you want */
+}
+
+form {
+  overflow-y: auto;
+}

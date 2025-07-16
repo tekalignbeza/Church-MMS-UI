@@ -1,0 +1,7 @@
+<form class="img-form-container" >
+    <ng-template matStepLabel>Upload your Excel</ng-template>
+    <mat-file-upload labelText="Upload Excel" selectButtonText = "Choose File" uploadButtonText="Upload"
+      allowMultipleFiles = "false" acceptedTypes=".png, .jpg, .jpeg"
+      (uploadClicked)="onUploadClicked($event)"
+    ></mat-file-upload>
+  </form>

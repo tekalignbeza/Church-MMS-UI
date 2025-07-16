@@ -1,13 +1,21 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { MatTableDataSource } from '@angular/material/table';
-
+import { ActivatedRoute } from '@angular/router';
+import { MemberServiceService } from 'src/app/back-service/member-service.service';
+import { SettingService } from 'src/app/back-service/setting-service.service';
+import { SettingDTO } from 'src/app/back-service/model/settingDTO';
+import { AttendanceDTO, AttendanceFlag } from 'src/app/back-service/model/attendanceDTO';
+import { MeetingService } from 'src/app/back-service/meeting-service.service';
 interface Member {
-  barcode: string;
+  barcode: number;
   firstName: string;
   lastName: string;
   flag: string;
 }
+
+
+
 
 @Component({
   selector: 'app-attedance-live',
@@ -20,27 +28,36 @@ export class AttedanceLiveComponent implements OnInit {
   scannedMembers: Member[] = [];
   dataSource = new MatTableDataSource<Member>(this.scannedMembers);
   displayedColumns: string[] = ['barcode', 'firstName', 'lastName', 'flag'];
+  meetingTitle = "";
+  meetingContact = "";
+  meetingId;
+  yearcont;
+  mincont;
+  setting: SettingDTO[];
+  constructor(private http: HttpClient,private route: ActivatedRoute,private memberApi:MemberServiceService,private settingApi:SettingService, private meetingApi:MeetingService) {}
 
-  constructor(private http: HttpClient) {}
-
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.route.queryParams.subscribe(params => {
+    this.meetingId = Number(params.id);
+    this.meetingTitle = params.title;
+    this.meetingContact = params.contact;
+    this.settingApi.getSetting().subscribe((settings: SettingDTO[]) => {
+      settings.forEach(setting => {
+        if (setting.settingKey === 'YEARLY_CONTRIBUTION') {
+          this.yearcont = setting.value ? Number(setting.value) : 0;
+        } else if (setting.settingKey === 'MINIMUM_YEARLY_CONTRIBUTION') {
+          this.mincont = setting.value ? Number(setting.value) : 0;
+        }
+      });
+    });
+  });
+  }
 
   onScan(barcode: string): void {
-    this.http.get<any>(`http://localhost:8080/member/${barcode}`)
-      .subscribe(response => {
-        const paymentPercentage = response.membershipPayment/1200;
-        let flag: string;
-
-        if (paymentPercentage > .80) {
-          flag = 'green';
-        } else if (paymentPercentage >= .50) { 
-          flag = 'yellow';
-        } else {
-          flag = 'red';
-        }
-
-        this.currentFlag = flag;
-
+    this.memberApi.getMember(barcode).subscribe(
+      response => {       
+        this.currentFlag = response.membershipPayment;
+        let flag = this.currentFlag;
         const existingMemberIndex = this.scannedMembers.findIndex(member => member.barcode === response.id);
 
         if (existingMemberIndex !== -1) {
@@ -52,6 +69,13 @@ export class AttedanceLiveComponent implements OnInit {
             lastName: response.lastName,
             flag: flag
           });
+          var attedance = {
+            familyId: response.family.id as number,
+            meetingId: this.meetingId as number,
+            memberBarCode: response.id as number,
+            flag: flag as AttendanceFlag
+          };
+          this.saveAttendance(attedance);
         }
 
         // Update the dataSource with the modified scannedMembers array
@@ -66,5 +90,10 @@ export class AttedanceLiveComponent implements OnInit {
           this.barcodeInput.nativeElement.focus();
         }, 2000);
       });
+  }
+
+  saveAttendance(attendanceDTO:AttendanceDTO){
+    this.meetingApi.createAttedance(attendanceDTO).subscribe((data: {}) => {
+      console.log('create attedance');});
   }
 }

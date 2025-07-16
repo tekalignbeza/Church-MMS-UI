@@ -11,11 +11,12 @@ import {MatFileUploadModule} from "mat-file-upload";
 import { FamilyDataTableComponent } from './family-data-table/family-data-table.component';
 import {MeetingModule} from "../meeting/meeting.module";
 import {PaymentModule} from "../payment/payment.module";
+import { MemberDetailNewComponent } from './member-detail-new/member-detail-new.component';
 
 
 
 @NgModule({
-  declarations: [MemberDetailsComponent, MemberListComponent, FamilyDetailsComponent, FamilyListComponent, MemberDataTableComponent, FamilyDataTableComponent],
+  declarations: [MemberDetailsComponent, MemberListComponent, FamilyDetailsComponent, FamilyListComponent, MemberDataTableComponent, FamilyDataTableComponent, MemberDetailNewComponent],
   imports: [
     CommonModule,
     MaterialModule,

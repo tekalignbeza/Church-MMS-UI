@@ -19,7 +19,6 @@ export interface FamilyDTO {
     addressDTO?: AddressDTO;
     attendanceDTOList?: Array<AttendanceDTO>;
     id?: number;
-    familyId?:string;
     memberDTOList?: Array<MemberDTO>;
     name?: string;
     paymentDTOList?: Array<PaymentDTO>;

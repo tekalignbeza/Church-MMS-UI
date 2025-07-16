@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {Component, Input, OnInit, SimpleChanges, ViewChild} from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -8,19 +8,6 @@ import {DataService} from "../../back-service/DataService/DataService"
 import {Router} from "@angular/router";
 import {MemberServiceService} from "../../back-service/member-service.service";
 
-const ELEMENT_DATA:FamilyDTO[] = [{
-  addressDTO:{
-    city: "Norcross",
-    state: "GA",
-    streetAddress1: "2423 Hava ",
-    zipCode: "3009"
-  },
-  attendanceDTOList: [],
-  id: 123445,
-  memberDTOList:[],
-  name: "Tekalign's Family",
-  paymentDTOList: []
-}];
 
 @Component({
   selector: 'app-family-data-table',
@@ -28,30 +15,25 @@ const ELEMENT_DATA:FamilyDTO[] = [{
   styleUrls: ['./family-data-table.component.css']
 })
 export class FamilyDataTableComponent implements OnInit {
-  Families: any = [];
 
   displayedColumns: string[] = ['name', 'id'];
-  dataSource : any;
-  @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
+  @Input() dataSource: FamilyDTO[];
   ngOnInit() {
-    this.loadFamilies();
+    console.log('DataSource received by child:', this.dataSource);
   }
-  constructor(private memberApi:MemberServiceService,private router: Router,private dataService: DataService,private _snackBar: MatSnackBar) {}
+
+  ngOnChanges(changes: SimpleChanges) {
+    if (changes['dataSource']) {
+      console.log('DataSource changed:', this.dataSource);
+      // Update the table or perform any other necessary action
+    }
+  }
+    
+  constructor(private router: Router,private dataService: DataService,private _snackBar: MatSnackBar) {}
+  
   openSnackBar() {
     this.showSnackBar("Member removed from family","Remove");
   }
-
-  loadFamilies() {
-    return this.memberApi.getFamilyList().subscribe((data:FamilyDTO[]) => {
-      this.Families = data;
-      data.filter(family=>family.memberDTOList!=null).forEach(value =>
-      {
-        value.memberDTOList.filter(member => member.familyHead);
-      });
-      this.dataSource = new MatTableDataSource<FamilyDTO>(data);
-    });
-  }
-
   showSnackBar(message:string, action:string):void{
     this._snackBar.open(message,action, {
       duration: 2000,

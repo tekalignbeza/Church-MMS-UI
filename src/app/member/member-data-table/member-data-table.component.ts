@@ -5,23 +5,13 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatTableDataSource } from '@angular/material/table';
 
 import {MemberDTO} from "../../back-service/model/memberDTO";
-import {MemberDetailsComponent} from "../member-details/member-details.component";
 import {DataService} from "../../back-service/DataService/DataService";
 import {Router} from "@angular/router";
 import {MemberServiceService} from "../../back-service/member-service.service";
 import {FamilyDTO} from "../../back-service/model/familyDTO";
+import { environment } from 'src/environments/environment';
+import { MemberDetailNewComponent } from '../member-detail-new/member-detail-new.component';
 
-const ELEMENT_DATA: MemberDTO[] = [{
-  firstName:'tekalign',
-  lastName:'Habtemchael',
-  middleName:'middle',
-  cellPhone:'123456',
-  email:'tefd@gmail.com',
-  id:1121,
-  familyHead:true,
-  gender:'Male'
-}
-];
 @Component({
   selector: 'app-member-data-table',
   templateUrl: './member-data-table.component.html',
@@ -29,13 +19,14 @@ const ELEMENT_DATA: MemberDTO[] = [{
 })
 export class MemberDataTableComponent implements OnInit {
   displayedColumns: string[] = ['firstName', 'lastName', 'cellPhone', 'id', 'download'];
-  dataSource = new MatTableDataSource<MemberDTO>();
+  dataSource :MemberDTO[];
   memberData: MemberDTO ;
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
   ngOnInit() {
-    this.dataSource.paginator = this.paginator;
+    if(this.dataService.family!=undefined){
     console.log('im loading member from family'+JSON.stringify(this.dataService.family.memberDTOList));
-    this.loadFamilies();
+    this.dataSource = this.dataService.family.memberDTOList;
+  }
   }
   constructor(public dataService:DataService, public router: Router,private memberApi:MemberServiceService,private _snackBar: MatSnackBar,public dialog: MatDialog) {}
   openSnackBar() {
@@ -49,7 +40,7 @@ export class MemberDataTableComponent implements OnInit {
   }
 
   getRecord(row: MemberDTO) {
-    const dialogRef = this.dialog.open(MemberDetailsComponent, {
+    const dialogRef = this.dialog.open(MemberDetailNewComponent, {
       width: '500px',
       height: '600px',
       data: row
@@ -57,14 +48,14 @@ export class MemberDataTableComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       row = result;
       console.log('The dialog was closed');
-      this.showSnackBar("Member added","Member Add");
+      //this.showSnackBar("Member added","Member Add");
     });
   }
 
   addNewMember() {
     let data:MemberDTO = {}
     data.family = this.dataService.family;
-    const dialogRef = this.dialog.open(MemberDetailsComponent, {
+    const dialogRef = this.dialog.open(MemberDetailNewComponent, {
       width: '500px',
       height: '600px',
       data
@@ -79,12 +70,12 @@ export class MemberDataTableComponent implements OnInit {
   loadFamilies() {
     return this.memberApi.getFamily(this.dataService.family.id).subscribe((data:any) => {
       console.log(JSON.stringify(data));
-      this.dataSource = new MatTableDataSource<MemberDTO>(data.memberDTOList);
+      //this.dataSource = new MatTableDataSource<MemberDTO>(data.memberDTOList);
     });
   }
 
   downloadIdCard(id: string) {
-    const url = `http://localhost:8080/member/idcard/${id}`;
+    const url = environment.apiBaseUrl+'/member/idcard/${id}';
     fetch(url)
     .then(response => response.blob())
     .then(blob => {

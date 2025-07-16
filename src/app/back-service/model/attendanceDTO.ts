@@ -14,8 +14,15 @@ import { MeetingDTO } from './meetingDTO';
 
 
 export interface AttendanceDTO { 
-    familyDTO?: FamilyDTO;
     id?: number;
-    meetingDTO?: MeetingDTO;
-    memberId?: number;
+    memberBarCode: number;
+    meetingId: number;
+    familyId: number;
+    familyName?: string;
+    flag: AttendanceFlag;
 }
+export enum AttendanceFlag {
+    GREEN = "GREEN",
+    YELLOW = "YELLOW",
+    RED = "RED"
+  }

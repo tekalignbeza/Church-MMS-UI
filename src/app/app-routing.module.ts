@@ -20,6 +20,8 @@ import {IncomeReportComponent} from "./report/income-report/income-report.compon
 import {ExpenseReportComponent} from "./report/expense-report/expense-report.component";
 import {SummaryReportComponent} from "./report/summary-report/summary-report.component";
 import { AttedanceLiveComponent } from './meeting/attedance-live/attedance-live.component';
+import { UploadPaymentComponent } from './miscellaneous/upload-payment/upload-payment.component';
+import { UploadPaymentDataTableComponent } from './miscellaneous/upload-payment-data-table/upload-payment-data-table.component';
 
 const routes: Routes = [
       {path:"home",component:HomeComponent},
@@ -39,8 +41,8 @@ const routes: Routes = [
       {path:"expenses/new", component:ExpenseDetailsComponent},
       {path:"expenses/newTypes", component:ExpenseTypeDetailsComponent},
 
-      {path:"miscellaneous/new", component:VendorDetailsComponent},
       {path:"miscellaneous/list", component:MiscellaneousListComponent},
+      {path:"miscellaneous/uploadPayment", component:UploadPaymentDataTableComponent},
 
       {path:"report/member", component:MemberReportComponent},
       {path:"report/payment", component:IncomeReportComponent},

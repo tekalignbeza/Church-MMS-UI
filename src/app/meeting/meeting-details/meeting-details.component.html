@@ -10,37 +10,31 @@
         <mat-card-content class="dashboard-card-content">
           <form class="example-form">
             <mat-form-field class="example-full-width">
-              <input matInput placeholder="Meeting Title" [(ngModel)]="meetingDTO.title">
+              <input matInput placeholder="Meeting Title" [(ngModel)]="meetingDTO.title" [ngModelOptions]="{standalone: true}"  >
             </mat-form-field>
             <mat-form-field class="example-full-width">
-              <input matInput placeholder="Contact phone" [(ngModel)]="meetingDTO.cellPhone">
+              <input matInput placeholder="Contact phone" [(ngModel)]="meetingDTO.cellPhone" [ngModelOptions]="{standalone: true}">
             </mat-form-field>
             <mat-form-field class="example-full-width">
-              <input matInput placeholder="Contact email" [(ngModel)]="meetingDTO.email">
+              <input matInput placeholder="Contact email" [(ngModel)]="meetingDTO.email" [ngModelOptions]="{standalone: true}">
             </mat-form-field>
             <mat-form-field class="example-full-width">
-              <input matInput [matDatepicker]="picker" placeholder="Choose meeting date" [(ngModel)]="meetingDTO.dateTime">
-              <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-              <mat-datepicker #picker></mat-datepicker>
+              <input matInput type="datetime-local" placeholder="Start Date" [ngModel]="formattedDateTime" [ngModelOptions]="{standalone: true}" (ngModelChange)="formattedDateTime = $event">
             </mat-form-field>
             <mat-form-field class="example-full-width">
-              <mat-select placeholder="Meeting time">
-                <mat-option *ngFor="let meetingTime of meetingTimes" [value]="meetingTime.value">
-                  {{ meetingTime.viewValue }}
-                </mat-option>
-              </mat-select>
+              <input matInput placeholder="Street1" [(ngModel)]="meetingDTO.address1" [ngModelOptions]="{standalone: true}">
             </mat-form-field>
             <mat-form-field class="example-full-width">
-              <input matInput placeholder="Street1" [(ngModel)]="meetingDTO.address1">
+              <input matInput placeholder="City" [(ngModel)]="meetingDTO.city" [ngModelOptions]="{standalone: true}">
             </mat-form-field>
             <mat-form-field class="example-full-width">
-              <input matInput placeholder="City" [(ngModel)]="meetingDTO.city">
+              <input matInput placeholder="State" [(ngModel)]="meetingDTO.state" [ngModelOptions]="{standalone: true}">
             </mat-form-field>
             <mat-form-field class="example-full-width">
-              <input matInput placeholder="State" [(ngModel)]="meetingDTO.state">
+              <input matInput placeholder="Zip Code" [(ngModel)]="meetingDTO.zipCode" [ngModelOptions]="{standalone: true}">
             </mat-form-field>
             <mat-form-field class="example-full-width">
-              <input matInput placeholder="Zip Code" [(ngModel)]="meetingDTO.zipCode">
+              <input matInput placeholder="Agenda" [(ngModel)]="meetingDTO.agenda" [ngModelOptions]="{standalone: true}">
             </mat-form-field>
           </form>
           <div class="saveCancel-button-row">
@@ -50,7 +44,7 @@
         </mat-card-content>
       </mat-card>
     </mat-grid-tile>
-    <mat-grid-tile [colspan]="2" [rowspan]="2">
+    <mat-grid-tile [colspan]="2" [rowspan]="4">
       <mat-card class="dashboard-card">
         <mat-card-header>
           <mat-card-title>

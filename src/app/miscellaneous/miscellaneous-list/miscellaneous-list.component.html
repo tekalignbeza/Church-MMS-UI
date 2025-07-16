@@ -1,6 +1,17 @@
 <div class="grid-container">
-  <mat-grid-list cols="1" rows="3" rowHeight="3:1">
+  <mat-grid-list cols="1" rows="4" rowHeight="3:1">
     <mat-grid-tile [colspan]="1" [rowspan]="1">
+      <mat-card class="dashboard-card">
+        <mat-card-header>
+          <mat-card-title>
+            Settings
+          </mat-card-title>
+        </mat-card-header>
+        <app-setting-data-table></app-setting-data-table>
+      </mat-card>
+    </mat-grid-tile>
+    
+ <!--    <mat-grid-tile [colspan]="1" [rowspan]="1">
       <mat-card class="dashboard-card">
         <mat-card-header>
           <mat-card-title>
@@ -29,6 +40,6 @@
         </mat-card-header>
         <app-vendor-data-table></app-vendor-data-table>
       </mat-card>
-    </mat-grid-tile>
+    </mat-grid-tile> -->
   </mat-grid-list>
 </div>

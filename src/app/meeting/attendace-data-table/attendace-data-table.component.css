@@ -1,0 +1,18 @@
+.GREEN {
+    background-color: #28a745;
+  }
+  
+  .YELLOW {
+    background-color: #ffc107;
+    color: #333;
+  }
+  
+  .RED {
+    background-color: #dc3545;
+  }
+
+  .table-height{
+    height: fit-content;
+    max-height: 600px;
+    overflow: auto;
+  }
