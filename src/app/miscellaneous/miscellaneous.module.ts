@@ -26,7 +26,12 @@ import { UploadPaymentDataTableComponent } from './upload-payment-data-table/upl
 @NgModule({
   declarations: [MiscellaneousListComponent,ExpenseTypeDetailsComponent,ExpenseTypeDataTableComponent,PaymentTypeDetailsComponent,PaymentTypeDataTableComponent,VendorDetailsComponent,VendorDataTableComponent, SettingDataTableComponent, SettingDataDetailsComponent, IngestorComponent, IngestorDataTableComponent, UploadPaymentComponent, UploadPaymentDataTableComponent],
   imports: [
-    CommonModule, MaterialModule, ExpenseModule,FormsModule,MatFileUploadModule
+    CommonModule,
+    MaterialModule,
+    ExpenseModule,
+    FormsModule,
+    ReactiveFormsModule,
+    MatFileUploadModule
   ],
   exports: [ReactiveFormsModule,MiscellaneousListComponent,ExpenseTypeDetailsComponent,ExpenseTypeDataTableComponent,PaymentTypeDetailsComponent,PaymentTypeDataTableComponent,VendorDetailsComponent,VendorDataTableComponent]
 })
