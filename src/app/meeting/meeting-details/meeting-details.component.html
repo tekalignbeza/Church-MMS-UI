@@ -18,9 +18,20 @@
             <mat-form-field class="example-full-width">
               <input matInput placeholder="Contact email" [(ngModel)]="meetingDTO.email" [ngModelOptions]="{standalone: true}">
             </mat-form-field>
-            <mat-form-field class="example-full-width">
-              <input matInput type="datetime-local" placeholder="Start Date" [ngModel]="formattedDateTime" [ngModelOptions]="{standalone: true}" (ngModelChange)="formattedDateTime = $event">
-            </mat-form-field>
+            <div class="date-time-container">
+              <mat-form-field class="example-full-width date-field">
+                <input matInput [matDatepicker]="meetingPicker" placeholder="Meeting Date" 
+                       [ngModel]="meetingDate" (ngModelChange)="onDateChange($event)" 
+                       [ngModelOptions]="{standalone: true}">
+                <mat-datepicker-toggle matSuffix [for]="meetingPicker"></mat-datepicker-toggle>
+                <mat-datepicker #meetingPicker></mat-datepicker>
+              </mat-form-field>
+              <mat-form-field class="example-full-width time-field">
+                <input matInput type="time" placeholder="Meeting Time" 
+                       [ngModel]="meetingTime" (ngModelChange)="onTimeChange($event)"
+                       [ngModelOptions]="{standalone: true}">
+              </mat-form-field>
+            </div>
             <mat-form-field class="example-full-width">
               <input matInput placeholder="Street1" [(ngModel)]="meetingDTO.address1" [ngModelOptions]="{standalone: true}">
             </mat-form-field>

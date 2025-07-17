@@ -5,6 +5,7 @@ import { DataService } from 'src/app/back-service/DataService/DataService';
 import { Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { empty } from 'rxjs';
+import { DateAdapter } from '@angular/material/core';
 
 @Component({
   selector: 'app-meeting-details',
@@ -13,7 +14,17 @@ import { empty } from 'rxjs';
 })
 export class MeetingDetailsComponent implements OnInit {
 
-  constructor(public dataService:DataService, public router: Router,private meetingApi:MeetingService) {}
+  meetingDate: Date;
+  meetingTime: string;
+
+  constructor(
+    public dataService: DataService, 
+    public router: Router,
+    private meetingApi: MeetingService,
+    private dateAdapter: DateAdapter<Date>
+  ) {
+    this.dateAdapter.setLocale('en-US');
+  }
 
   @Input() meetingDTO: MeetingDTO = {
     title: '',
@@ -31,9 +42,39 @@ export class MeetingDetailsComponent implements OnInit {
       this.meetingDTO = { ...this.dataService.meeting };
       console.log(JSON.stringify(this.meetingDTO));
       this.dataService.family = undefined;
+      
+      // Initialize date and time from meetingDTO
+      if (this.meetingDTO.dateTime) {
+        const date = new Date(this.meetingDTO.dateTime);
+        this.meetingDate = date;
+        this.meetingTime = this.formatTime(date);
+      }
     }else{
       this.dataService.family = undefined;
       this.dataService.meetingId = undefined;
+    }
+  }
+
+  formatTime(date: Date): string {
+    return date.toTimeString().substring(0, 5); // Returns HH:mm format
+  }
+
+  onDateChange(date: Date) {
+    this.meetingDate = date;
+    this.updateDateTime();
+  }
+
+  onTimeChange(time: string) {
+    this.meetingTime = time;
+    this.updateDateTime();
+  }
+
+  updateDateTime() {
+    if (this.meetingDate && this.meetingTime) {
+      const [hours, minutes] = this.meetingTime.split(':');
+      const date = new Date(this.meetingDate);
+      date.setHours(parseInt(hours), parseInt(minutes));
+      this.meetingDTO.dateTime = date;
     }
   }
 

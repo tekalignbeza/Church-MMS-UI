@@ -2,6 +2,7 @@ import { Component, Inject, Input, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { SettingService } from 'src/app/back-service/setting-service.service';
 import { JobDTO } from 'src/app/back-service/model/jobDTO';
+import { DateAdapter } from '@angular/material/core';
 
 @Component({
   selector: 'app-upload-payment',
@@ -13,9 +14,30 @@ export class UploadPaymentComponent implements OnInit{
   uploadUrl = 'YOUR_BACKEND_API_URL_HERE'; // Replace with actual backend API URL
   isNew :boolean
 
-  constructor(public dialogRef: MatDialogRef<UploadPaymentComponent>,private settingService :SettingService,@Inject(MAT_DIALOG_DATA) public data :JobDTO) { }
+  constructor(
+    public dialogRef: MatDialogRef<UploadPaymentComponent>,
+    private settingService: SettingService,
+    private dateAdapter: DateAdapter<Date>,
+    @Inject(MAT_DIALOG_DATA) public data: JobDTO
+  ) {
+    this.dateAdapter.setLocale('en-US'); // Set locale for date formatting
+  }
  
     dataSource :JobDTO;
+
+    // Handle date changes and convert to string format
+    onFromDateChange(date: Date) {
+      if (date) {
+        this.dataSource.fromDate = date.toISOString().split('T')[0]; // Format as YYYY-MM-DD
+      }
+    }
+
+    onToDateChange(date: Date) {
+      if (date) {
+        this.dataSource.toDate = date.toISOString().split('T')[0]; // Format as YYYY-MM-DD
+      }
+    }
+
     ngOnInit() {
       if(this.data!=undefined){
        
@@ -39,7 +61,12 @@ export class UploadPaymentComponent implements OnInit{
       console.log('no file selected');
       return;
     }
-    this.settingService.ingestFile(this.selectedFile, this.dataSource.fromDate, this.dataSource.toDate)
+
+    // Format dates as strings for the backend
+    const fromDate = this.dataSource.fromDate;
+    const toDate = this.dataSource.toDate;
+
+    this.settingService.ingestFile(this.selectedFile, fromDate, toDate)
     .subscribe(response => {
       console.log('Upload successful:', response);
     }, error => {
