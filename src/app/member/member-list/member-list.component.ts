@@ -1,4 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { MemberServiceService } from '../../back-service/member-service.service';
+import { MemberDTO } from '../../back-service/model/memberDTO';
+import { MemberSearchCriteriaDTO } from '../../back-service/model/memberSearchCriteriaDTO';
+import { DataService } from '../../back-service/DataService/DataService';
+import { FormBuilder, FormGroup } from '@angular/forms';
+import { MemberDataTableComponent } from '../member-data-table/member-data-table.component';
+import { PageDTO } from '../../back-service/model/pageDTO';
+import { FamilyDTO } from '../../back-service/model/familyDTO';
 
 @Component({
   selector: 'app-member-list',
@@ -6,10 +14,168 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./member-list.component.css']
 })
 export class MemberListComponent implements OnInit {
+  @ViewChild(MemberDataTableComponent, {static: false}) memberDataTable: MemberDataTableComponent;
+  searchForm: FormGroup;
+  searchResults: MemberDTO[] = [];
+  currentPage: number = 0;
+  pageSize: number = 20;
+  totalElements: number = 0;
+  isLoading: boolean = false;
 
-  constructor() { }
+  constructor(
+    private memberService: MemberServiceService,
+    private dataService: DataService,
+    private formBuilder: FormBuilder
+  ) { }
 
   ngOnInit() {
+    this.searchForm = this.formBuilder.group({
+      id: [''],
+      firstName: [''],
+      middleName: [''],
+      lastName: [''],
+      cellPhone: ['']
+    });
+    
+    // Load all members initially
+    this.loadAllMembers();
+  }
+
+  searchMembers() {
+    // Backend now supports multiple search fields simultaneously
+    const id = this.searchForm.get('id').value?.trim();
+    const firstName = this.searchForm.get('firstName').value?.trim();
+    const middleName = this.searchForm.get('middleName').value?.trim();
+    const lastName = this.searchForm.get('lastName').value?.trim();
+    const cellPhone = this.searchForm.get('cellPhone').value?.trim();
+
+    let searchCriteria: MemberSearchCriteriaDTO = {};
+    let hasSearchCriteria = false;
+
+    // Add all non-empty search fields
+    if (id) {
+      searchCriteria.id = parseInt(id);
+      hasSearchCriteria = true;
+    }
+    if (firstName) {
+      searchCriteria.firstName = firstName;
+      hasSearchCriteria = true;
+    }
+    if (middleName) {
+      searchCriteria.middleName = middleName;
+      hasSearchCriteria = true;
+    }
+    if (lastName) {
+      searchCriteria.lastName = lastName;
+      hasSearchCriteria = true;
+    }
+    if (cellPhone) {
+      searchCriteria.cellPhone = cellPhone;
+      hasSearchCriteria = true;
+    }
+
+    if (!hasSearchCriteria) {
+      // If no criteria provided, load all members
+      this.loadAllMembers();
+      return;
+    }
+
+    this.isLoading = true;
+    this.memberService.searchMember(searchCriteria).subscribe(
+      (data: MemberDTO[]) => {
+        this.searchResults = data;
+        this.totalElements = data.length; // Set total for search results
+        this.isLoading = false;
+      },
+      error => {
+        console.error('Error searching members:', error);
+        this.isLoading = false;
+        this.searchResults = [];
+      }
+    );
+  }
+
+  resetSearch() {
+    this.searchForm.reset();
+    this.loadAllMembers();
+  }
+
+  loadAllMembers(page: number = 0) {
+    this.isLoading = true;
+    this.currentPage = page;
+    
+    // Load members using paginated family data for better performance
+    this.memberService.getFamilyListPaginated(page, this.pageSize).subscribe(
+      (pageData: PageDTO<FamilyDTO>) => {
+        const allMembers: MemberDTO[] = [];
+        pageData.content.forEach(family => {
+          if (family.memberDTOList && family.memberDTOList.length > 0) {
+            allMembers.push(...family.memberDTOList);
+          }
+        });
+        
+        this.searchResults = allMembers;
+        this.totalElements = pageData.totalElements;
+        this.isLoading = false;
+      },
+      error => {
+        console.error('Error loading members with pagination:', error);
+        // Fallback: try the old method
+        this.loadAllMembersLegacy();
+      }
+    );
+  }
+
+  loadAllMembersLegacy() {
+    this.isLoading = true;
+    
+    // Fallback method using the legacy endpoint
+    this.memberService.getFamilyList().subscribe(
+      (families: any[]) => {
+        const allMembers: MemberDTO[] = [];
+        families.forEach(family => {
+          if (family.memberDTOList && family.memberDTOList.length > 0) {
+            allMembers.push(...family.memberDTOList);
+          }
+        });
+        
+        this.searchResults = allMembers;
+        this.totalElements = allMembers.length; // Set total for legacy
+        this.isLoading = false;
+      },
+      error => {
+        console.error('Error loading members:', error);
+        this.tryWildcardSearch();
+      }
+    );
+  }
+
+  onPageChange(event: any) {
+    console.log('Page change event:', event);
+    this.pageSize = event.pageSize;
+    this.loadAllMembers(event.pageIndex);
+  }
+
+  onMemberAdded() {
+    // Refresh current page when a member is added
+    this.loadAllMembers(this.currentPage);
+  }
+
+  private tryWildcardSearch() {
+    // Try searching with a single character that might match many records
+    const wildcardCriteria: MemberSearchCriteriaDTO = {
+      firstName: "" // Empty string might work
+    };
+    this.memberService.searchMember(wildcardCriteria).subscribe(
+      (data: MemberDTO[]) => {
+        this.searchResults = data;
+      },
+      error => {
+        console.error('Error with wildcard search:', error);
+        // As last resort, show empty results
+        this.searchResults = [];
+      }
+    );
   }
 
 }

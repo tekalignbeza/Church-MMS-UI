@@ -12,10 +12,9 @@
 
 
 export interface MemberSearchCriteriaDTO {
+    id?: number;
     cellPhone?: string;
-    email?: string;
     firstName?: string;
     lastName?: string;
     middleName?: string;
-    familyId?:string;
 }

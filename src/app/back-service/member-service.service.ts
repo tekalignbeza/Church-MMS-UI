@@ -4,6 +4,7 @@ import {Observable, throwError} from "rxjs";
 import {FamilyDTO} from "./model/familyDTO";
 import {catchError, retry} from "rxjs/operators";
 import {MemberDTO} from "./model/memberDTO";
+import {PageDTO} from "./model/pageDTO";
 import { environment } from 'src/environments/environment';
 
 @Injectable({
@@ -27,7 +28,15 @@ export class MemberServiceService {
   }
 
   getFamilyList(): Observable<FamilyDTO[]> {
-    return this.http.get<FamilyDTO[]>(this.apiURL + '/member/family')
+    return this.http.get<FamilyDTO[]>(this.apiURL + '/member/family/all')
+      .pipe(
+        retry(0),
+        catchError(this.handleError)
+      )
+  }
+
+  getFamilyListPaginated(page: number = 0, size: number = 20): Observable<PageDTO<FamilyDTO>> {
+    return this.http.get<PageDTO<FamilyDTO>>(`${this.apiURL}/member/family?page=${page}&size=${size}`)
       .pipe(
         retry(0),
         catchError(this.handleError)

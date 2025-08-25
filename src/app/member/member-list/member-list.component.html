@@ -8,39 +8,39 @@
           </mat-card-title>
         </mat-card-header>
         <mat-card-content class="dashboard-card-content">
-          <form class="example-form">
+          <form class="example-form" [formGroup]="searchForm">
             <table class="searchCriteria">
               <tr>
                 <td>
                   <mat-form-field class="example-full-width">
-                    <input matInput placeholder="First Name">
+                    <input matInput placeholder="Member ID" formControlName="id" type="number">
                   </mat-form-field>
                   <mat-form-field class="example-full-width">
-                    <input matInput placeholder="Middle Name" >
+                    <input matInput placeholder="First Name" formControlName="firstName">
                   </mat-form-field>
                 </td>
                 <td>
                   <mat-form-field class="example-full-width">
-                    <input matInput placeholder="Last Name" >
+                    <input matInput placeholder="Middle Name" formControlName="middleName">
                   </mat-form-field>
                   <mat-form-field class="example-full-width">
-                    <input matInput placeholder="Phone Number">
+                    <input matInput placeholder="Last Name" formControlName="lastName">
                   </mat-form-field>
                 </td>
                 <td>
                   <mat-form-field class="example-full-width">
-                    <input matInput placeholder="Email address">
+                    <input matInput placeholder="Phone Number" formControlName="cellPhone">
                   </mat-form-field>
-                  <mat-form-field class="example-full-width">
-                    <input matInput placeholder="Family Id" >
-                  </mat-form-field>
+                  <div style="padding: 10px; font-size: 12px; color: #666;">
+                    <em></em>
+                  </div>
                 </td>
               </tr>
               <tr>
                 <td colspan="3" class="leftAlign">
                   <div class="saveCancel-button-row">
-                    <button mat-stroked-button color="primary">search</button>
-                    <button mat-stroked-button color="warn">reset</button>
+                    <button mat-stroked-button color="primary" type="button" (click)="searchMembers()">search</button>
+                    <button mat-stroked-button color="warn" type="button" (click)="resetSearch()">reset</button>
                   </div>
                 </td>
               </tr>
@@ -54,9 +54,35 @@
         <mat-card-header>
           <mat-card-title>
             Members result
+            <span *ngIf="totalElements > 0" style="font-size: 14px; color: #666; font-weight: normal;">
+              ({{totalElements}} total members)
+            </span>
           </mat-card-title>
         </mat-card-header>
-        <app-member-data-table></app-member-data-table>
+        <div *ngIf="isLoading" style="text-align: center; padding: 20px;">
+          <mat-spinner [diameter]="30"></mat-spinner>
+          <p>Loading members...</p>
+        </div>
+        <div *ngIf="!isLoading && searchResults.length === 0" style="text-align: center; padding: 20px;">
+          <p>No members found</p>
+        </div>
+        <app-member-data-table 
+          *ngIf="!isLoading"
+          [memberList]="searchResults" 
+          (memberAdded)="onMemberAdded()">
+        </app-member-data-table>
+        
+        <!-- Pagination Controls -->
+        <div *ngIf="totalElements > pageSize" style="display: flex; justify-content: center; padding: 20px;">
+          <mat-paginator 
+            [length]="totalElements"
+            [pageSize]="pageSize"
+            [pageIndex]="currentPage"
+            [pageSizeOptions]="[10, 20, 50, 100]"
+            (page)="onPageChange($event)"
+            showFirstLastButtons>
+          </mat-paginator>
+        </div>
       </mat-card>
     </mat-grid-tile>
   </mat-grid-list>

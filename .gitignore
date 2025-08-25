@@ -46,3 +46,8 @@ testem.log
 Thumbs.db
 
 .angular/*
+
+# Claude Code related files
+.claude/
+CLAUDE.md
+*.claude.md
