@@ -25,7 +25,7 @@
                 <input matInput placeholder="Meeting Contact" disabled="true">
               </mat-form-field>
             </div>
-            <div class="church-form-group">
+            <div class="church-form-group" *ngIf="!isCameraEnabled">
               <mat-form-field appearance="outline">
                 <input #barcodeInput
                        matInput
@@ -36,9 +36,25 @@
                 <mat-icon matSuffix>qr_code_scanner</mat-icon>
               </mat-form-field>
             </div>
+            
+            <!-- Camera Scanner in same grid position -->
+            <div class="church-form-group scanner-grid-item" *ngIf="isCameraEnabled">
+              <div class="inline-scanner-container">
+                <zxing-scanner 
+                  #scanner
+                  [enable]="isCameraEnabled"
+                  [device]="selectedDevice"
+                  (scanSuccess)="onCameraScan($event)"
+                  (scanError)="onScanError($event)"
+                  (scanFailure)="onScanFailure($event)"
+                  (scanComplete)="onScanComplete($event)"
+                  [formats]="allowedFormats">
+                </zxing-scanner>
+              </div>
+            </div>
           </div>
           <div class="church-form-actions">
-            <button class="church-btn church-btn-primary" type="button" (click)="onManualSearch()">Search by ID</button>
+            <button class="church-btn church-btn-primary" type="button" (click)="onManualSearch()" *ngIf="!isCameraEnabled">Search by ID</button>
             <button class="church-btn church-btn-secondary" type="button" (click)="toggleCamera()" [disabled]="!hasDevices">
               <mat-icon>{{ isCameraEnabled ? 'videocam_off' : 'videocam' }}</mat-icon>
               {{ isCameraEnabled ? 'Stop Camera' : 'Start Camera' }}
@@ -47,35 +63,16 @@
           </div>
         </form>
         
-        <!-- Camera Scanner Section -->
-        <div *ngIf="isCameraEnabled" class="camera-scanner-section">
-          <div class="scanner-container">
-            <zxing-scanner 
-              #scanner
-              [enable]="isCameraEnabled"
-              [device]="selectedDevice"
-              (scanSuccess)="onCameraScan($event)"
-              (scanError)="onScanError($event)"
-              (scanFailure)="onScanFailure($event)"
-              (scanComplete)="onScanComplete($event)"
-              [formats]="allowedFormats">
-            </zxing-scanner>
-          </div>
-          
-          <div class="scanner-controls" *ngIf="availableDevices && availableDevices.length > 1">
-            <mat-form-field appearance="outline">
-              <mat-label>Camera</mat-label>
-              <mat-select [(value)]="selectedDevice" (selectionChange)="onCameraChange($event.value)">
-                <mat-option *ngFor="let device of availableDevices" [value]="device">
-                  {{ device.label || 'Camera ' + device.deviceId }}
-                </mat-option>
-              </mat-select>
-            </mat-form-field>
-          </div>
-          
-          <div class="scanner-instructions">
-            <p><mat-icon>info</mat-icon> Point your camera at a barcode or QR code to scan</p>
-          </div>
+        <!-- Camera Controls (if multiple cameras available) -->
+        <div class="scanner-controls" *ngIf="isCameraEnabled && availableDevices && availableDevices.length > 1">
+          <mat-form-field appearance="outline">
+            <mat-label>Camera</mat-label>
+            <mat-select [(value)]="selectedDevice" (selectionChange)="onCameraChange($event.value)">
+              <mat-option *ngFor="let device of availableDevices" [value]="device">
+                {{ device.label || 'Camera ' + device.deviceId }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
         </div>
       </div>
     </div>
