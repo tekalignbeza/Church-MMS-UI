@@ -1,6 +1,18 @@
 <script src="../../../../../configuration.ts"></script>
 <div class="table-height mat-elevation-z0 table-div">
   <table mat-table [dataSource]="dataSource">
+    <!-- Meeting Title Column -->
+    <ng-container matColumnDef="meetingTitle">
+      <th mat-header-cell *matHeaderCellDef>Meeting Title</th>
+      <td mat-cell *matCellDef="let element"> {{element.meetingTitle}} </td>
+    </ng-container>
+    
+    <!-- Meeting Date Column -->
+    <ng-container matColumnDef="meetingDate">
+      <th mat-header-cell *matHeaderCellDef>Meeting Date</th>
+      <td mat-cell *matCellDef="let element"> {{element.meetingDate | date:'short'}} </td>
+    </ng-container>
+    
     <!-- firstName Column -->
     <ng-container matColumnDef="name">
       <th mat-header-cell *matHeaderCellDef>Family Name</th>

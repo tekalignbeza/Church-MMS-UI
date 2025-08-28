@@ -1,0 +1,60 @@
+<div class="login-container">
+  <div class="login-card">
+    <div class="login-header">
+      <mat-icon class="church-icon">church</mat-icon>
+      <h1>St Gebriel Church</h1>
+      <h2>Member Management System</h2>
+    </div>
+
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="login-form">
+      <div class="form-fields">
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Username</mat-label>
+          <input matInput 
+                 formControlName="username" 
+                 placeholder="Enter your username"
+                 autocomplete="username">
+          <mat-icon matSuffix>person</mat-icon>
+          <mat-error *ngIf="f['username'].touched && f['username'].invalid">
+            {{getErrorMessage('username')}}
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Password</mat-label>
+          <input matInput 
+                 [type]="hidePassword ? 'password' : 'text'" 
+                 formControlName="password"
+                 placeholder="Enter your password"
+                 autocomplete="current-password">
+          <button mat-icon-button matSuffix 
+                  (click)="hidePassword = !hidePassword" 
+                  [attr.aria-label]="'Hide password'" 
+                  [attr.aria-pressed]="hidePassword"
+                  type="button">
+            <mat-icon>{{hidePassword ? 'visibility_off' : 'visibility'}}</mat-icon>
+          </button>
+          <mat-error *ngIf="f['password'].touched && f['password'].invalid">
+            {{getErrorMessage('password')}}
+          </mat-error>
+        </mat-form-field>
+      </div>
+
+      <div class="login-actions">
+        <button mat-raised-button 
+                color="primary" 
+                type="submit" 
+                class="login-button"
+                [disabled]="loginForm.invalid || isLoading">
+          <mat-spinner *ngIf="isLoading" diameter="20" class="login-spinner"></mat-spinner>
+          <span *ngIf="!isLoading">Sign In</span>
+          <span *ngIf="isLoading">Signing In...</span>
+        </button>
+      </div>
+    </form>
+
+    <div class="login-footer">
+      <p>Don't have an account? Contact your administrator</p>
+    </div>
+  </div>
+</div>

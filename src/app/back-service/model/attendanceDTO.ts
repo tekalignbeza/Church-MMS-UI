@@ -20,6 +20,8 @@ export interface AttendanceDTO {
     familyId: number;
     familyName?: string;
     flag: AttendanceFlag;
+    meetingTitle?: string;
+    meetingDate?: string;
 }
 export enum AttendanceFlag {
     GREEN = "GREEN",

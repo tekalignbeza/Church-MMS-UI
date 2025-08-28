@@ -10,7 +10,6 @@ export * from './memberDTO';
 export * from './memberSearchCriteriaDTO';
 export * from './modelFile';
 export * from './paymentDTO';
-export * from './paymentTypeDTO';
 export * from './resource';
 export * from './uRI';
 export * from './uRL';

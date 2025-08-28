@@ -62,6 +62,14 @@
             </div>
             <div class="church-form-group">
               <mat-form-field appearance="outline">
+                <input matInput placeholder="Address Line 2 (Optional)" formControlName="address2">
+                <mat-error *ngIf="f['address2'].touched && f['address2'].invalid">
+                  {{getErrorMessage('address2')}}
+                </mat-error>
+              </mat-form-field>
+            </div>
+            <div class="church-form-group">
+              <mat-form-field appearance="outline">
                 <input matInput placeholder="City" formControlName="city">
                 <mat-error *ngIf="f['city'].touched && f['city'].invalid">
                   {{getErrorMessage('city')}}
@@ -86,7 +94,15 @@
             </div>
             <div class="church-form-group">
               <mat-form-field appearance="outline">
-                <input matInput placeholder="Agenda" formControlName="agenda">
+                <input matInput type="number" placeholder="Duration (minutes)" formControlName="duration" min="15">
+                <mat-error *ngIf="f['duration'].touched && f['duration'].invalid">
+                  {{getErrorMessage('duration')}}
+                </mat-error>
+              </mat-form-field>
+            </div>
+            <div class="church-form-group">
+              <mat-form-field appearance="outline">
+                <textarea matInput placeholder="Agenda" formControlName="agenda" rows="3"></textarea>
                 <mat-error *ngIf="f['agenda'].touched && f['agenda'].invalid">
                   {{getErrorMessage('agenda')}}
                 </mat-error>
@@ -120,7 +136,9 @@
           </div>
           <!-- Attendance Data Table -->
           <app-attendace-data-table 
-            *ngIf="!isLoading">
+            *ngIf="!isLoading"
+            [hideMeetingTitle]="true"
+            [hideMeetingDate]="true">
           </app-attendace-data-table>
         </div>
       </div>

@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {Component, Input, OnInit, ViewChild} from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -14,15 +14,36 @@ import { MeetingService } from 'src/app/back-service/meeting-service.service';
   styleUrls: ['./attendace-data-table.component.css']
 })
 export class AttendaceDataTableComponent implements OnInit {
-  displayedColumns: string[] = ['name', 'memberBarCode', 'flag'];
+  @Input() hideMeetingTitle: boolean = false;
+  @Input() hideMeetingDate: boolean = false;
+  @Input() hideFamilyName: boolean = false;
+  displayedColumns: string[] = [];
   dataSource :AttendanceDTO[];
   attendanceDTO: AttendanceDTO ;
+  meetingTitle: string = '';
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
   ngOnInit() {
+    // Set up columns based on what should be shown
+    this.displayedColumns = [];
+    if (!this.hideMeetingTitle) {
+      this.displayedColumns.push('meetingTitle');
+    }
+    if (!this.hideMeetingDate) {
+      this.displayedColumns.push('meetingDate');
+    }
+    if (!this.hideFamilyName) {
+      this.displayedColumns.push('name');
+    }
+    this.displayedColumns.push('memberBarCode', 'flag');
+    
     if(this.dataService.family!=null){
       this.dataSource = this.dataService.family.attendanceDTOList;
     }else{
     this.load();
+    }
+    // Get meeting title if available
+    if(this.dataService.meeting) {
+      this.meetingTitle = this.dataService.meeting.title;
     }
   }
   constructor(private _snackBar: MatSnackBar,public dialog: MatDialog,public dataService :DataService,private meetingApi:MeetingService) {}

@@ -9,18 +9,10 @@
  * https://github.com/swagger-api/swagger-codegen.git
  * Do not edit the class manually.
  */
-import { FamilyDTO } from './familyDTO';
-import { PaymentTypeDTO } from './paymentTypeDTO';
-
-
 export interface PaymentDTO { 
     amount?: number;
-    familyDTO?: FamilyDTO;
     id?: number;
     memberId?: number;
-    note?: string;
-    paymentMethod?: string;
     reason?: string;
-    status?: string;
-    type?: PaymentTypeDTO;
+    paymentDate?: string;
 }

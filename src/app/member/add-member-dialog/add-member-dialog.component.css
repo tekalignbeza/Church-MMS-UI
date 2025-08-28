@@ -30,3 +30,22 @@ mat-dialog-actions {
 mat-dialog-actions button {
   margin-left: 8px;
 }
+
+/* Fix mat-select dropdown menu items positioning */
+::ng-deep .mat-select-panel {
+  position: relative !important;
+  top: 0 !important;
+  left: 0 !important;
+  transform: none !important;
+}
+
+/* Ensure mat-select overlay appears correctly */
+::ng-deep .cdk-overlay-pane {
+  position: absolute !important;
+}
+
+/* Fix for dialog overlay conflicts */
+::ng-deep .cdk-overlay-container {
+  position: fixed;
+  z-index: 1000;
+}

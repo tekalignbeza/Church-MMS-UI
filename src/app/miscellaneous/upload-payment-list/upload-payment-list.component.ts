@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { SettingService } from 'src/app/back-service/setting-service.service';
 import { JobDTO } from 'src/app/back-service/model/jobDTO';
+import { UploadPaymentComponent } from '../upload-payment/upload-payment.component';
 
 interface SearchCriteria {
   name: string;
@@ -22,7 +25,11 @@ export class UploadPaymentListComponent implements OnInit {
     status: ''
   };
 
-  constructor(private settingService: SettingService) { }
+  constructor(
+    private settingService: SettingService,
+    private dialog: MatDialog,
+    private snackBar: MatSnackBar
+  ) { }
 
   ngOnInit(): void {
     // Load initial data
@@ -104,5 +111,28 @@ export class UploadPaymentListComponent implements OnInit {
     };
     this.searchResults = this.allJobs;
     console.log('Search reset');
+  }
+
+  addNewUploadPayment() {
+    const dialogRef = this.dialog.open(UploadPaymentComponent, {
+      width: '40%',
+      height: '50%',
+      data: {}
+    });
+    
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The upload payment dialog was closed');
+      if (result) {
+        // Refresh the data after adding
+        this.loadUploadPayments();
+        this.showSnackBar('Upload payment created successfully', 'Close');
+      }
+    });
+  }
+
+  private showSnackBar(message: string, action: string): void {
+    this.snackBar.open(message, action, {
+      duration: 3000,
+    });
   }
 }

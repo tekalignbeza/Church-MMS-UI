@@ -62,18 +62,6 @@
             <button class="church-btn church-btn-outline" type="button" (click)="onReset()">Reset</button>
           </div>
         </form>
-        
-        <!-- Camera Controls (if multiple cameras available) -->
-        <div class="scanner-controls" *ngIf="isCameraEnabled && availableDevices && availableDevices.length > 1">
-          <mat-form-field appearance="outline">
-            <mat-label>Camera</mat-label>
-            <mat-select [(value)]="selectedDevice" (selectionChange)="onCameraChange($event.value)">
-              <mat-option *ngFor="let device of availableDevices" [value]="device">
-                {{ device.label || 'Camera ' + device.deviceId }}
-              </mat-option>
-            </mat-select>
-          </mat-form-field>
-        </div>
       </div>
     </div>
 

@@ -13,7 +13,7 @@ import {DataService} from "../../back-service/DataService/DataService";
   styleUrls: ['./payment-data-table.component.css']
 })
 export class PaymentDataTableComponent implements OnInit {
-  displayedColumns: string[] = ['familyName', 'amount','paymentType','reason'];
+  displayedColumns: string[] = ['amount', 'reason', 'paymentDate'];
   dataSource :PaymentDTO[];
   paymentDTO: PaymentDTO ;
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;

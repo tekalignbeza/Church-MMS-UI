@@ -1,15 +1,84 @@
-.dashboard-card {
-  position: absolute;
+.church-upload-dialog {
+  width: 100%;
+  min-width: 400px;
+  max-height: 80vh;
+  overflow: hidden;
 }
-.example-form {
-  min-width: 150px;
-  max-width: 500px;
+
+.church-section-content {
+  padding: 24px;
+  max-height: 80vh;
+  overflow-y: auto;
+}
+
+.upload-header {
+  margin: 0 0 20px 0;
+  font-size: 24px;
+  font-weight: 500;
+  color: #333;
+}
+
+.church-form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.church-form-group {
   width: 100%;
 }
 
-.example-full-width {
+.church-full-width {
   width: 100%;
 }
-.grid-container {
-  margin: 15px;
+
+.church-form-actions {
+  display: flex;
+  gap: 12px;
+  justify-content: flex-end;
+  margin-top: 16px;
+}
+
+.church-btn {
+  padding: 8px 16px;
+  border-radius: 4px;
+  font-weight: 500;
+  text-transform: uppercase;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  min-width: 100px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.church-btn-primary {
+  background-color: #3f51b5;
+  color: white;
+}
+
+.church-btn-primary:hover:not(:disabled) {
+  background-color: #303f9f;
+}
+
+.church-btn-primary:disabled {
+  background-color: #c5c5c5;
+  cursor: not-allowed;
+}
+
+.church-btn-outline {
+  background-color: transparent;
+  color: #3f51b5;
+  border: 1px solid #3f51b5;
+}
+
+.church-btn-outline:hover {
+  background-color: #f3f4f6;
+}
+
+.church-spinner {
+  margin-right: 8px;
 }

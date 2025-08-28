@@ -30,8 +30,11 @@
 
       <mat-form-field appearance="outline">
         <mat-label>Cell Phone</mat-label>
-        <input matInput [(ngModel)]="memberData.cellPhone" name="cellPhone" required>
-        <mat-error>Cell phone is required</mat-error>
+        <input matInput [(ngModel)]="memberData.cellPhone" name="cellPhone" required 
+               (input)="onPhoneNumberChange()">
+        <mat-icon matSuffix *ngIf="checkingPhone">refresh</mat-icon>
+        <mat-error *ngIf="!memberData.cellPhone?.trim()">Cell phone is required</mat-error>
+        <mat-error *ngIf="phoneNumberExists">Phone number already exists</mat-error>
       </mat-form-field>
     </div>
 
@@ -47,7 +50,7 @@
       <mat-form-field appearance="outline">
         <mat-label>Year of Birth</mat-label>
         <input matInput type="number" [(ngModel)]="memberData.yearOfBirth" name="yearOfBirth" 
-               [min]="1900" [max]="currentYear">
+               [min]="1900" [max]="currentYear" placeholder="Enter year">
       </mat-form-field>
     </div>
 

@@ -138,7 +138,8 @@
           </div>
           <!-- Attendance Data Table -->
           <app-attendace-data-table 
-            *ngIf="!isLoading && familyDTO.attendanceDTOList && familyDTO.attendanceDTOList.length > 0">
+            *ngIf="!isLoading && familyDTO.attendanceDTOList && familyDTO.attendanceDTOList.length > 0"
+            [hideFamilyName]="true">
           </app-attendace-data-table>
         </div>
       </div>

@@ -26,11 +26,3 @@
     <tr mat-row *matRowDef="let row; columns: displayedColumns;" (dblclick)="getRecord(row)"></tr>
   </table>
 </div>
-<div class="table-buttons">
-  <button mat-mini-fab color="primary" matTooltip="Add New Upload" (click)="addNewSetting()" class="action-button">
-    <mat-icon>add</mat-icon>
-  </button>
-  <button mat-mini-fab color="warn" matTooltip="Delete Upload" class="action-button">
-    <mat-icon>delete</mat-icon>
-  </button>
-</div>

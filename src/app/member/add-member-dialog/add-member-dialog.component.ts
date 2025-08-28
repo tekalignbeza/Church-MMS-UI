@@ -1,19 +1,24 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, Inject, OnInit, OnDestroy } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MemberServiceService } from '../../back-service/member-service.service';
 import { MemberDTO } from '../../back-service/model/memberDTO';
 import { FamilyDTO } from '../../back-service/model/familyDTO';
+import { Subject } from 'rxjs';
+import { debounceTime, distinctUntilChanged, switchMap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-add-member-dialog',
   templateUrl: './add-member-dialog.component.html',
   styleUrls: ['./add-member-dialog.component.css']
 })
-export class AddMemberDialogComponent implements OnInit {
+export class AddMemberDialogComponent implements OnInit, OnDestroy {
   memberData: MemberDTO;
   isSaving = false;
   currentYear = new Date().getFullYear();
+  phoneNumberExists = false;
+  checkingPhone = false;
+  private phoneCheckSubject = new Subject<string>();
 
   constructor(
     public dialogRef: MatDialogRef<AddMemberDialogComponent>,
@@ -30,20 +35,47 @@ export class AddMemberDialogComponent implements OnInit {
       email: '',
       cellPhone: '',
       gender: 'MALE',
-      yearOfBirth: new Date().getFullYear() - 30,
+      yearOfBirth: null,
       familyHead: false,
       spouse: false,
       family: {
         id: data.familyId,
         name: data.familyName
       } as FamilyDTO,
-      userDTO: {
-        email: ''
-      }
+      userDTO: null
     } as MemberDTO;
   }
 
   ngOnInit(): void {
+    // Set up phone number validation with debouncing
+    this.phoneCheckSubject.pipe(
+      debounceTime(500),
+      distinctUntilChanged(),
+      switchMap(phone => {
+        if (!phone || phone.trim().length === 0) {
+          this.phoneNumberExists = false;
+          this.checkingPhone = false;
+          return [];
+        }
+        this.checkingPhone = true;
+        const searchCriteria = { cellPhone: phone.trim() };
+        return this.memberService.searchMember(searchCriteria);
+      })
+    ).subscribe({
+      next: (members) => {
+        this.phoneNumberExists = members && members.length > 0;
+        this.checkingPhone = false;
+      },
+      error: (error) => {
+        console.error('Error checking phone number:', error);
+        this.checkingPhone = false;
+        this.phoneNumberExists = false;
+      }
+    });
+  }
+
+  ngOnDestroy(): void {
+    this.phoneCheckSubject.complete();
   }
 
   isFormValid(): boolean {
@@ -51,8 +83,13 @@ export class AddMemberDialogComponent implements OnInit {
       this.memberData.firstName?.trim() &&
       this.memberData.middleName?.trim() &&
       this.memberData.lastName?.trim() &&
-      this.memberData.cellPhone?.trim()
+      this.memberData.cellPhone?.trim() &&
+      !this.phoneNumberExists
     );
+  }
+
+  onPhoneNumberChange(): void {
+    this.phoneCheckSubject.next(this.memberData.cellPhone || '');
   }
 
   onSave(): void {
@@ -63,14 +100,12 @@ export class AddMemberDialogComponent implements OnInit {
 
     this.isSaving = true;
 
-    // Update user object with email
-    if (this.memberData.userDTO) {
-      this.memberData.userDTO.email = this.memberData.email || '';
-    }
+    // No need to create user account for family members
+    this.memberData.userDTO = null;
 
     // Ensure yearOfBirth has a valid value (can't be null for primitive int)
     if (!this.memberData.yearOfBirth || this.memberData.yearOfBirth <= 0) {
-      this.memberData.yearOfBirth = new Date().getFullYear() - 30;
+      this.memberData.yearOfBirth = 1990; // Default year if not provided
     }
 
     console.log('Sending member data:', this.memberData);

@@ -33,16 +33,47 @@ export class MeetingDetailsComponent implements OnInit {
 
   private initForm() {
     this.meetingForm = this.fb.group({
-      title: ['', [Validators.required]],
-      cellPhone: ['', [Validators.required, Validators.pattern('^[0-9]{10}$')]],
-      email: ['', [Validators.required, Validators.email]],
+      title: ['', [
+        Validators.required,
+        Validators.minLength(3),
+        Validators.maxLength(100)
+      ]],
+      cellPhone: ['', [
+        Validators.pattern('^\\+?[1-9]\\d{1,14}$')
+      ]],
+      email: ['', [
+        Validators.email
+      ]],
       date: [null, [Validators.required]],
       time: [null, [Validators.required]],
-      address1: ['', [Validators.required]],
-      city: ['', [Validators.required]],
-      state: ['', [Validators.required]],
-      zipCode: ['', [Validators.required, Validators.pattern('^[0-9]{5}(?:-[0-9]{4})?$')]],
-      agenda: ['', [Validators.required]]
+      address1: ['', [
+        Validators.required,
+        Validators.minLength(5),
+        Validators.maxLength(100)
+      ]],
+      address2: ['', [
+        Validators.maxLength(100)
+      ]],
+      city: ['', [
+        Validators.required,
+        Validators.minLength(2),
+        Validators.maxLength(50)
+      ]],
+      state: ['', [
+        Validators.required,
+        Validators.minLength(2),
+        Validators.maxLength(50)
+      ]],
+      zipCode: ['', [
+        Validators.required,
+        Validators.pattern('^\\d{5}(-\\d{4})?$')
+      ]],
+      duration: [60, [
+        Validators.min(15)
+      ]],
+      agenda: ['', [
+        Validators.maxLength(500)
+      ]]
     });
   }
 
@@ -55,6 +86,7 @@ export class MeetingDetailsComponent implements OnInit {
     city: '',
     state: '',
     zipCode: '',
+    duration: 60,
     agenda: ''
   };
   ngOnInit() {
@@ -80,6 +112,7 @@ export class MeetingDetailsComponent implements OnInit {
           city: this.meetingDTO.city,
           state: this.meetingDTO.state,
           zipCode: this.meetingDTO.zipCode,
+          duration: this.meetingDTO.duration || 60,
           agenda: this.meetingDTO.agenda
         });
       }
@@ -112,8 +145,11 @@ export class MeetingDetailsComponent implements OnInit {
     if (this.meetingDate && this.meetingTime) {
       const [hours, minutes] = this.meetingTime.split(':');
       const date = new Date(this.meetingDate);
-      date.setHours(parseInt(hours), parseInt(minutes));
-      this.meetingDTO.dateTime = date;
+      
+      const localDate = new Date(date);
+      localDate.setHours(parseInt(hours), parseInt(minutes), 0, 0);
+      
+      this.meetingDTO.dateTime = localDate;
     }
   }
 
@@ -153,6 +189,7 @@ export class MeetingDetailsComponent implements OnInit {
     this.meetingDTO.city = this.f['city'].value;
     this.meetingDTO.state = this.f['state'].value;
     this.meetingDTO.zipCode = this.f['zipCode'].value;
+    this.meetingDTO.duration = this.f['duration'].value;
     this.meetingDTO.agenda = this.f['agenda'].value;
 
     console.log(JSON.stringify(this.meetingDTO));
@@ -164,25 +201,55 @@ export class MeetingDetailsComponent implements OnInit {
 
   getErrorMessage(controlName: string): string {
     const control = this.f[controlName];
-    if (!control) return '';
+    if (!control || !control.errors) return '';
     
     if (control.hasError('required')) {
-      return `${controlName.charAt(0).toUpperCase() + controlName.slice(1)} is required`;
+      return `${this.getFieldDisplayName(controlName)} is required`;
     }
     if (control.hasError('email')) {
-      return 'Invalid email address';
+      return 'Please provide a valid email address';
     }
     if (control.hasError('pattern')) {
       switch(controlName) {
         case 'cellPhone':
-          return 'Phone number must be 10 digits';
+          return 'Please provide a valid phone number';
         case 'zipCode':
-          return 'Invalid ZIP code format';
+          return 'Please provide a valid zip code (12345 or 12345-6789)';
         default:
           return 'Invalid format';
       }
     }
+    if (control.hasError('minlength')) {
+      const requiredLength = control.errors['minlength'].requiredLength;
+      return `${this.getFieldDisplayName(controlName)} must be at least ${requiredLength} characters`;
+    }
+    if (control.hasError('maxlength')) {
+      const requiredLength = control.errors['maxlength'].requiredLength;
+      return `${this.getFieldDisplayName(controlName)} cannot exceed ${requiredLength} characters`;
+    }
+    if (control.hasError('min')) {
+      const minValue = control.errors['min'].min;
+      return `${this.getFieldDisplayName(controlName)} must be at least ${minValue}`;
+    }
     return '';
+  }
+
+  private getFieldDisplayName(controlName: string): string {
+    const fieldNames: { [key: string]: string } = {
+      title: 'Title',
+      cellPhone: 'Phone number',
+      email: 'Email',
+      address1: 'Address',
+      address2: 'Address line 2',
+      city: 'City',
+      state: 'State',
+      zipCode: 'Zip code',
+      duration: 'Duration',
+      agenda: 'Agenda',
+      date: 'Date',
+      time: 'Time'
+    };
+    return fieldNames[controlName] || controlName;
   }
 
   cancel() {

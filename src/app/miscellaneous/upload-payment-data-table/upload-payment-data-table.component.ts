@@ -1,8 +1,6 @@
 import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { SettingService } from 'src/app/back-service/setting-service.service';
-import { UploadPaymentComponent } from '../upload-payment/upload-payment.component';
 import { JobDTO } from 'src/app/back-service/model/jobDTO';
 
 @Component({
@@ -20,7 +18,7 @@ export class UploadPaymentDataTableComponent implements OnChanges {
       console.log('Data source updated:', this.dataSource);
     }
   }
-  constructor(private settingService:SettingService,private _snackBar: MatSnackBar,public dialog: MatDialog) {}
+  constructor(private settingService:SettingService,private _snackBar: MatSnackBar) {}
 
   showSnackBar(message:string, action:string):void{
     this._snackBar.open(message,action, {
@@ -32,16 +30,4 @@ export class UploadPaymentDataTableComponent implements OnChanges {
   
   }
 
-  addNewSetting() {
-    const dialogRef = this.dialog.open(UploadPaymentComponent, {
-      width: '40%',
-      height: '50%',
-      data: {}
-    });
-    dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
-      // Let parent component handle data refresh
-      this.showSnackBar("upload added","upload Add");
-    });
-  }
 }
