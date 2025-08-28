@@ -17,6 +17,8 @@ export class MeetingDetailsComponent implements OnInit {
   meetingDate: Date;
   meetingTime: string;
   meetingForm: FormGroup;
+  isLoading: boolean = false;
+  attendanceList: any[] = [];
 
   constructor(
     private fb: FormBuilder,
@@ -156,7 +158,7 @@ export class MeetingDetailsComponent implements OnInit {
     console.log(JSON.stringify(this.meetingDTO));
     this.meetingApi.createMeeting(this.meetingDTO).subscribe((data: {}) => {
       console.log('create meeting');
-      this.router.navigate(['/meeting/list'])
+      this.router.navigate(['/meetings/list'])
     });
   }
 
@@ -184,7 +186,7 @@ export class MeetingDetailsComponent implements OnInit {
   }
 
   cancel() {
-    this.router.navigate(['/meeting/list']);
+    this.router.navigate(['/meetings/list']);
   }
 
 }

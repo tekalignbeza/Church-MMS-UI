@@ -1,8 +1,28 @@
-.dashboard-card {
-  position: absolute;
-  top: 0px;
-  left: 15px;
-  right: 15px;
-  bottom: 15px;
+/* ========================================
+   Miscellaneous List - Modern Layout with Church Design System
+   ======================================== */
+
+.church-miscellaneous-page {
+  padding: var(--space-6);
+  background-color: var(--gray-50);
+  min-height: 100vh;
+}
+
+/* Compact spacing like member list */
+.church-miscellaneous-page .church-section {
+  margin-bottom: var(--space-2);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .church-miscellaneous-page {
+    padding: var(--space-4);
+  }
+}
+
+@media (max-width: 480px) {
+  .church-miscellaneous-page {
+    padding: var(--space-2);
+  }
 }
 

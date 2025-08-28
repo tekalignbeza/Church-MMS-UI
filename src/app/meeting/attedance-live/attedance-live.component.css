@@ -1,73 +1,328 @@
+/* ========================================
+   Live Attendance - Modern Layout with Church Design System
+   ======================================== */
+
+.church-attendance-page {
+  padding: var(--space-6);
+  background-color: var(--gray-50);
+  min-height: 100vh;
+}
+
+/* Compact spacing like member list */
+.church-attendance-page .church-section {
+  margin-bottom: var(--space-2);
+}
+
+/* Make form actions compact - remove all spacing */
+.church-attendance-page .church-form-actions {
+  padding: 0;
+  margin: 0;
+  border-top: none;
+  padding-top: 0;
+  margin-top: 0;
+}
+
+/* Form Layout - Equal width grid for all search fields */
+.church-attendance-page .church-search-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-2);
+  margin-bottom: var(--space-2);
+}
+
+.church-attendance-page .church-form-group {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Scanner Flag Overlay - Enhanced */
 .scanner-container {
-  position: absolute;
-  top: 30px; /* Adjust this to move it down */
+  position: fixed;
+  top: 80px;
   left: 50%;
-  transform: translateX(-50%); /* Center it horizontally */
-  background: rgba(0, 0, 0, 0.7); /* Semi-transparent background */
+  transform: translateX(-50%);
+  z-index: 1000;
+  pointer-events: none;
+}
+
+.flag-container {
+  padding: var(--space-6) var(--space-8);
+  border-radius: var(--radius-xl);
+  text-align: center;
+  font-weight: var(--font-bold);
+  font-size: var(--text-2xl);
+  box-shadow: var(--shadow-2xl);
+  opacity: 0.95;
+  animation: fade-in-out 2s ease-in-out;
+  border: 3px solid rgba(255, 255, 255, 0.3);
+}
+
+.flag {
   color: white;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.GREEN {
+  background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+}
+
+.YELLOW {
+  background: linear-gradient(135deg, #ffc107 0%, #fd7e14 100%);
+  color: var(--gray-800);
+}
+
+.YELLOW .flag {
+  color: var(--gray-800);
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+.RED {
+  background: linear-gradient(135deg, #dc3545 0%, #e83e8c 100%);
+}
+
+/* Loading and Empty States */
+.church-loading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-12);
+  color: var(--gray-600);
+}
+
+.church-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-12);
+  text-align: center;
+  color: var(--gray-500);
+}
+
+.church-empty-icon {
+  width: 64px;
+  height: 64px;
+  margin-bottom: var(--space-4);
+  color: var(--gray-400);
+  font-size: 64px !important;
+}
+
+/* Attendance Table Styling */
+.church-attendance-table {
+  background: var(--white);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-base);
+  overflow: hidden;
+  border: 1px solid var(--gray-200);
+}
+
+.attendance-table {
+  width: 100%;
+  background: var(--white);
+}
+
+.attendance-table .mat-header-row {
+  background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-dark) 100%);
+  height: 56px;
+}
+
+.attendance-table .mat-header-cell {
+  color: var(--white);
+  font-weight: var(--font-semibold);
+  text-align: center;
+  padding: var(--space-4);
+  border-right: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.attendance-table .mat-row {
+  height: 52px;
+  border-bottom: 1px solid var(--gray-200);
+  transition: var(--transition-fast);
+}
+
+.attendance-table .mat-row:hover {
+  background-color: var(--primary-50);
+  transform: scale(1.002);
+}
+
+.attendance-table .mat-cell {
+  padding: var(--space-3);
+  text-align: center;
+  color: var(--gray-800);
+  font-size: var(--text-sm);
+  border-right: 1px solid var(--gray-200);
+}
+
+/* Attendance Flag Status Badges */
+.attendance-flag {
+  display: inline-block;
+  padding: var(--space-1) var(--space-3);
+  border-radius: var(--radius-full);
+  font-size: var(--text-xs);
+  font-weight: var(--font-semibold);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.attendance-flag.green {
+  background-color: var(--success-light);
+  color: var(--success-color);
+  border: 1px solid var(--success-color);
+}
+
+.attendance-flag.yellow {
+  background-color: var(--warning-light);
+  color: var(--warning-color);
+  border: 1px solid var(--warning-color);
+}
+
+.attendance-flag.red {
+  background-color: var(--error-light);
+  color: var(--error-color);
+  border: 1px solid var(--error-color);
+}
+
+/* Enhanced Animations */
+@keyframes fade-in-out {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, -20px) scale(0.9);
+  }
+  10% {
+    opacity: 0.95;
+    transform: translate(-50%, 0) scale(1);
+  }
+  90% {
+    opacity: 0.95;
+    transform: translate(-50%, 0) scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(-50%, -20px) scale(0.9);
+  }
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+  .church-attendance-page .church-search-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .church-attendance-page {
+    padding: var(--space-4);
+  }
   
-  border-radius: 8px;
-  z-index: 1000; /* Ensure it's above other content */
+  .church-attendance-page .church-search-grid {
+    grid-template-columns: 1fr;
+    gap: var(--space-3);
+  }
+  
+  .church-attendance-page .church-form-actions {
+    flex-direction: column;
+    gap: var(--space-2);
+  }
+  
+  .church-attendance-page .church-btn {
+    width: 100%;
+    justify-content: center;
   }
   
   .flag-container {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    padding: 20px 40px;
-    border-radius: 10px;
-    text-align: center;
-    font-weight: bold;
-    font-size: 1.8em;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    opacity: 0.9;
-    animation: fade-in-out 2s ease-in-out;
+    padding: var(--space-4) var(--space-6);
+    font-size: var(--text-xl);
   }
   
-  .flag {
-    color: white;
+  .scanner-container {
+    top: 60px;
+  }
+}
+
+@media (max-width: 480px) {
+  .church-attendance-page {
+    padding: var(--space-2);
   }
   
-  .GREEN {
-    background-color: #28a745;
+  .flag-container {
+    padding: var(--space-3) var(--space-4);
+    font-size: var(--text-lg);
   }
   
-  .YELLOW {
-    background-color: #ffc107;
-    color: #333;
+  .attendance-table .mat-header-cell,
+  .attendance-table .mat-cell {
+    padding: var(--space-2);
+    font-size: var(--text-xs);
+  }
+}
+
+/* Camera Scanner Styles */
+.camera-scanner-section {
+  margin-top: var(--space-6);
+  padding: var(--space-4);
+  border: 2px dashed var(--primary-200);
+  border-radius: var(--radius-lg);
+  background: var(--gray-50);
+}
+
+.camera-scanner-section .scanner-container {
+  position: relative;
+  width: 100%;
+  max-width: 600px;
+  margin: 0 auto;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  background: var(--white);
+  box-shadow: var(--shadow-lg);
+}
+
+.scanner-controls {
+  margin-top: var(--space-4);
+  display: flex;
+  justify-content: center;
+}
+
+.scanner-instructions {
+  text-align: center;
+  margin-top: var(--space-4);
+  color: var(--gray-600);
+  font-size: var(--text-sm);
+}
+
+.scanner-instructions mat-icon {
+  vertical-align: middle;
+  margin-right: var(--space-2);
+  color: var(--primary-color);
+}
+
+/* Secondary button style */
+.church-btn-secondary {
+  background-color: var(--secondary-color);
+  color: var(--white);
+  border: 1px solid var(--secondary-color);
+}
+
+.church-btn-secondary:hover {
+  background-color: var(--secondary-dark);
+  border-color: var(--secondary-dark);
+}
+
+.church-btn-secondary:disabled {
+  background-color: var(--gray-300);
+  color: var(--gray-500);
+  border-color: var(--gray-300);
+  cursor: not-allowed;
+}
+
+/* Override mobile styles for camera section */
+@media (max-width: 768px) {
+  .camera-scanner-section {
+    padding: var(--space-2);
+    margin-top: var(--space-4);
   }
   
-  .RED {
-    background-color: #dc3545;
+  .camera-scanner-section .scanner-container {
+    max-width: 100%;
   }
-  
-  @keyframes fade-in-out {
-    0% {
-      opacity: 0;
-      transform: translate(-50%, -60%);
-    }
-    10% {
-      opacity: 0.9;
-      transform: translate(-50%, -50%);
-    }
-    90% {
-      opacity: 0.9;
-      transform: translate(-50%, -50%);
-    }
-    100% {
-      opacity: 0;
-      transform: translate(-50%, -60%);
-    }
-  }
-  
- 
-  
-  .dashboard-card {
-    position: absolute;
-    top: 0px;
-    left: 15px;
-    right: 15px;
-  }
-  
-  
+}

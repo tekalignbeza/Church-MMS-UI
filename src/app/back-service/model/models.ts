@@ -17,5 +17,3 @@ export * from './uRL';
 export * from './uRLStreamHandler';
 export * from './user';
 export * from './userDTO';
-export * from './vendor';
-export * from './vendorDTO';

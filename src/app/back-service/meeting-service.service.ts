@@ -80,5 +80,23 @@ export class MeetingService {
     return this.httpClient.get(this.meetingUrl+"attendance/"+id);
   }
 
+  public searchMeetings(title?: string, date?: Date): Observable<MeetingDTO[]> {
+    let params: any = {};
+    
+    if (title && title.trim()) {
+      params.title = title.trim();
+    }
+    
+    if (date) {
+      // Format date as YYYY-MM-DD for backend
+      const dateString = date.toISOString().split('T')[0];
+      params.date = dateString;
+    }
+    
+    return this.httpClient.get<MeetingDTO[]>(this.meetingUrl + "search", {
+      params: params
+    });
+  }
+
 
 }

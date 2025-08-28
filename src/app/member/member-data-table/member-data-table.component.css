@@ -1,0 +1,242 @@
+/* ========================================
+   Member Data Table - Modern Church Design
+   ======================================== */
+
+/* Table Container */
+.church-table-wrapper {
+  background: var(--white);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-base);
+  overflow: hidden;
+  border: 1px solid var(--gray-200);
+}
+
+/* Table Scrollable Area */
+.table-div,
+.table-height {
+  max-height: 500px;
+  overflow-x: auto;
+  overflow-y: auto;
+  background: var(--white);
+  border-radius: var(--radius-lg);
+}
+
+/* Material Table Overrides */
+table.mat-table {
+  width: 100% !important;
+  background: var(--white) !important;
+  font-family: var(--font-family-primary) !important;
+}
+
+/* Header Styles */
+.mat-header-row {
+  background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-dark) 100%) !important;
+  height: 56px !important;
+  border-bottom: 2px solid var(--primary-dark) !important;
+}
+
+.mat-header-cell {
+  background: transparent !important;
+  color: var(--white) !important;
+  font-weight: var(--font-semibold) !important;
+  font-size: var(--text-sm) !important;
+  text-align: center !important;
+  padding: var(--space-4) var(--space-3) !important;
+  border-right: 1px solid rgba(255, 255, 255, 0.2) !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.05em !important;
+}
+
+.mat-header-cell:last-child {
+  border-right: none !important;
+}
+
+/* Row Styles */
+.mat-row {
+  height: 52px !important;
+  border-bottom: 1px solid var(--gray-200) !important;
+  transition: var(--transition-fast) !important;
+  cursor: pointer !important;
+}
+
+.mat-row:hover {
+  background-color: var(--primary-50) !important;
+  transform: scale(1.005) !important;
+  box-shadow: 0 2px 8px rgba(44, 82, 130, 0.15) !important;
+}
+
+.mat-row:nth-child(even) {
+  background-color: var(--gray-50) !important;
+}
+
+.mat-row:nth-child(even):hover {
+  background-color: var(--primary-50) !important;
+}
+
+.mat-row:last-child {
+  border-bottom: none !important;
+}
+
+/* Cell Styles */
+.mat-cell {
+  padding: var(--space-3) var(--space-3) !important;
+  color: var(--gray-800) !important;
+  font-size: var(--text-sm) !important;
+  text-align: center !important;
+  border-right: 1px solid var(--gray-200) !important;
+  font-weight: var(--font-normal) !important;
+  vertical-align: middle !important;
+}
+
+.mat-cell:last-child {
+  border-right: none !important;
+}
+
+/* Icon Actions */
+.mat-cell mat-icon {
+  width: 24px !important;
+  height: 24px !important;
+  font-size: 24px !important;
+  line-height: 24px !important;
+  color: var(--gray-500) !important;
+  cursor: pointer !important;
+  transition: var(--transition-fast) !important;
+  margin: 0 var(--space-1) !important;
+  padding: var(--space-1) !important;
+  border-radius: var(--radius-base) !important;
+}
+
+.mat-cell mat-icon:hover {
+  color: var(--primary-color) !important;
+  background-color: var(--primary-50) !important;
+  transform: scale(1.1) !important;
+}
+
+.mat-cell mat-icon[color="primary"] {
+  color: var(--primary-color) !important;
+}
+
+.mat-cell mat-icon[color="accent"] {
+  color: var(--accent-color) !important;
+}
+
+.mat-cell mat-icon[color="warn"] {
+  color: var(--error-color) !important;
+}
+
+/* Action Icons Specific Styles */
+.church-table-actions {
+  display: flex;
+  gap: var(--space-1);
+  align-items: center;
+  justify-content: center;
+}
+
+.church-action-download {
+  color: var(--primary-color) !important;
+}
+
+.church-action-download:hover {
+  color: var(--primary-dark) !important;
+  background-color: var(--primary-100) !important;
+}
+
+.church-action-family {
+  color: var(--accent-color) !important;
+}
+
+.church-action-family:hover {
+  color: var(--accent-dark) !important;
+  background-color: var(--success-light) !important;
+}
+
+/* Table Action Buttons - Component Specific Overrides */
+.table-buttons {
+  display: flex;
+  gap: 10px;
+  margin-top: 16px;
+  justify-content: flex-end;
+}
+
+.action-button {
+  margin: 0 5px;
+}
+
+/* Responsive Design */
+@media (max-width: 1200px) {
+  .mat-cell,
+  .mat-header-cell {
+    padding: var(--space-2) var(--space-2) !important;
+    font-size: var(--text-xs) !important;
+  }
+}
+
+@media (max-width: 768px) {
+  .table-div,
+  .table-height {
+    max-height: 400px;
+  }
+  
+  .mat-header-row {
+    height: 48px !important;
+  }
+  
+  .mat-row {
+    height: 44px !important;
+  }
+  
+  .mat-cell,
+  .mat-header-cell {
+    padding: var(--space-1) var(--space-1) !important;
+    font-size: var(--text-xs) !important;
+  }
+  
+  .mat-cell mat-icon {
+    width: 20px !important;
+    height: 20px !important;
+    font-size: 20px !important;
+  }
+  
+  .table-buttons {
+    text-align: center;
+  }
+  
+  .table-buttons mat-icon {
+    width: 32px !important;
+    height: 32px !important;
+    font-size: 32px !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .table-div,
+  .table-height {
+    max-height: 350px;
+  }
+  
+  .mat-header-row {
+    height: 44px !important;
+  }
+  
+  .mat-row {
+    height: 40px !important;
+  }
+  
+  .mat-cell,
+  .mat-header-cell {
+    padding: var(--space-1) 2px !important;
+    font-size: 10px !important;
+  }
+  
+  .church-table-actions {
+    gap: 2px;
+  }
+  
+  .mat-cell mat-icon {
+    width: 18px !important;
+    height: 18px !important;
+    font-size: 18px !important;
+    margin: 0 1px !important;
+    padding: 1px !important;
+  }
+}

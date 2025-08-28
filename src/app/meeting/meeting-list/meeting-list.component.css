@@ -1,7 +1,108 @@
-.dashboard-card {
-  position: absolute;
-  top: 0px;
-  left: 15px;
-  right: 15px;
+/* ========================================
+   Meeting List - Modern Layout with Church Design System
+   ======================================== */
+
+.church-meeting-page {
+  padding: var(--space-6);
+  background-color: var(--gray-50);
+  min-height: 100vh;
+}
+
+/* Compact spacing like member list */
+.church-meeting-page .church-section {
+  margin-bottom: var(--space-2);
+}
+
+/* Make form actions compact - remove all spacing */
+.church-meeting-page .church-form-actions {
+  padding: 0;
+  margin: 0;
+  border-top: none;
+  padding-top: 0;
+  margin-top: 0;
+}
+
+/* Form Layout - Equal width grid for search fields (2 columns now) */
+.church-meeting-page .church-search-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--space-2);
+  margin-bottom: var(--space-2);
+}
+
+.church-meeting-page .church-form-group {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Material Design Integration */
+.mat-form-field {
+  width: 100% !important;
+  font-size: var(--text-sm) !important;
+}
+
+/* Responsive Design */
+/* Loading, Error, and Empty States */
+.church-loading, .church-error, .church-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-12);
+  text-align: center;
+  color: var(--gray-600);
+}
+
+.church-loading mat-spinner {
+  margin-bottom: var(--space-4);
+}
+
+.church-error mat-icon, .church-empty mat-icon {
+  font-size: 3rem;
+  height: 3rem;
+  width: 3rem;
+  margin-bottom: var(--space-4);
+}
+
+.church-empty-icon {
+  color: var(--gray-400);
+}
+
+.church-error p, .church-empty p {
+  margin-bottom: var(--space-4);
+  font-size: var(--text-lg);
+}
+
+@media (max-width: 1024px) {
+  .church-meeting-page .church-search-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .church-meeting-page {
+    padding: var(--space-4);
+  }
+  
+  .church-meeting-page .church-search-grid {
+    grid-template-columns: 1fr;
+    gap: var(--space-3);
+  }
+  
+  .church-meeting-page .church-form-actions {
+    flex-direction: column;
+    gap: var(--space-2);
+  }
+  
+  .church-meeting-page .church-btn {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .church-meeting-page {
+    padding: var(--space-2);
+  }
 }
 

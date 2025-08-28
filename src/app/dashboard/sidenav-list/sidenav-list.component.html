@@ -7,7 +7,7 @@
           Members
         </mat-panel-title>
       </mat-expansion-panel-header>
-      <div> <a routerLink="members/list"><mat-icon>person</mat-icon><span>Members</span></a></div>
+      <div> <a routerLink="members/list"><mat-icon>groups</mat-icon><span>Members</span></a></div>
       <!-- <div> <a routerLink="members/new"><mat-icon>group_add</mat-icon><span>New family</span></a></div> -->
     </mat-expansion-panel>
     <mat-expansion-panel>
@@ -16,7 +16,7 @@
           Meeting
         </mat-panel-title>
       </mat-expansion-panel-header>
-      <div> <a routerLink="meetings/list"> <mat-icon>event</mat-icon><span>Meetings</span></a></div>
+      <div> <a routerLink="meetings/list"> <mat-icon>calendar_today</mat-icon><span>Meetings</span></a></div>
     </mat-expansion-panel>
     <mat-expansion-panel>
       <mat-expansion-panel-header>
@@ -24,19 +24,10 @@
           Miscellaneous
         </mat-panel-title>
       </mat-expansion-panel-header>
-      <div> <a routerLink="miscellaneous/list"><mat-icon>business</mat-icon><span>Miscellaneous</span></a></div>
-      <div> <a routerLink="miscellaneous/uploadPayment"><mat-icon>business</mat-icon><span> Upload Payments</span></a></div>
+      <div> <a routerLink="miscellaneous/list"><mat-icon>settings</mat-icon><span>Miscellaneous</span></a></div>
+      <div> <a routerLink="miscellaneous/uploadPaymentList"><mat-icon>upload_file</mat-icon><span>Upload Payment List</span></a></div>
       <!-- <div> <a class="disabled-link" routerLink="miscellaneous/new"> <mat-icon>note_add</mat-icon><span>New vendor</span></a></div> -->
     </mat-expansion-panel>
-    <mat-expansion-panel disabled="true">
-      <mat-expansion-panel-header>
-        <mat-panel-title >
-          Payment
-        </mat-panel-title>
-      </mat-expansion-panel-header>
-      <div> <a routerLink="payments/list"> <mat-icon>credit_card</mat-icon><span>Payments</span></a></div>
-      </mat-expansion-panel>
-
   </mat-accordion>
 </mat-nav-list>
 

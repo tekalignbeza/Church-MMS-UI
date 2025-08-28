@@ -1,55 +1,64 @@
-<div class="grid-container">
-  <mat-grid-list cols="1" rows="3" rowHeight="4:1">
-    <mat-grid-tile [colspan]="1" [rowspan]="1">
-      <mat-card class="dashboard-card">
-        <mat-card-header>
-          <mat-card-title>
-            Search Meeting
-          </mat-card-title>
-        </mat-card-header>
-        <mat-card-content class="dashboard-card-content">
-          <form class="example-form">
-            <table class="searchCriteria">
-              <tr>
-                <td>
-                  <mat-form-field class="example-full-width">
-                    <input matInput placeholder="Meeting Title" value="">
-                  </mat-form-field>
-                </td>
-                <td>
-                  <mat-form-field class="example-full-width">
-                    <input matInput placeholder="Meeting Phone" value="">
-                  </mat-form-field>
-                </td>
-                <td>
-                  <mat-form-field class="example-full-width">
-                    <input matInput placeholder="Date" value="">
-                  </mat-form-field>
-                </td>
-              </tr>
-              <tr>
-                <td colspan="3" class="leftAlign">
-                  <div class="saveCancel-button-row">
-                    <button mat-stroked-button color="primary">search</button>
-                    <button mat-stroked-button color="warn">reset</button>
-                  </div>
-                </td>
-              </tr>
-            </table>
-          </form>
-        </mat-card-content>
-      </mat-card>
-    </mat-grid-tile>
-    <mat-grid-tile [colspan]="1" [rowspan]="3">
-      <mat-card class="dashboard-card">
-        <mat-card-header>
-          <mat-card-title>
-            Meeting results
-          </mat-card-title>
-        </mat-card-header>
-       <app-meeting-data-table></app-meeting-data-table>
-      </mat-card>
-    </mat-grid-tile>
-  </mat-grid-list>
+<div class="church-meeting-page">
+  <div class="church-grid church-grid-cols-1">
+    <!-- Search Section -->
+    <div class="church-section">
+      <div class="church-section-header">
+        <h2 class="church-section-title">Search Meeting</h2>
+      </div>
+      <div class="church-section-content">
+        <form class="church-form">
+          <div class="church-search-grid">
+            <div class="church-form-group">
+              <mat-form-field appearance="outline">
+                <input matInput placeholder="Meeting Title" [(ngModel)]="searchCriteria.title" name="title">
+              </mat-form-field>
+            </div>
+            <div class="church-form-group">
+              <mat-form-field appearance="outline">
+                <input matInput [matDatepicker]="datePicker" placeholder="Date" [(ngModel)]="searchCriteria.date" name="date">
+                <mat-datepicker-toggle matSuffix [for]="datePicker"></mat-datepicker-toggle>
+                <mat-datepicker #datePicker></mat-datepicker>
+              </mat-form-field>
+            </div>
+          </div>
+          <div class="church-form-actions">
+            <button class="church-btn church-btn-primary" type="button" (click)="searchMeetings()">Search</button>
+            <button class="church-btn church-btn-outline" type="button" (click)="resetSearch()">Reset</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- Results Section -->
+    <div class="church-section">
+      <div class="church-section-content">
+        <!-- Loading State -->
+        <div *ngIf="isLoading" class="church-loading">
+          <mat-spinner [diameter]="30"></mat-spinner>
+          <p>Searching meetings...</p>
+        </div>
+
+        <!-- Error State -->
+        <div *ngIf="error" class="church-error">
+          <mat-icon color="warn">error</mat-icon>
+          <p>{{ error }}</p>
+          <button class="church-btn church-btn-primary" (click)="loadAllMeetings()">Retry</button>
+        </div>
+
+        <!-- Empty State -->
+        <div *ngIf="!isLoading && !error && searchResults.length === 0" class="church-empty">
+          <mat-icon class="church-empty-icon">event</mat-icon>
+          <p>No meetings found</p>
+          <button class="church-btn church-btn-primary" (click)="addNewMeeting()">Add New Meeting</button>
+        </div>
+
+        <!-- Meeting Data Table -->
+        <app-meeting-data-table 
+          *ngIf="!isLoading && !error && searchResults.length > 0"
+          [dataSource]="searchResults">
+        </app-meeting-data-table>
+      </div>
+    </div>
+  </div>
 </div>
 

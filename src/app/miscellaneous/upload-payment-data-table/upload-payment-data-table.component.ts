@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { SettingService } from 'src/app/back-service/setting-service.service';
@@ -10,13 +10,15 @@ import { JobDTO } from 'src/app/back-service/model/jobDTO';
   templateUrl: './upload-payment-data-table.component.html',
   styleUrls: ['./upload-payment-data-table.component.css']
 })
-export class UploadPaymentDataTableComponent {
+export class UploadPaymentDataTableComponent implements OnChanges {
 
  displayedColumns: string[] = ['name','fromDate','endDate','status'];
-  dataSource :JobDTO[];
+  @Input() dataSource: JobDTO[] = [];
 
-  ngOnInit() {
-    this.loadData()
+  ngOnChanges(changes: SimpleChanges) {
+    if (changes['dataSource']) {
+      console.log('Data source updated:', this.dataSource);
+    }
   }
   constructor(private settingService:SettingService,private _snackBar: MatSnackBar,public dialog: MatDialog) {}
 
@@ -37,14 +39,9 @@ export class UploadPaymentDataTableComponent {
       data: {}
     });
     dialogRef.afterClosed().subscribe(result => {
-      this.dataSource = result;
       console.log('The dialog was closed');
-      this.loadData();
+      // Let parent component handle data refresh
       this.showSnackBar("upload added","upload Add");
     });
-  }
-
-  public loadData(){
-    this.settingService.jobStatus().subscribe(r=> this.dataSource = r );
   }
 }

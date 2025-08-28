@@ -85,5 +85,21 @@ export class SettingService {
   jobStatus(): Observable<JobDTO[]> {
     return this.httpClient.get<JobDTO[]>(environment.apiBaseUrl+"/api/ingest/status/all");
    }
+
+  searchJobs(name?: string, status?: string): Observable<JobDTO[]> {
+    let params: any = {};
+    
+    if (name && name.trim()) {
+      params.name = name.trim();
+    }
+    
+    if (status && status.trim()) {
+      params.status = status.trim();
+    }
+    
+    return this.httpClient.get<JobDTO[]>(environment.apiBaseUrl+"/api/ingest/status/search", {
+      params: params
+    });
+  }
 }
 

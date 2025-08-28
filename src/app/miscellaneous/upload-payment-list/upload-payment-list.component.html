@@ -1,0 +1,58 @@
+<div class="church-upload-payment-page">
+  <div class="church-grid church-grid-cols-1">
+    <!-- Search Section -->
+    <div class="church-section">
+      <div class="church-section-header">
+        <h2 class="church-section-title">Search Upload Payments</h2>
+      </div>
+      <div class="church-section-content">
+        <form class="church-form">
+          <div class="church-search-grid">
+            <div class="church-form-group">
+              <mat-form-field appearance="outline">
+                <input matInput placeholder="Upload Name" [(ngModel)]="searchCriteria.name" name="name">
+              </mat-form-field>
+            </div>
+            <div class="church-form-group">
+              <mat-form-field appearance="outline">
+                <mat-select placeholder="Status" [(ngModel)]="searchCriteria.status" name="status">
+                  <mat-option value="">All</mat-option>
+                  <mat-option value="PROCESSING">Processing</mat-option>
+                  <mat-option value="COMPLETED">Completed</mat-option>
+                  <mat-option value="FAILED">Failed</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+          </div>
+          <div class="church-form-actions">
+            <button class="church-btn church-btn-primary" type="button" (click)="searchUploadPayments()">Search</button>
+            <button class="church-btn church-btn-outline" type="button" (click)="resetSearch()">Reset</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- Results Section -->
+    <div class="church-section">
+      <div class="church-section-content">
+        <!-- Loading State -->
+        <div *ngIf="isLoading" class="church-loading">
+          <mat-spinner [diameter]="30"></mat-spinner>
+          <p>Loading upload payments...</p>
+        </div>
+
+        <!-- Empty State -->
+        <div *ngIf="!isLoading && searchResults.length === 0" class="church-empty">
+          <mat-icon class="church-empty-icon">cloud_upload</mat-icon>
+          <p>No upload payments found</p>
+        </div>
+
+        <!-- Upload Payment Data Table -->
+        <app-upload-payment-data-table 
+          *ngIf="!isLoading && searchResults.length > 0"
+          [dataSource]="searchResults">
+        </app-upload-payment-data-table>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,11 +1,78 @@
-mat-sidenav-container, mat-sidenav-content, mat-sidenav {
-  height: 100%;
+/* ========================================
+   App Component - Main Layout Styles
+   ======================================== */
+
+/* Sidenav Container */
+mat-sidenav-container {
+  height: 100vh;
+  background-color: var(--gray-50);
 }
 
+mat-sidenav-content {
+  height: 100vh;
+  overflow-x: hidden;
+  overflow-y: auto;
+  background-color: var(--gray-50);
+}
+
+/* Sidebar */
 mat-sidenav {
-  width: 250px;
+  width: var(--sidebar-width);
+  background-color: var(--white);
+  border-right: 1px solid var(--gray-200);
+  box-shadow: var(--shadow-lg);
+  z-index: 100;
 }
 
+/* Main Content Area */
 main {
-  padding: 10px;
+  min-height: 100vh;
+  padding: 0;
+  background-color: var(--gray-50);
 }
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+  mat-sidenav {
+    width: calc(var(--sidebar-width) - 30px);
+  }
+  
+  main {
+    padding: 0;
+  }
+}
+
+@media (max-width: 480px) {
+  mat-sidenav {
+    width: calc(100vw - 50px);
+    max-width: 300px;
+  }
+}
+
+/* Override Material Design defaults */
+.mat-drawer-container {
+  background-color: var(--gray-50) !important;
+}
+
+.mat-drawer {
+  background-color: var(--white) !important;
+}
+
+.mat-drawer-content {
+  background-color: var(--gray-50) !important;
+}
+
+/* Override Material Toolbar Primary Color */
+mat-toolbar[color="primary"],
+.mat-toolbar.mat-primary {
+  background-color: var(--primary-color) !important;
+  color: white !important;
+}
+
+mat-toolbar[color="primary"] .mat-icon,
+mat-toolbar[color="primary"] button,
+.mat-toolbar.mat-primary .mat-icon,
+.mat-toolbar.mat-primary button {
+  color: white !important;
+}
+

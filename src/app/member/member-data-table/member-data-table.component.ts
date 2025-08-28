@@ -11,7 +11,7 @@ import {Router} from "@angular/router";
 import {MemberServiceService} from "../../back-service/member-service.service";
 import {FamilyDTO} from "../../back-service/model/familyDTO";
 import { environment } from 'src/environments/environment';
-import { MemberDetailNewComponent } from '../member-detail-new/member-detail-new.component';
+import { AddMemberDialogComponent } from '../add-member-dialog/add-member-dialog.component';
 
 @Component({
   selector: 'app-member-data-table',
@@ -24,6 +24,7 @@ export class MemberDataTableComponent implements OnInit, OnChanges {
   memberData: MemberDTO;
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
   @Input() memberList: MemberDTO[] = [];
+  @Input() showActionButtons: boolean = false;
   @Output() memberAdded = new EventEmitter<void>();
   ngOnInit() {
     // Check if we're loading from a specific family context
@@ -56,38 +57,6 @@ export class MemberDataTableComponent implements OnInit, OnChanges {
      });
   }
 
-  getRecord(row: MemberDTO) {
-    const dialogRef = this.dialog.open(MemberDetailNewComponent, {
-      width: '500px',
-      height: '600px',
-      data: row
-    });
-    dialogRef.afterClosed().subscribe(result => {
-      row = result;
-      console.log('The dialog was closed');
-      //this.showSnackBar("Member added","Member Add");
-    });
-  }
-
-  addNewMember() {
-    let data:MemberDTO = {}
-    // Only set family if we're in family context
-    if (this.dataService.family) {
-      data.family = this.dataService.family;
-    }
-    const dialogRef = this.dialog.open(MemberDetailNewComponent, {
-      width: '500px',
-      height: '600px',
-      data
-    });
-    dialogRef.afterClosed().subscribe(result => {
-      this.memberData = result;
-      console.log('The dialog was closed');
-      this.showSnackBar("Member added","Member Add");
-      // Notify parent component to refresh data
-      this.memberAdded.emit();
-    });
-  }
 
   loadFamilies() {
     return this.memberApi.getFamily(this.dataService.family.id).subscribe((data:any) => {
@@ -205,4 +174,31 @@ export class MemberDataTableComponent implements OnInit, OnChanges {
       this.showSnackBar("Family information not available", "Error");
     }
   }
+
+  addNewMember() {
+    // Check if we have family context
+    if (!this.dataService.family || !this.dataService.family.id) {
+      this.showSnackBar("Family information not available", "Error");
+      return;
+    }
+
+    const dialogRef = this.dialog.open(AddMemberDialogComponent, {
+      width: '600px',
+      maxWidth: '90vw',
+      maxHeight: '90vh',
+      data: { 
+        familyId: this.dataService.family.id,
+        familyName: this.dataService.family.name 
+      }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result && result.success) {
+        this.showSnackBar("Member added successfully", "Success");
+        // Emit event to refresh the family details
+        this.memberAdded.emit();
+      }
+    });
+  }
+
 }

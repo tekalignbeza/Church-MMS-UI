@@ -1,27 +1,20 @@
 /* ========================================
-   Meeting Details - Modern Church Design
+   Upload Payment List - Modern Layout with Church Design System
    ======================================== */
 
-.church-meeting-page {
+.church-upload-payment-page {
   padding: var(--space-6);
   background-color: var(--gray-50);
   min-height: 100vh;
 }
 
-/* Custom grid layout - 25% left, 75% right */
-.church-meeting-page .church-grid {
-  display: grid;
-  grid-template-columns: 25% 75%;
-  gap: var(--space-4);
-}
-
 /* Compact spacing like member list */
-.church-meeting-page .church-section {
+.church-upload-payment-page .church-section {
   margin-bottom: var(--space-2);
 }
 
-/* Make form actions compact */
-.church-meeting-page .church-form-actions {
+/* Make form actions compact - remove all spacing */
+.church-upload-payment-page .church-form-actions {
   padding: 0;
   margin: 0;
   border-top: none;
@@ -29,19 +22,23 @@
   margin-top: 0;
 }
 
-/* Form grid layout - single column for left side */
-.church-meeting-page .church-form-grid {
+/* Form Layout - Equal width grid for all search fields */
+.church-upload-payment-page .church-search-grid {
   display: grid;
-  grid-template-columns: 1fr;
+  grid-template-columns: repeat(3, 1fr);
   gap: var(--space-2);
   margin-bottom: var(--space-2);
 }
 
-/* Right column for attendance table */
-.church-tables-column {
+.church-upload-payment-page .church-form-group {
   display: flex;
   flex-direction: column;
-  gap: var(--space-2);
+}
+
+/* Material Design Integration */
+.mat-form-field {
+  width: 100% !important;
+  font-size: var(--text-sm) !important;
 }
 
 /* Loading and Empty States */
@@ -72,45 +69,36 @@
   font-size: 64px !important;
 }
 
-/* Time input styling */
-input[type="time"] {
-  border: none;
-  background: transparent;
-  color: inherit;
-  font: inherit;
-  outline: none;
-  width: 100%;
-}
-
 /* Responsive Design */
-@media (max-width: 1200px) {
-  .church-meeting-page .church-grid {
-    grid-template-columns: 30% 70%;
+@media (max-width: 1024px) {
+  .church-upload-payment-page .church-search-grid {
+    grid-template-columns: repeat(2, 1fr);
   }
 }
 
 @media (max-width: 768px) {
-  .church-meeting-page {
+  .church-upload-payment-page {
     padding: var(--space-4);
   }
   
-  .church-meeting-page .church-grid {
+  .church-upload-payment-page .church-search-grid {
     grid-template-columns: 1fr;
-    gap: var(--space-4);
+    gap: var(--space-3);
   }
   
-  .church-meeting-page .church-form-actions {
+  .church-upload-payment-page .church-form-actions {
     flex-direction: column;
     gap: var(--space-2);
   }
   
-  .church-meeting-page .church-btn {
+  .church-upload-payment-page .church-btn {
     width: 100%;
+    justify-content: center;
   }
 }
 
 @media (max-width: 480px) {
-  .church-meeting-page {
+  .church-upload-payment-page {
     padding: var(--space-2);
   }
 }

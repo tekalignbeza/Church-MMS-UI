@@ -1,37 +1,39 @@
-<div class="grid-container">
-  <mat-grid-list cols="3" rowHeight="2:2">
-    <mat-grid-tile [colspan]="1" [rowspan]="2">
-      <mat-card class="dashboard-card">
-        <mat-card-header>
-          <mat-card-title>
-            Meeting Details
-          </mat-card-title>
-        </mat-card-header>
-        <mat-card-content class="dashboard-card-content">
-          <form [formGroup]="meetingForm" class="example-form">
-            <mat-form-field class="example-full-width">
-              <input matInput placeholder="Meeting Title" formControlName="title">
-              <mat-error *ngIf="f['title'].touched && f['title'].invalid">
-                {{getErrorMessage('title')}}
-              </mat-error>
-            </mat-form-field>
-
-            <mat-form-field class="example-full-width">
-              <input matInput placeholder="Contact phone" formControlName="cellPhone">
-              <mat-error *ngIf="f['cellPhone'].touched && f['cellPhone'].invalid">
-                {{getErrorMessage('cellPhone')}}
-              </mat-error>
-            </mat-form-field>
-
-            <mat-form-field class="example-full-width">
-              <input matInput placeholder="Contact email" formControlName="email">
-              <mat-error *ngIf="f['email'].touched && f['email'].invalid">
-                {{getErrorMessage('email')}}
-              </mat-error>
-            </mat-form-field>
-
-            <div class="date-time-container">
-              <mat-form-field class="example-full-width date-field">
+<div class="church-meeting-page">
+  <div class="church-grid">
+    <!-- Left Column - Meeting Details Form -->
+    <div class="church-section">
+      <div class="church-section-header">
+        <h2 class="church-section-title">Meeting Details</h2>
+      </div>
+      <div class="church-section-content">
+        <form [formGroup]="meetingForm" class="church-form">
+          <div class="church-form-grid">
+            <div class="church-form-group">
+              <mat-form-field appearance="outline">
+                <input matInput placeholder="Meeting Title" formControlName="title">
+                <mat-error *ngIf="f['title'].touched && f['title'].invalid">
+                  {{getErrorMessage('title')}}
+                </mat-error>
+              </mat-form-field>
+            </div>
+            <div class="church-form-group">
+              <mat-form-field appearance="outline">
+                <input matInput placeholder="Contact Phone" formControlName="cellPhone">
+                <mat-error *ngIf="f['cellPhone'].touched && f['cellPhone'].invalid">
+                  {{getErrorMessage('cellPhone')}}
+                </mat-error>
+              </mat-form-field>
+            </div>
+            <div class="church-form-group">
+              <mat-form-field appearance="outline">
+                <input matInput placeholder="Contact Email" formControlName="email">
+                <mat-error *ngIf="f['email'].touched && f['email'].invalid">
+                  {{getErrorMessage('email')}}
+                </mat-error>
+              </mat-form-field>
+            </div>
+            <div class="church-form-group">
+              <mat-form-field appearance="outline">
                 <input matInput [matDatepicker]="meetingPicker" placeholder="Meeting Date" 
                        formControlName="date" (dateChange)="onDateChange($event.value)">
                 <mat-datepicker-toggle matSuffix [for]="meetingPicker"></mat-datepicker-toggle>
@@ -40,8 +42,9 @@
                   {{getErrorMessage('date')}}
                 </mat-error>
               </mat-form-field>
-
-              <mat-form-field class="example-full-width time-field">
+            </div>
+            <div class="church-form-group">
+              <mat-form-field appearance="outline">
                 <input matInput type="time" placeholder="Meeting Time" 
                        formControlName="time" (change)="onTimeChange($event.target.value)">
                 <mat-error *ngIf="f['time'].touched && f['time'].invalid">
@@ -49,58 +52,78 @@
                 </mat-error>
               </mat-form-field>
             </div>
-
-            <mat-form-field class="example-full-width">
-              <input matInput placeholder="Street1" formControlName="address1">
-              <mat-error *ngIf="f['address1'].touched && f['address1'].invalid">
-                {{getErrorMessage('address1')}}
-              </mat-error>
-            </mat-form-field>
-
-            <mat-form-field class="example-full-width">
-              <input matInput placeholder="City" formControlName="city">
-              <mat-error *ngIf="f['city'].touched && f['city'].invalid">
-                {{getErrorMessage('city')}}
-              </mat-error>
-            </mat-form-field>
-
-            <mat-form-field class="example-full-width">
-              <input matInput placeholder="State" formControlName="state">
-              <mat-error *ngIf="f['state'].touched && f['state'].invalid">
-                {{getErrorMessage('state')}}
-              </mat-error>
-            </mat-form-field>
-
-            <mat-form-field class="example-full-width">
-              <input matInput placeholder="Zip Code" formControlName="zipCode">
-              <mat-error *ngIf="f['zipCode'].touched && f['zipCode'].invalid">
-                {{getErrorMessage('zipCode')}}
-              </mat-error>
-            </mat-form-field>
-
-            <mat-form-field class="example-full-width">
-              <input matInput placeholder="Agenda" formControlName="agenda">
-              <mat-error *ngIf="f['agenda'].touched && f['agenda'].invalid">
-                {{getErrorMessage('agenda')}}
-              </mat-error>
-            </mat-form-field>
-          </form>
-          <div class="saveCancel-button-row">
-            <button mat-raised-button color="primary" (click)="save()" [disabled]="meetingForm.invalid">Save</button>
-            <button mat-raised-button color="warn" (click)="cancel()">Cancel</button>
+            <div class="church-form-group">
+              <mat-form-field appearance="outline">
+                <input matInput placeholder="Street Address" formControlName="address1">
+                <mat-error *ngIf="f['address1'].touched && f['address1'].invalid">
+                  {{getErrorMessage('address1')}}
+                </mat-error>
+              </mat-form-field>
+            </div>
+            <div class="church-form-group">
+              <mat-form-field appearance="outline">
+                <input matInput placeholder="City" formControlName="city">
+                <mat-error *ngIf="f['city'].touched && f['city'].invalid">
+                  {{getErrorMessage('city')}}
+                </mat-error>
+              </mat-form-field>
+            </div>
+            <div class="church-form-group">
+              <mat-form-field appearance="outline">
+                <input matInput placeholder="State" formControlName="state">
+                <mat-error *ngIf="f['state'].touched && f['state'].invalid">
+                  {{getErrorMessage('state')}}
+                </mat-error>
+              </mat-form-field>
+            </div>
+            <div class="church-form-group">
+              <mat-form-field appearance="outline">
+                <input matInput placeholder="Zip Code" formControlName="zipCode">
+                <mat-error *ngIf="f['zipCode'].touched && f['zipCode'].invalid">
+                  {{getErrorMessage('zipCode')}}
+                </mat-error>
+              </mat-form-field>
+            </div>
+            <div class="church-form-group">
+              <mat-form-field appearance="outline">
+                <input matInput placeholder="Agenda" formControlName="agenda">
+                <mat-error *ngIf="f['agenda'].touched && f['agenda'].invalid">
+                  {{getErrorMessage('agenda')}}
+                </mat-error>
+              </mat-form-field>
+            </div>
           </div>
-        </mat-card-content>
-      </mat-card>
-    </mat-grid-tile>
-    <mat-grid-tile [colspan]="2" [rowspan]="4">
-      <mat-card class="dashboard-card">
-        <mat-card-header>
-          <mat-card-title>
-            Attendance
-          </mat-card-title>
-        </mat-card-header>
-        <app-attendace-data-table></app-attendace-data-table>
-      </mat-card>
-    </mat-grid-tile>
-  </mat-grid-list>
+          <div class="church-form-actions">
+            <button class="church-btn church-btn-primary" (click)="save()" [disabled]="meetingForm.invalid">Save</button>
+            <button class="church-btn church-btn-outline" (click)="cancel()">Cancel</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- Right Column - Attendance Table -->
+    <div class="church-tables-column">
+      <div class="church-section">
+        <div class="church-section-header">
+          <h2 class="church-section-title">Attendance</h2>
+        </div>
+        <div class="church-section-content">
+          <!-- Loading State -->
+          <div *ngIf="isLoading" class="church-loading">
+            <mat-spinner [diameter]="30"></mat-spinner>
+            <p>Loading attendance details...</p>
+          </div>
+          <!-- Empty State -->
+          <div *ngIf="!isLoading && (!attendanceList || attendanceList.length === 0)" class="church-empty">
+            <mat-icon class="church-empty-icon">event_available</mat-icon>
+            <p>No attendance records found for this meeting</p>
+          </div>
+          <!-- Attendance Data Table -->
+          <app-attendace-data-table 
+            *ngIf="!isLoading">
+          </app-attendace-data-table>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>

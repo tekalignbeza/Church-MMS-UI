@@ -59,6 +59,15 @@ export class MemberServiceService {
       )
   }
 
+  updateFamily(FamilyDTO): Observable<FamilyDTO> {
+    // Use PUT method with family ID in the path
+    return this.http.put<FamilyDTO>(this.apiURL + '/member/family/' + FamilyDTO.id, JSON.stringify(FamilyDTO), this.httpOptions)
+      .pipe(
+        retry(0),
+        catchError(this.handleError)
+      )
+  }
+
   addMemberToFamily(familyId, MemberDTO): Observable<FamilyDTO> {
     return this.http.put<FamilyDTO>(this.apiURL + '/member/addFamilyMember/' + familyId, JSON.stringify(MemberDTO), this.httpOptions)
       .pipe(
@@ -79,15 +88,33 @@ export class MemberServiceService {
   // Error handling
   handleError(error) {
     let errorMessage = '';
+    console.error('Full error object:', error);
+    
     if(error.error instanceof ErrorEvent) {
       // Get client-side error
       errorMessage = error.error.message;
     } else {
       // Get server-side error
-      errorMessage = `Error Code: ${error.status}\nMessage: ${error.message}`;
+      console.error('Server error details:', {
+        status: error.status,
+        statusText: error.statusText,
+        message: error.message,
+        error: error.error,
+        url: error.url
+      });
+      
+      if (error.error && typeof error.error === 'string') {
+        errorMessage = error.error;
+      } else if (error.error && error.error.message) {
+        errorMessage = error.error.message;
+      } else {
+        errorMessage = `Error ${error.status}: ${error.statusText || error.message}`;
+      }
     }
-    window.alert(errorMessage);
-    return throwError(errorMessage);
+    
+    // Don't show alert for now, let component handle it
+    // window.alert(errorMessage);
+    return throwError(error);
   }
 
 

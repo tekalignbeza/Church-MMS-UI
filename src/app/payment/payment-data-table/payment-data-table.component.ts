@@ -4,8 +4,6 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatTableDataSource } from '@angular/material/table';
 import {PaymentDTO} from "../../back-service/model/paymentDTO";
-import {AttendanceDetailsComponent} from "../../meeting/attendance-details/attendance-details.component";
-import {PaymentDetailsComponent} from "../payment-details/payment-details.component";
 import {DataService} from "../../back-service/DataService/DataService";
 
 
@@ -36,28 +34,12 @@ export class PaymentDataTableComponent implements OnInit {
   }
 
   getRecord(row: PaymentDTO) {
-    const dialogRef = this.dialog.open(PaymentDetailsComponent, {
-      width: '40%',
-      height: '80',
-      data: row
-    });
-    dialogRef.afterClosed().subscribe(result => {
-      row = result;
-      console.log('The dialog was closed');
-      this.showSnackBar("Member added","Member Add");
-    });
+    // PaymentDetailsComponent was removed - functionality disabled
+    console.log('Payment details:', row);
   }
 
   addNewMember() {
-    const dialogRef = this.dialog.open(PaymentDetailsComponent, {
-      width: '40%',
-      height: '80',
-      data: {}
-    });
-    dialogRef.afterClosed().subscribe(result => {
-      this.paymentDTO = result;
-      console.log('The dialog was closed');
-      this.showSnackBar("Member added","Member Add");
-    });
+    // PaymentDetailsComponent was removed - functionality disabled
+    this.showSnackBar("Add payment functionality not available", "Info");
   }
 }

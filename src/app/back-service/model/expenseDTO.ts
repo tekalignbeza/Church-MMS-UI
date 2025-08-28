@@ -10,7 +10,6 @@
  * Do not edit the class manually.
  */
 import { ExpenseTypeDTO } from './expenseTypeDTO';
-import { Vendor } from './vendor';
 
 
 export interface ExpenseDTO { 
@@ -22,5 +21,4 @@ export interface ExpenseDTO {
     id?: number;
     status?: string;
     transactionMethod?: string;
-    vendor?: Vendor;
 }

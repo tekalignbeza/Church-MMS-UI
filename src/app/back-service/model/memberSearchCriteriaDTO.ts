@@ -17,4 +17,5 @@ export interface MemberSearchCriteriaDTO {
     firstName?: string;
     lastName?: string;
     middleName?: string;
+    generalSearch?: string;
 }

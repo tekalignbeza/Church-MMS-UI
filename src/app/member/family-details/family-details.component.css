@@ -1,11 +1,72 @@
-.dashboard-card {
-  position: absolute;
-  top: 0px;
-  left: 15px;
-  right: 15px;
-  bottom: 15px;
+/* ========================================
+   Family Details - Modern Church Design
+   ======================================== */
+
+.church-family-page {
+  padding: var(--space-6);
+  background-color: var(--gray-50);
+  min-height: 100vh;
 }
+
+/* Custom grid layout - 25% left, 75% right */
+.church-family-page .church-grid {
+  display: grid;
+  grid-template-columns: 25% 75%;
+  gap: var(--space-4);
+}
+
+/* Compact spacing like member list */
+.church-family-page .church-section {
+  margin-bottom: var(--space-2);
+}
+
+/* Make form actions compact */
+.church-family-page .church-form-actions {
+  padding: 0;
+  margin: 0;
+  border-top: none;
+  padding-top: 0;
+  margin-top: 0;
+}
+
+/* Form grid layout - single column for left side */
+.church-family-page .church-form-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-2);
+  margin-bottom: var(--space-2);
+}
+
+/* Right column for stacked tables */
+.church-tables-column {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+/* Grid Layout */
+.grid-container {
+  padding: 0;
+  margin: 0;
+}
+
+.mat-grid-list {
+  background: transparent !important;
+}
+
+.mat-grid-tile {
+  background: transparent !important;
+}
+
+.mat-grid-tile .mat-figure {
+  padding: var(--space-3) !important;
+}
+
+/* Form Styles */
 .example-form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
   min-width: 150px;
   max-width: 500px;
   width: 100%;
@@ -13,4 +74,276 @@
 
 .example-full-width {
   width: 100%;
+}
+
+/* Form Field Overrides */
+.mat-form-field {
+  width: 100% !important;
+  font-size: var(--text-sm) !important;
+}
+
+.mat-form-field-appearance-outline .mat-form-field-outline {
+  color: var(--gray-300) !important;
+}
+
+.mat-form-field-appearance-outline.mat-focused .mat-form-field-outline-thick {
+  color: var(--primary-color) !important;
+}
+
+.mat-form-field-label {
+  color: var(--gray-600) !important;
+}
+
+.mat-form-field-appearance-outline.mat-focused .mat-form-field-label {
+  color: var(--primary-color) !important;
+}
+
+/* Action Buttons */
+.saveCancel-button-row {
+  display: flex;
+  gap: var(--space-3);
+  justify-content: flex-end;
+  margin-top: var(--space-6);
+  padding-top: var(--space-4);
+  border-top: 1px solid var(--gray-200);
+}
+
+.saveCancel-button-row button {
+  padding: var(--space-3) var(--space-8);
+  font-size: var(--text-sm);
+  font-weight: var(--font-medium);
+  border-radius: var(--radius-md);
+  transition: var(--transition-fast);
+}
+
+/* Loading States */
+.church-loading-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-12);
+  color: var(--gray-600);
+  text-align: center;
+  flex: 1;
+}
+
+.church-loading-spinner {
+  margin-bottom: var(--space-4);
+}
+
+.church-loading-text {
+  font-size: var(--text-base);
+  color: var(--gray-600);
+  margin: 0;
+}
+
+/* Empty States */
+.church-empty-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-12);
+  color: var(--gray-500);
+  text-align: center;
+  flex: 1;
+  background: var(--gray-50);
+  border-radius: var(--radius-lg);
+  margin: var(--space-4);
+}
+
+.church-empty-icon {
+  font-size: 3rem;
+  color: var(--gray-400);
+  margin-bottom: var(--space-4);
+}
+
+.church-empty-title {
+  font-size: var(--text-lg);
+  font-weight: var(--font-semibold);
+  color: var(--gray-700);
+  margin: 0 0 var(--space-2) 0;
+}
+
+.church-empty-text {
+  font-size: var(--text-sm);
+  color: var(--gray-500);
+  margin: 0;
+}
+
+/* Material Card Overrides */
+.mat-card,
+.dashboard-card {
+  background: var(--white) !important;
+  border-radius: var(--radius-xl) !important;
+  box-shadow: var(--shadow-base) !important;
+  border: 1px solid var(--gray-200) !important;
+  height: 100% !important;
+  display: flex !important;
+  flex-direction: column !important;
+  position: static !important;
+  top: auto !important;
+  left: auto !important;
+  right: auto !important;
+  bottom: auto !important;
+}
+
+.mat-card-header {
+  background: linear-gradient(135deg, var(--white) 0%, var(--gray-50) 100%) !important;
+  padding: var(--space-6) !important;
+  border-bottom: 1px solid var(--gray-200) !important;
+}
+
+.mat-card-header .mat-card-title {
+  color: var(--primary-color) !important;
+  font-weight: var(--font-semibold) !important;
+  font-size: var(--text-xl) !important;
+  margin: 0 !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: var(--space-3) !important;
+}
+
+.mat-card-content,
+.dashboard-card-content {
+  flex: 1 !important;
+  padding: var(--space-6) !important;
+  display: flex !important;
+  flex-direction: column !important;
+  background: var(--white) !important;
+  text-align: left !important;
+  max-height: none !important;
+  overflow: visible !important;
+}
+
+/* Spinner Overrides */
+.mat-spinner {
+  color: var(--primary-color) !important;
+}
+
+.mat-spinner circle {
+  stroke: var(--primary-color) !important;
+}
+
+/* Responsive Design */
+@media (max-width: 1200px) {
+  .mat-grid-tile .mat-figure {
+    padding: var(--space-2) !important;
+  }
+  
+  .mat-card-content,
+  .dashboard-card-content {
+    padding: var(--space-4) !important;
+  }
+  
+  .mat-card-header {
+    padding: var(--space-4) !important;
+  }
+}
+
+@media (max-width: 768px) {
+  .church-family-page {
+    padding: var(--space-4);
+  }
+  
+  .mat-grid-tile .mat-figure {
+    padding: var(--space-1) !important;
+  }
+  
+  .mat-card-header {
+    padding: var(--space-4) !important;
+  }
+  
+  .mat-card-content,
+  .dashboard-card-content {
+    padding: var(--space-4) !important;
+  }
+  
+  .mat-card-header .mat-card-title {
+    font-size: var(--text-lg) !important;
+  }
+  
+  .saveCancel-button-row {
+    flex-direction: column;
+    gap: var(--space-2);
+  }
+  
+  .saveCancel-button-row button {
+    width: 100%;
+  }
+  
+  .church-empty-container,
+  .church-loading-container {
+    padding: var(--space-8);
+  }
+}
+
+@media (max-width: 480px) {
+  .church-family-page {
+    padding: var(--space-2);
+  }
+  
+  .mat-card-header {
+    padding: var(--space-3) !important;
+  }
+  
+  .mat-card-content,
+  .dashboard-card-content {
+    padding: var(--space-3) !important;
+  }
+  
+  .mat-card-header .mat-card-title {
+    font-size: var(--text-base) !important;
+  }
+  
+  .church-empty-container,
+  .church-loading-container {
+    padding: var(--space-6);
+  }
+  
+  .church-empty-icon {
+    font-size: 2.5rem;
+  }
+}
+
+/* Animation for Cards */
+@keyframes fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.mat-card,
+.dashboard-card {
+  animation: fade-in 0.3s ease-out !important;
+}
+
+/* Hover Effects */
+.mat-card:hover,
+.dashboard-card:hover {
+  transform: translateY(-2px) !important;
+  box-shadow: var(--shadow-lg) !important;
+  transition: var(--transition-base) !important;
+}
+
+/* Focus States */
+.mat-form-field input:focus {
+  outline: none !important;
+}
+
+.mat-form-field-appearance-outline.mat-focused .mat-form-field-outline-thick {
+  color: var(--primary-color) !important;
+  border-width: 2px !important;
+}
+
+/* Button Focus States */
+.saveCancel-button-row button:focus {
+  outline: 2px solid var(--primary-200) !important;
+  outline-offset: 2px !important;
 }

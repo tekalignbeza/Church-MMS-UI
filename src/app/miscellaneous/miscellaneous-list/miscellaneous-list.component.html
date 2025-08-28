@@ -1,45 +1,42 @@
-<div class="grid-container">
-  <mat-grid-list cols="1" rows="4" rowHeight="3:1">
-    <mat-grid-tile [colspan]="1" [rowspan]="1">
-      <mat-card class="dashboard-card">
-        <mat-card-header>
-          <mat-card-title>
-            Settings
-          </mat-card-title>
-        </mat-card-header>
+<div class="church-miscellaneous-page">
+  <div class="church-grid church-grid-cols-1">
+    <!-- Settings Section -->
+    <div class="church-section">
+      <div class="church-section-header">
+        <h2 class="church-section-title">Settings</h2>
+      </div>
+      <div class="church-section-content">
         <app-setting-data-table></app-setting-data-table>
-      </mat-card>
-    </mat-grid-tile>
+      </div>
+    </div>
     
- <!--    <mat-grid-tile [colspan]="1" [rowspan]="1">
-      <mat-card class="dashboard-card">
-        <mat-card-header>
-          <mat-card-title>
-            Payment Types
-          </mat-card-title>
-        </mat-card-header>
+    <!-- Uncommented sections for future use
+    <div class="church-section">
+      <div class="church-section-header">
+        <h2 class="church-section-title">Payment Types</h2>
+      </div>
+      <div class="church-section-content">
         <app-payment-type-data-table></app-payment-type-data-table>
-      </mat-card>
-    </mat-grid-tile>
-    <mat-grid-tile [colspan]="1" [rowspan]="1">
-      <mat-card class="dashboard-card">
-        <mat-card-header>
-          <mat-card-title>
-            Expense Types
-          </mat-card-title>
-        </mat-card-header>
+      </div>
+    </div>
+
+    <div class="church-section">
+      <div class="church-section-header">
+        <h2 class="church-section-title">Expense Types</h2>
+      </div>
+      <div class="church-section-content">
         <app-expense-type-data-table></app-expense-type-data-table>
-      </mat-card>
-    </mat-grid-tile>
-    <mat-grid-tile [colspan]="1" [rowspan]="1">
-      <mat-card class="dashboard-card">
-        <mat-card-header>
-          <mat-card-title>
-            Vendors
-          </mat-card-title>
-        </mat-card-header>
+      </div>
+    </div>
+
+    <div class="church-section">
+      <div class="church-section-header">
+        <h2 class="church-section-title">Vendors</h2>
+      </div>
+      <div class="church-section-content">
         <app-vendor-data-table></app-vendor-data-table>
-      </mat-card>
-    </mat-grid-tile> -->
-  </mat-grid-list>
+      </div>
+    </div>
+    -->
+  </div>
 </div>

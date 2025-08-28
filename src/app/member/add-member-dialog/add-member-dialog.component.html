@@ -1,0 +1,69 @@
+<h2 mat-dialog-title>Add New Member to Family</h2>
+
+<mat-dialog-content>
+  <form class="member-form">
+    <div class="form-row">
+      <mat-form-field appearance="outline">
+        <mat-label>First Name</mat-label>
+        <input matInput [(ngModel)]="memberData.firstName" name="firstName" required>
+        <mat-error>First name is required</mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Middle Name</mat-label>
+        <input matInput [(ngModel)]="memberData.middleName" name="middleName" required>
+        <mat-error>Middle name is required</mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Last Name</mat-label>
+        <input matInput [(ngModel)]="memberData.lastName" name="lastName" required>
+        <mat-error>Last name is required</mat-error>
+      </mat-form-field>
+    </div>
+
+    <div class="form-row">
+      <mat-form-field appearance="outline">
+        <mat-label>Email</mat-label>
+        <input matInput type="email" [(ngModel)]="memberData.email" name="email">
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Cell Phone</mat-label>
+        <input matInput [(ngModel)]="memberData.cellPhone" name="cellPhone" required>
+        <mat-error>Cell phone is required</mat-error>
+      </mat-form-field>
+    </div>
+
+    <div class="form-row">
+      <mat-form-field appearance="outline">
+        <mat-label>Gender</mat-label>
+        <mat-select [(ngModel)]="memberData.gender" name="gender">
+          <mat-option value="MALE">Male</mat-option>
+          <mat-option value="FEMALE">Female</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Year of Birth</mat-label>
+        <input matInput type="number" [(ngModel)]="memberData.yearOfBirth" name="yearOfBirth" 
+               [min]="1900" [max]="currentYear">
+      </mat-form-field>
+    </div>
+
+    <div class="form-row">
+      <div style="flex: 1; display: flex; align-items: center; gap: 16px;">
+        <mat-checkbox [(ngModel)]="memberData.familyHead" name="familyHead">Family Head</mat-checkbox>
+        <mat-checkbox [(ngModel)]="memberData.spouse" name="spouse">Spouse</mat-checkbox>
+      </div>
+    </div>
+  </form>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button mat-button (click)="onCancel()" [disabled]="isSaving">Cancel</button>
+  <button mat-raised-button color="primary" (click)="onSave()" [disabled]="isSaving || !isFormValid()">
+    <mat-spinner *ngIf="isSaving" [diameter]="20" style="display: inline-block; margin-right: 8px;"></mat-spinner>
+    {{ isSaving ? 'Saving...' : 'Save Member' }}
+  </button>
+</mat-dialog-actions>

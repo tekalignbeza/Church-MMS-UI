@@ -35,7 +35,10 @@
     <ng-container matColumnDef="download">
       <th mat-header-cell *matHeaderCellDef> Download </th>
       <td mat-cell *matCellDef="let element">
-        <mat-icon (click)="downloadIdCard(element.idCard); $event.stopPropagation()" color="primary" style="cursor: pointer;">download</mat-icon>
+        <mat-icon (click)="downloadIdCard(element.idCard); $event.stopPropagation()" 
+                  color="primary" 
+                  matTooltip="Download ID Card"
+                  style="cursor: pointer;">download</mat-icon>
       </td>
     </ng-container>
 
@@ -49,9 +52,11 @@
 
     <!-- Header and Rows -->
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-    <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="getRecord(row)" style="cursor: pointer;"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
   </table>
 </div>
-<div class="table-buttons">
-  <mat-icon (click)="addNewMember()" color="primary" style="cursor: pointer;">add_circle</mat-icon>
+<div class="table-buttons" *ngIf="showActionButtons">
+  <button mat-mini-fab color="primary" matTooltip="Add New Member" (click)="addNewMember()" class="action-button">
+    <mat-icon>add</mat-icon>
+  </button>
 </div>

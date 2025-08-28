@@ -31,10 +31,7 @@ export class MemberListComponent implements OnInit {
   ngOnInit() {
     this.searchForm = this.formBuilder.group({
       id: [''],
-      firstName: [''],
-      middleName: [''],
-      lastName: [''],
-      cellPhone: ['']
+      generalSearch: ['']
     });
     
     // Load all members initially
@@ -42,37 +39,36 @@ export class MemberListComponent implements OnInit {
   }
 
   searchMembers() {
-    // Backend now supports multiple search fields simultaneously
-    const id = this.searchForm.get('id').value?.trim();
-    const firstName = this.searchForm.get('firstName').value?.trim();
-    const middleName = this.searchForm.get('middleName').value?.trim();
-    const lastName = this.searchForm.get('lastName').value?.trim();
-    const cellPhone = this.searchForm.get('cellPhone').value?.trim();
+    const idValue = this.searchForm.get('id').value;
+    const generalSearchValue = this.searchForm.get('generalSearch').value;
+
+    // Convert to string and trim, handling null/undefined values
+    const id = idValue ? String(idValue).trim() : '';
+    const generalSearch = generalSearchValue ? String(generalSearchValue).trim() : '';
+
+    console.log('Search form values:', { id, generalSearch });
 
     let searchCriteria: MemberSearchCriteriaDTO = {};
     let hasSearchCriteria = false;
 
-    // Add all non-empty search fields
-    if (id) {
-      searchCriteria.id = parseInt(id);
-      hasSearchCriteria = true;
+    // Add search fields
+    if (id && id !== '') {
+      const parsedId = parseInt(id);
+      if (!isNaN(parsedId)) {
+        searchCriteria.id = parsedId;
+        hasSearchCriteria = true;
+        console.log('Adding ID to search criteria:', parsedId);
+      } else {
+        console.warn('Invalid ID entered:', id);
+      }
     }
-    if (firstName) {
-      searchCriteria.firstName = firstName;
+    if (generalSearch && generalSearch !== '') {
+      searchCriteria.generalSearch = generalSearch;
       hasSearchCriteria = true;
+      console.log('Adding general search to criteria:', generalSearch);
     }
-    if (middleName) {
-      searchCriteria.middleName = middleName;
-      hasSearchCriteria = true;
-    }
-    if (lastName) {
-      searchCriteria.lastName = lastName;
-      hasSearchCriteria = true;
-    }
-    if (cellPhone) {
-      searchCriteria.cellPhone = cellPhone;
-      hasSearchCriteria = true;
-    }
+
+    console.log('Final search criteria:', searchCriteria);
 
     if (!hasSearchCriteria) {
       // If no criteria provided, load all members
@@ -81,8 +77,10 @@ export class MemberListComponent implements OnInit {
     }
 
     this.isLoading = true;
+    console.log('Sending search request with criteria:', searchCriteria);
     this.memberService.searchMember(searchCriteria).subscribe(
       (data: MemberDTO[]) => {
+        console.log('Search results received:', data);
         this.searchResults = data;
         this.totalElements = data.length; // Set total for search results
         this.isLoading = false;
@@ -169,11 +167,13 @@ export class MemberListComponent implements OnInit {
     this.memberService.searchMember(wildcardCriteria).subscribe(
       (data: MemberDTO[]) => {
         this.searchResults = data;
+        this.isLoading = false;
       },
       error => {
         console.error('Error with wildcard search:', error);
         // As last resort, show empty results
         this.searchResults = [];
+        this.isLoading = false;
       }
     );
   }

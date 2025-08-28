@@ -4,7 +4,6 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatTableDataSource } from '@angular/material/table';
 import {AttendanceDTO} from "../../back-service/model/attendanceDTO";
-import {AttendanceDetailsComponent} from "../attendance-details/attendance-details.component";
 import { DataService } from 'src/app/back-service/DataService/DataService';
 import { MeetingService } from 'src/app/back-service/meeting-service.service';
 

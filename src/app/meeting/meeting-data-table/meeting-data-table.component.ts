@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {Component, OnInit, ViewChild, Input, OnChanges, SimpleChanges} from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -14,13 +14,24 @@ import { MeetingService } from 'src/app/back-service/meeting-service.service';
   templateUrl: './meeting-data-table.component.html',
   styleUrls: ['./meeting-data-table.component.css']
 })
-export class MeetingDataTableComponent implements OnInit {
+export class MeetingDataTableComponent implements OnInit, OnChanges {
 
   displayedColumns: string[] = ['title', 'dateTime','address1','attedance'];
-  dataSource :MeetingDTO[];
+  @Input() dataSource: MeetingDTO[] = [];
+  loading = false;
+  error: string | null = null;
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
   ngOnInit() {
-    this.load();
+    // Only load if no data is provided via input
+    if (this.dataSource.length === 0) {
+      this.load();
+    }
+  }
+
+  ngOnChanges(changes: SimpleChanges) {
+    if (changes['dataSource']) {
+      console.log('Meeting data source updated:', this.dataSource);
+    }
   }
   constructor(private meetingService :MeetingService, private _snackBar: MatSnackBar,private dataService:DataService,private router:Router) {}
   openSnackBar() {
@@ -41,13 +52,28 @@ export class MeetingDataTableComponent implements OnInit {
   }
 
   public load() {
-    this.meetingService.getMeetingAll().subscribe(data => {
-      this.dataSource = data.map(meeting => ({
-        ...meeting,
-        dateTime: Array.isArray(meeting.dateTime) 
-          ? new Date(meeting.dateTime[0], meeting.dateTime[1] - 1, meeting.dateTime[2], meeting.dateTime[3], meeting.dateTime[4])
-          : new Date(meeting.dateTime) // Handle normal date strings too
-      }));
+    this.loading = true;
+    this.error = null;
+    console.log('Loading meetings from:', this.meetingService.meetingUrl + 'all');
+    
+    this.meetingService.getMeetingAll().subscribe({
+      next: (data) => {
+        console.log('Received meeting data:', data);
+        this.dataSource = data.map(meeting => ({
+          ...meeting,
+          dateTime: Array.isArray(meeting.dateTime) 
+            ? new Date(meeting.dateTime[0], meeting.dateTime[1] - 1, meeting.dateTime[2], meeting.dateTime[3], meeting.dateTime[4])
+            : new Date(meeting.dateTime) // Handle normal date strings too
+        }));
+        this.loading = false;
+        this.showSnackBar(`Loaded ${data.length} meetings`, "Success");
+      },
+      error: (error) => {
+        console.error('Error loading meetings:', error);
+        this.error = 'Failed to load meetings. Please check if the backend is running.';
+        this.loading = false;
+        this.showSnackBar("Failed to load meetings", "Error");
+      }
     });
   }
   takeAttendace(meeting: MeetingDTO) {

@@ -12,11 +12,6 @@ import { MiscellaneousModule } from "./miscellaneous/miscellaneous.module";
 import { HttpClientModule } from "@angular/common/http";
 
 import { DataService } from "./back-service/DataService/DataService";
-import { MemberDetailsComponent } from "./member/member-details/member-details.component";
-import { AttendanceDetailsComponent } from "./meeting/attendance-details/attendance-details.component";
-import { PaymentDetailsComponent } from "./payment/payment-details/payment-details.component";
-import { PaymentTypeDetailsComponent } from "./miscellaneous/payment-type-details/payment-type-details.component";
-import { ExpenseTypeDetailsComponent } from "./miscellaneous/expense-type-details/expense-type-details.component";
 
 @NgModule({
   declarations: [
