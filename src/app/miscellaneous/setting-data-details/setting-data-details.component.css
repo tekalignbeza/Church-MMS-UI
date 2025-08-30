@@ -1,13 +1,89 @@
-.dashboard-card {
-    position: absolute;
-  }
-  .example-form {
-    min-width: 150px;
-    max-width: 500px;
-    width: 100%;
-  }
-  
-  .example-full-width {
-    width: 100%;
-  }
+/* Dialog Container Override */
+::ng-deep .cdk-overlay-pane {
+  position: static !important;
+  max-width: 30vw !important;
+  max-height: 34vh !important;
+}
+
+/* Upload Payment Dialog Styling */
+.church-upload-dialog {
+  width: 100%;
+  min-width: 400px;
+  max-height: fit-content;
+  overflow: hidden;
+}
+
+.church-section-content {
+  padding: 20px 24px;
+  max-height: fit-content;
+  overflow-y: auto;
+}
+
+.upload-header {
+  margin: 0 0 16px 0;
+  font-size: 20px;
+  font-weight: 500;
+  color: #333;
+}
+
+.church-form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.church-form-group {
+  width: 100%;
+}
+
+.church-full-width {
+  width: 100%;
+}
+
+.church-form-actions {
+  display: flex;
+  gap: 12px;
+  justify-content: flex-end;
+  margin-top: 12px;
+}
+
+.church-btn {
+  padding: 8px 16px;
+  border-radius: 4px;
+  font-weight: 500;
+  text-transform: uppercase;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  min-width: 100px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.church-btn-primary {
+  background-color: #3f51b5;
+  color: white;
+}
+
+.church-btn-primary:hover:not(:disabled) {
+  background-color: #303f9f;
+}
+
+.church-btn-primary:disabled {
+  background-color: #c5c5c5;
+  cursor: not-allowed;
+}
+
+.church-btn-outline {
+  background-color: transparent;
+  color: #3f51b5;
+  border: 1px solid #3f51b5;
+}
+
+.church-btn-outline:hover {
+  background-color: #f3f4f6;
+}
   

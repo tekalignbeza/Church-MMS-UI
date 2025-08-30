@@ -22,7 +22,6 @@ import { UploadPaymentListComponent } from './upload-payment-list/upload-payment
     FormsModule,
     ReactiveFormsModule,
     MatFileUploadModule
-  ],
-  exports: [ReactiveFormsModule,MiscellaneousListComponent]
+  ]
 })
 export class MiscellaneousModule { }

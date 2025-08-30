@@ -50,8 +50,25 @@
       </td>
     </ng-container>
 
+    <!-- Delete Column -->
+    <ng-container matColumnDef="delete">
+      <th mat-header-cell *matHeaderCellDef> Actions </th>
+      <td mat-cell *matCellDef="let element">
+        <mat-icon (click)="deleteMeeting(element)" color="warn" matTooltip="Delete Meeting" style="cursor: pointer;">delete</mat-icon>
+      </td>
+    </ng-container>
+
 
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
     <tr mat-row *matRowDef="let row; columns: displayedColumns;" (dblclick)="getRecord(row)"></tr>
   </table>
+
+  <!-- Floating Add Button -->
+  <button mat-fab color="primary" 
+          matTooltip="Add New Meeting" 
+          (click)="addNew()" 
+          class="fab-button"
+          *ngIf="!loading && !error">
+    <mat-icon>add</mat-icon>
+  </button>
 </div>

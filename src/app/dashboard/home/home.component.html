@@ -1,13 +1,86 @@
-<div class="grid-container">
-  <mat-grid-list cols="4" rows="5" rowHeight="3:1">
-    <mat-grid-tile [colspan]="4" [rowspan]="1"></mat-grid-tile>
-    <mat-grid-tile [colspan]="1" [rowspan]="1"></mat-grid-tile>
-    <mat-grid-tile [colspan]="2" [rowspan]="2">
-      <mat-card class="dashboard-card">
-        <img src="https://yt3.ggpht.com/a/AGF-l79N_HsnQbzZAl3kCAnTyYt8ML1rsHvLjBdE_Q=s900-c-k-c0xffffffff-no-rj-mo" height="50%" width="100%">
-      </mat-card>
-    </mat-grid-tile>
-    <mat-grid-tile [colspan]="1" [rowspan]="1"></mat-grid-tile>
-    <mat-grid-tile [colspan]="4" [rowspan]="1"></mat-grid-tile>
-  </mat-grid-list>
+<!-- Landing Page Container -->
+<div class="landing-page">
+
+  <!-- Features Section -->
+  <section class="features-section">
+    <div class="container">
+      <h2 class="section-title">Church Management Features</h2>
+      <p class="section-subtitle">Everything you need to manage your church community effectively</p>
+      
+      <div class="features-grid">
+        <!-- Member Management -->
+        <mat-card class="feature-card" (click)="navigateToMembers()">
+          <mat-card-content class="feature-content">
+            <div class="feature-icon-wrapper">
+              <mat-icon class="feature-icon">people</mat-icon>
+            </div>
+            <h3 class="feature-title">Member Management</h3>
+            <p class="feature-description">
+              Manage church members and families with detailed profiles, contact information, and family relationships.
+            </p>
+            <div class="feature-stats">
+              <span class="stat" *ngIf="!isLoading">{{memberCount}} Members</span>
+              <span class="stat" *ngIf="!isLoading">{{familyCount}} Families</span>
+              <span class="stat" *ngIf="isLoading">Loading...</span>
+            </div>
+          </mat-card-content>
+          <mat-card-actions class="feature-actions">
+            <button mat-button color="primary">
+              <mat-icon>arrow_forward</mat-icon>
+              Manage Members
+            </button>
+          </mat-card-actions>
+        </mat-card>
+
+        <!-- Meeting Management -->
+        <mat-card class="feature-card" (click)="navigateToMeetings()">
+          <mat-card-content class="feature-content">
+            <div class="feature-icon-wrapper">
+              <mat-icon class="feature-icon">event</mat-icon>
+            </div>
+            <h3 class="feature-title">Meetings & Events</h3>
+            <p class="feature-description">
+              Schedule church meetings, track attendance, and manage live attendance with QR code scanning.
+            </p>
+            <div class="feature-stats">
+              <span class="stat" *ngIf="!isLoading">{{upcomingMeetings}} Upcoming</span>
+              <span class="stat" *ngIf="!isLoading">Live Attendance</span>
+              <span class="stat" *ngIf="isLoading">Loading...</span>
+            </div>
+          </mat-card-content>
+          <mat-card-actions class="feature-actions">
+            <button mat-button color="primary">
+              <mat-icon>arrow_forward</mat-icon>
+              View Meetings
+            </button>
+          </mat-card-actions>
+        </mat-card>
+
+
+        <!-- Administrative Tools -->
+        <mat-card class="feature-card" (click)="navigateToMiscellaneous()">
+          <mat-card-content class="feature-content">
+            <div class="feature-icon-wrapper">
+              <mat-icon class="feature-icon">admin_panel_settings</mat-icon>
+            </div>
+            <h3 class="feature-title">Administrative Tools</h3>
+            <p class="feature-description">
+              Upload payment data, manage system settings, and access administrative features.
+            </p>
+            <div class="feature-stats">
+              <span class="stat">Bulk Upload</span>
+              <span class="stat">System Settings</span>
+            </div>
+          </mat-card-content>
+          <mat-card-actions class="feature-actions">
+            <button mat-button color="primary">
+              <mat-icon>arrow_forward</mat-icon>
+              Admin Tools
+            </button>
+          </mat-card-actions>
+        </mat-card>
+      </div>
+    </div>
+  </section>
+
 </div>

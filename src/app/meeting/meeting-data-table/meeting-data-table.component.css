@@ -22,3 +22,27 @@
   margin: 16px 0;
   color: #666;
 }
+
+/* Floating Action Button */
+.fab-button {
+  position: fixed !important;
+  bottom: 24px;
+  right: 24px;
+  z-index: 100;
+}
+
+/* Table container to allow FAB positioning */
+.table-div {
+  position: relative;
+  min-height: 200px;
+}
+
+/* Icon hover effects */
+mat-icon[matTooltip] {
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+
+mat-icon[matTooltip]:hover {
+  transform: scale(1.1);
+}

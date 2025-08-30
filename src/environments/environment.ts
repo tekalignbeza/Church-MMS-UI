@@ -4,8 +4,11 @@
 
 export const environment = {
   production: false,
-  //apiBaseUrl: 'http://localhost:8080'
-  apiBaseUrl: 'https://tekesoft.azurewebsites.net'
+  //apiBaseUrl: 'http://localhost:8080',
+   apiBaseUrl: 'https://tekesoft.azurewebsites.net', // Uncomment for remote testing
+  enableLogging: true,
+  cacheTimeout: 60000, // 1 minute for dev
+  maxRetries: 1
 };
 
 /*

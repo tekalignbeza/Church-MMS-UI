@@ -42,8 +42,8 @@ export class UploadPaymentListComponent implements OnInit {
     this.settingService.jobStatus().subscribe({
       next: (jobs: JobDTO[]) => {
         console.log('Loaded jobs:', jobs);
-        this.allJobs = jobs;
-        this.searchResults = jobs;
+        this.allJobs = jobs || [];
+        this.searchResults = jobs || [];
         this.isLoading = false;
       },
       error: (error) => {
@@ -67,7 +67,7 @@ export class UploadPaymentListComponent implements OnInit {
       ).subscribe({
         next: (jobs: JobDTO[]) => {
           console.log('Server search results:', jobs);
-          this.searchResults = jobs;
+          this.searchResults = jobs || [];
           this.isLoading = false;
         },
         error: (error) => {
@@ -135,4 +135,5 @@ export class UploadPaymentListComponent implements OnInit {
       duration: 3000,
     });
   }
+
 }

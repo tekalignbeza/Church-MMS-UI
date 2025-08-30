@@ -27,6 +27,22 @@ export class MemberServiceService {
     return this.http.get(full, { responseType: 'blob' });
   }
 
+  getMemberCount(): Observable<number> {
+    return this.http.get<number>(this.apiURL + '/member/count')
+      .pipe(
+        retry(0),
+        catchError(this.handleError)
+      )
+  }
+
+  getFamilyCount(): Observable<number> {
+    return this.http.get<number>(this.apiURL + '/member/family/count')
+      .pipe(
+        retry(0),
+        catchError(this.handleError)
+      )
+  }
+
   getFamilyList(): Observable<FamilyDTO[]> {
     return this.http.get<FamilyDTO[]>(this.apiURL + '/member/family/all')
       .pipe(

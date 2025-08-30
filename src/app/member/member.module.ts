@@ -6,10 +6,10 @@ import {MaterialModule} from "../material.module";
 import {MemberDataTableComponent} from './member-data-table/member-data-table.component';
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {MatFileUploadModule} from "mat-file-upload";
-import {MeetingModule} from "../meeting/meeting.module";
-import {PaymentModule} from "../payment/payment.module";
 import { AddMemberDialogComponent } from './add-member-dialog/add-member-dialog.component';
 
+import {PaymentModule} from "../payment/payment.module";
+import {MeetingModule} from "../meeting/meeting.module";
 
 
 @NgModule({
@@ -20,8 +20,8 @@ import { AddMemberDialogComponent } from './add-member-dialog/add-member-dialog.
     FormsModule,
     ReactiveFormsModule,
     MatFileUploadModule,
-    MeetingModule,
-    PaymentModule
+    PaymentModule,
+    MeetingModule
   ],
   exports: [MemberListComponent, FamilyDetailsComponent, MemberDataTableComponent]
 })

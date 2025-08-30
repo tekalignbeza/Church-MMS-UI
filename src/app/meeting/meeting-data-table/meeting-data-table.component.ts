@@ -16,7 +16,7 @@ import { MeetingService } from 'src/app/back-service/meeting-service.service';
 })
 export class MeetingDataTableComponent implements OnInit, OnChanges {
 
-  displayedColumns: string[] = ['title', 'dateTime','address1','attedance'];
+  displayedColumns: string[] = ['title', 'dateTime','address1','attedance', 'delete'];
   @Input() dataSource: MeetingDTO[] = [];
   loading = false;
   error: string | null = null;
@@ -47,8 +47,9 @@ export class MeetingDataTableComponent implements OnInit, OnChanges {
   getRecord(row: MeetingDTO) {
     this.dataService.meeting = row;
     this.dataService.meetingId = row.id;
-    this.showSnackBar("Edit Meeting","Edit Meeting");
-    this.router.navigateByUrl("meetings/new")
+    this.showSnackBar("View Meeting Details","Meeting");
+    // Navigate to meeting detail with ID
+    this.router.navigate(['meetings', row.id])
   }
 
   public load() {
@@ -84,5 +85,21 @@ export class MeetingDataTableComponent implements OnInit, OnChanges {
     this.dataService.meeting = undefined;
     this.dataService.meetingId = undefined;
     this.router.navigateByUrl("meetings/new")
+  }
+
+  public deleteMeeting(meeting: MeetingDTO) {
+    if (confirm(`Are you sure you want to delete the meeting "${meeting.title}"?`)) {
+      this.meetingService.deleteMeeting(meeting.id.toString()).subscribe({
+        next: () => {
+          this.showSnackBar('Meeting deleted successfully', 'Success');
+          // Remove from local data source
+          this.dataSource = this.dataSource.filter(m => m.id !== meeting.id);
+        },
+        error: (error) => {
+          console.error('Error deleting meeting:', error);
+          this.showSnackBar('Failed to delete meeting', 'Error');
+        }
+      });
+    }
   }
 }

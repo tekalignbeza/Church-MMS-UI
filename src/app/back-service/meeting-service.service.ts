@@ -49,6 +49,14 @@ export class MeetingService {
     return this.httpClient.get<MeetingDTO[]>(this.meetingUrl+"all");
   }
 
+  public getUpcomingMeetingCount():Observable<number>{
+    return this.httpClient.get<number>(this.meetingUrl+"upcoming/count")
+      .pipe(
+        retry(0),
+        catchError(this.handleError)
+      );
+  }
+
   public getMeeitngInvite(id :string):Observable<any>{
     return this.httpClient.get(this.meetingUrl+"invite/"+id);
   }

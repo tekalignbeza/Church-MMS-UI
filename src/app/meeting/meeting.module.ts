@@ -18,7 +18,7 @@ import { ZXingScannerModule } from '@zxing/ngx-scanner';
     MaterialModule,    
     FormsModule,
     ReactiveFormsModule,
-    ZXingScannerModule,
+    ZXingScannerModule
   ],
   exports: [MeetingListComponent, MeetingDetailsComponent, MeetingDataTableComponent, AttendaceDataTableComponent]
 })

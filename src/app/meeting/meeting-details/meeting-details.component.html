@@ -11,25 +11,16 @@
             <div class="church-form-group">
               <mat-form-field appearance="outline">
                 <input matInput placeholder="Meeting Title" formControlName="title">
-                <mat-error *ngIf="f['title'].touched && f['title'].invalid">
-                  {{getErrorMessage('title')}}
-                </mat-error>
               </mat-form-field>
             </div>
             <div class="church-form-group">
               <mat-form-field appearance="outline">
                 <input matInput placeholder="Contact Phone" formControlName="cellPhone">
-                <mat-error *ngIf="f['cellPhone'].touched && f['cellPhone'].invalid">
-                  {{getErrorMessage('cellPhone')}}
-                </mat-error>
               </mat-form-field>
             </div>
             <div class="church-form-group">
               <mat-form-field appearance="outline">
                 <input matInput placeholder="Contact Email" formControlName="email">
-                <mat-error *ngIf="f['email'].touched && f['email'].invalid">
-                  {{getErrorMessage('email')}}
-                </mat-error>
               </mat-form-field>
             </div>
             <div class="church-form-group">
@@ -38,74 +29,48 @@
                        formControlName="date" (dateChange)="onDateChange($event.value)">
                 <mat-datepicker-toggle matSuffix [for]="meetingPicker"></mat-datepicker-toggle>
                 <mat-datepicker #meetingPicker></mat-datepicker>
-                <mat-error *ngIf="f['date'].touched && f['date'].invalid">
-                  {{getErrorMessage('date')}}
-                </mat-error>
               </mat-form-field>
             </div>
             <div class="church-form-group">
               <mat-form-field appearance="outline">
-                <input matInput type="time" placeholder="Meeting Time" 
+                <mat-label>Meeting Time</mat-label>
+                <input matInput type="time" placeholder="HH:MM" 
                        formControlName="time" (change)="onTimeChange($event.target.value)">
-                <mat-error *ngIf="f['time'].touched && f['time'].invalid">
-                  {{getErrorMessage('time')}}
-                </mat-error>
               </mat-form-field>
             </div>
             <div class="church-form-group">
               <mat-form-field appearance="outline">
                 <input matInput placeholder="Street Address" formControlName="address1">
-                <mat-error *ngIf="f['address1'].touched && f['address1'].invalid">
-                  {{getErrorMessage('address1')}}
-                </mat-error>
               </mat-form-field>
             </div>
             <div class="church-form-group">
               <mat-form-field appearance="outline">
                 <input matInput placeholder="Address Line 2 (Optional)" formControlName="address2">
-                <mat-error *ngIf="f['address2'].touched && f['address2'].invalid">
-                  {{getErrorMessage('address2')}}
-                </mat-error>
               </mat-form-field>
             </div>
             <div class="church-form-group">
               <mat-form-field appearance="outline">
                 <input matInput placeholder="City" formControlName="city">
-                <mat-error *ngIf="f['city'].touched && f['city'].invalid">
-                  {{getErrorMessage('city')}}
-                </mat-error>
               </mat-form-field>
             </div>
             <div class="church-form-group">
               <mat-form-field appearance="outline">
                 <input matInput placeholder="State" formControlName="state">
-                <mat-error *ngIf="f['state'].touched && f['state'].invalid">
-                  {{getErrorMessage('state')}}
-                </mat-error>
               </mat-form-field>
             </div>
             <div class="church-form-group">
               <mat-form-field appearance="outline">
                 <input matInput placeholder="Zip Code" formControlName="zipCode">
-                <mat-error *ngIf="f['zipCode'].touched && f['zipCode'].invalid">
-                  {{getErrorMessage('zipCode')}}
-                </mat-error>
               </mat-form-field>
             </div>
             <div class="church-form-group">
               <mat-form-field appearance="outline">
                 <input matInput type="number" placeholder="Duration (minutes)" formControlName="duration" min="15">
-                <mat-error *ngIf="f['duration'].touched && f['duration'].invalid">
-                  {{getErrorMessage('duration')}}
-                </mat-error>
               </mat-form-field>
             </div>
             <div class="church-form-group">
               <mat-form-field appearance="outline">
                 <textarea matInput placeholder="Agenda" formControlName="agenda" rows="3"></textarea>
-                <mat-error *ngIf="f['agenda'].touched && f['agenda'].invalid">
-                  {{getErrorMessage('agenda')}}
-                </mat-error>
               </mat-form-field>
             </div>
           </div>

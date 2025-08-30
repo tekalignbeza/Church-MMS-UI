@@ -82,6 +82,16 @@ input[type="time"] {
   width: 100%;
 }
 
+/* Hide error messages but keep field validation styling */
+.church-form-group ::ng-deep .mat-error {
+  display: none !important;
+}
+
+/* Keep the red outline for invalid fields */
+.church-form-group ::ng-deep .mat-form-field.ng-invalid.ng-touched .mat-form-field-outline-thick {
+  color: #f44336 !important;
+}
+
 /* Responsive Design */
 @media (max-width: 1200px) {
   .church-meeting-page .church-grid {
