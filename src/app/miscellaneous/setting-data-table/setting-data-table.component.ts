@@ -31,8 +31,10 @@ export class SettingDataTableComponent {
 
   getRecord(row: SettingDTO) {
     const dialogRef = this.dialog.open(SettingDataDetailsComponent, {
-      width: '40%',
-      height: '46%',
+      maxWidth: '90vw',
+      width: '400px',
+      maxHeight: '90vh',
+      panelClass: 'responsive-dialog',
       data: row
     });
     dialogRef.afterClosed().subscribe(result => {
@@ -44,8 +46,10 @@ export class SettingDataTableComponent {
 
   addNewSetting() {
     const dialogRef = this.dialog.open(SettingDataDetailsComponent, {
-      width: '40%',
-      height: '46%',
+      maxWidth: '90vw',
+      width: '400px',
+      maxHeight: '90vh',
+      panelClass: 'responsive-dialog',
       data: {}
     });
     dialogRef.afterClosed().subscribe(result => {

@@ -115,8 +115,10 @@ export class UploadPaymentListComponent implements OnInit {
 
   addNewUploadPayment() {
     const dialogRef = this.dialog.open(UploadPaymentComponent, {
-      width: '40%',
-      height: '50%',
+      maxWidth: '90vw',
+      width: '500px',
+      maxHeight: '90vh',
+      panelClass: 'responsive-dialog',
       data: {}
     });
     

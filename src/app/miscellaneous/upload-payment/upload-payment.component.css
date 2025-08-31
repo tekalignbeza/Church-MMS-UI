@@ -1,19 +1,17 @@
 .church-upload-dialog {
   width: 100%;
-  min-width: 400px;
-  max-height: 80vh;
   overflow: hidden;
 }
 
 .church-section-content {
-  padding: 24px;
-  max-height: 80vh;
+  padding: 16px;
   overflow-y: auto;
+  max-height: calc(90vh - 32px);
 }
 
 .upload-header {
-  margin: 0 0 20px 0;
-  font-size: 24px;
+  margin: 0 0 12px 0;
+  font-size: 20px;
   font-weight: 500;
   color: #333;
 }
@@ -21,7 +19,7 @@
 .church-form {
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 12px;
 }
 
 .church-form-group {
@@ -32,27 +30,39 @@
   width: 100%;
 }
 
+/* Compact form fields */
+.church-full-width .mat-form-field-wrapper {
+  padding-bottom: 0.8em;
+}
+
+.church-full-width .mat-form-field-infix {
+  padding: 0.5em 0;
+}
+
 .church-form-actions {
   display: flex;
-  gap: 12px;
+  gap: 8px;
   justify-content: flex-end;
-  margin-top: 16px;
+  margin-top: 12px;
+  padding-top: 12px;
+  border-top: 1px solid #e0e0e0;
 }
 
 .church-btn {
-  padding: 8px 16px;
+  padding: 6px 14px;
   border-radius: 4px;
+  font-size: 13px;
   font-weight: 500;
   text-transform: uppercase;
   border: none;
   cursor: pointer;
   transition: all 0.2s ease;
-  min-width: 100px;
-  height: 36px;
+  min-width: 90px;
+  height: 32px;
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 8px;
+  gap: 6px;
 }
 
 .church-btn-primary {
@@ -80,5 +90,54 @@
 }
 
 .church-spinner {
-  margin-right: 8px;
+  margin-right: 6px;
+}
+
+/* Mobile responsiveness */
+@media (max-width: 600px) {
+  .church-section-content {
+    padding: 12px;
+  }
+  
+  .upload-header {
+    font-size: 18px;
+    margin-bottom: 8px;
+  }
+  
+  .church-form {
+    gap: 8px;
+  }
+  
+  .church-form-actions {
+    flex-direction: column-reverse;
+    gap: 6px;
+  }
+  
+  .church-btn {
+    width: 100%;
+  }
+}
+
+/* Global dialog responsiveness */
+::ng-deep .responsive-dialog {
+  .mat-dialog-container {
+    padding: 0;
+    overflow: hidden;
+  }
+}
+
+::ng-deep .responsive-dialog .mat-dialog-content {
+  max-height: none;
+  padding: 0;
+  margin: 0;
+  overflow-y: auto;
+}
+
+@media (max-width: 600px) {
+  ::ng-deep .responsive-dialog {
+    .mat-dialog-container {
+      margin: 8px;
+      max-width: calc(100vw - 16px) !important;
+    }
+  }
 }

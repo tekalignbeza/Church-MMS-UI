@@ -1,8 +1,19 @@
 <mat-sidenav-container class="sidenav-container">
   <mat-sidenav #drawer class="sidenav" fixedInViewport
     [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
-    [mode]="(isHandset$ | async) ? 'over' : 'side'"
-    [opened]="(isHandset$ | async) === false">
+    [mode]="getSidenavMode()"
+    [opened]="getSidenavOpened()">
+    <div class="sidenav-header">
+      <button mat-icon-button 
+              class="pin-button"
+              [class.pinned]="isPinned"
+              (click)="togglePin()"
+              [matTooltip]="isPinned ? 'Unpin sidenav' : 'Pin sidenav'"
+              matTooltipPosition="right"
+              *ngIf="!(isHandset$ | async)">
+        <mat-icon [style.transform]="isPinned ? 'rotate(0deg)' : 'rotate(45deg)'">push_pin</mat-icon>
+      </button>
+    </div>
     <app-sidenav-list></app-sidenav-list>
   </mat-sidenav>
   <mat-sidenav-content>
@@ -11,8 +22,7 @@
         type="button"
         aria-label="Toggle sidenav"
         mat-icon-button
-        (click)="drawer.toggle()"
-        *ngIf="isHandset$ | async">
+        (click)="toggleDrawer(drawer)">
         <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
       </button>
       <span>St Gebriel-Member Management System</span>

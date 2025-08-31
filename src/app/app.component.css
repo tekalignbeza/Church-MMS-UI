@@ -22,6 +22,38 @@ mat-sidenav {
   border-right: 1px solid var(--gray-200);
   box-shadow: var(--shadow-lg);
   z-index: 100;
+  transition: width 0.3s ease;
+}
+
+/* Sidenav Header with Pin Button */
+.sidenav-header {
+  display: flex;
+  justify-content: flex-end;
+  padding: 8px;
+  border-bottom: 1px solid var(--gray-200);
+  background-color: var(--gray-50);
+}
+
+.pin-button {
+  transition: transform 0.3s ease;
+}
+
+.pin-button:hover {
+  background-color: var(--gray-100);
+}
+
+/* Rotate pin icon when unpinned */
+.pin-button mat-icon {
+  transition: transform 0.3s ease;
+}
+
+.pin-button:not(.pinned) mat-icon {
+  transform: rotate(45deg);
+}
+
+/* When sidenav is in overlay mode (unpinned) */
+.mat-drawer-over {
+  box-shadow: var(--shadow-2xl) !important;
 }
 
 /* Main Content Area */
