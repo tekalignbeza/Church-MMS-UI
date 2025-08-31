@@ -7,10 +7,8 @@ import { SettingService } from 'src/app/back-service/setting-service.service';
 import { SettingDTO } from 'src/app/back-service/model/settingDTO';
 import { AttendanceDTO, AttendanceFlag } from 'src/app/back-service/model/attendanceDTO';
 import { MeetingService } from 'src/app/back-service/meeting-service.service';
-import { BarcodeFormat } from '@zxing/library';
-import { ZXingScannerComponent } from '@zxing/ngx-scanner';
 interface Member {
-  barcode: number;
+  memberId: number;
   firstName: string;
   lastName: string;
   flag: string;
@@ -25,13 +23,12 @@ interface Member {
   styleUrls: ['./attedance-live.component.css']
 })
 export class AttedanceLiveComponent implements OnInit {
-  @ViewChild('barcodeInput') barcodeInput!: ElementRef;
-  @ViewChild('scanner') scanner!: ZXingScannerComponent;
+  @ViewChild('memberIdInput') memberIdInput!: ElementRef;
   
   currentFlag: string | null = null;
   scannedMembers: Member[] = [];
   dataSource = new MatTableDataSource<Member>(this.scannedMembers);
-  displayedColumns: string[] = ['barcode', 'firstName', 'lastName', 'flag'];
+  displayedColumns: string[] = ['memberId', 'firstName', 'lastName', 'flag'];
   meetingTitle = "";
   meetingContact = "";
   meetingId;
@@ -40,20 +37,6 @@ export class AttedanceLiveComponent implements OnInit {
   setting: SettingDTO[];
   isLoading: boolean = false;
 
-  // Camera scanner properties
-  isCameraEnabled = false;
-  hasDevices = false;
-  availableDevices: MediaDeviceInfo[] = [];
-  selectedDevice: MediaDeviceInfo | null = null;
-  allowedFormats = [
-    BarcodeFormat.QR_CODE,
-    BarcodeFormat.CODE_128,
-    BarcodeFormat.CODE_39,
-    BarcodeFormat.EAN_13,
-    BarcodeFormat.EAN_8,
-    BarcodeFormat.UPC_A,
-    BarcodeFormat.UPC_E
-  ];
   constructor(private http: HttpClient,private route: ActivatedRoute,private memberApi:MemberServiceService,private settingApi:SettingService, private meetingApi:MeetingService) {}
 
   ngOnInit(): void {
@@ -71,47 +54,20 @@ export class AttedanceLiveComponent implements OnInit {
         });
       });
     });
-    
-    // Initialize camera devices
-    this.initializeCameraDevices();
   }
 
-  initializeCameraDevices(): void {
-    navigator.mediaDevices.enumerateDevices()
-      .then(devices => {
-        this.availableDevices = devices.filter(device => device.kind === 'videoinput');
-        this.hasDevices = this.availableDevices.length > 0;
-        
-        if (this.hasDevices) {
-          // Try to find back camera for mobile, otherwise use first available
-          const backCamera = this.availableDevices.find(device => 
-            device.label.toLowerCase().includes('back') || 
-            device.label.toLowerCase().includes('rear')
-          );
-          this.selectedDevice = backCamera || this.availableDevices[0];
-          console.log('Available cameras:', this.availableDevices.length);
-        } else {
-          console.warn('No camera devices found');
-        }
-      })
-      .catch(err => {
-        console.error('Error accessing camera devices:', err);
-        this.hasDevices = false;
-      });
-  }
-
-  onScan(barcode: string): void {
-    this.memberApi.getMember(barcode).subscribe(
+  onSearch(memberId: string): void {
+    this.memberApi.getMember(memberId).subscribe(
       response => {       
         this.currentFlag = response.membershipPayment;
         let flag = this.currentFlag;
-        const existingMemberIndex = this.scannedMembers.findIndex(member => member.barcode === response.id);
+        const existingMemberIndex = this.scannedMembers.findIndex(member => member.memberId === response.id);
 
         if (existingMemberIndex !== -1) {
           this.scannedMembers[existingMemberIndex].flag = flag;
         } else {
           this.scannedMembers.push({
-            barcode: response.id,
+            memberId: response.id,
             firstName: response.firstName,
             lastName: response.lastName,
             flag: flag
@@ -129,12 +85,16 @@ export class AttedanceLiveComponent implements OnInit {
         this.dataSource.data = this.scannedMembers;
 
         // Clear the input text box
-        this.barcodeInput.nativeElement.value = '';
+        if (this.memberIdInput) {
+          this.memberIdInput.nativeElement.value = '';
+        }
 
         // Refocus on the input text box after 2 seconds
         setTimeout(() => {
           this.currentFlag = null;
-          this.barcodeInput.nativeElement.focus();
+          if (this.memberIdInput) {
+            this.memberIdInput.nativeElement.focus();
+          }
         }, 2000);
       });
   }
@@ -144,11 +104,11 @@ export class AttedanceLiveComponent implements OnInit {
       console.log('create attedance');});
   }
 
-  onManualSearch(): void {
-    const inputValue = this.barcodeInput.nativeElement.value.trim();
-    if (inputValue) {
-      console.log('Manual search with ID:', inputValue);
-      this.onScan(inputValue);
+  onManualSearch(inputValue?: string): void {
+    const value = inputValue || (this.memberIdInput ? this.memberIdInput.nativeElement.value.trim() : '');
+    if (value) {
+      console.log('Manual search with ID:', value);
+      this.onSearch(value);
     } else {
       console.warn('No ID entered for manual search');
     }
@@ -157,38 +117,11 @@ export class AttedanceLiveComponent implements OnInit {
   onReset(): void {
     this.scannedMembers = [];
     this.dataSource.data = this.scannedMembers;
-    this.barcodeInput.nativeElement.value = '';
+    if (this.memberIdInput) {
+      this.memberIdInput.nativeElement.value = '';
+    }
     this.currentFlag = null;
     console.log('Attendance data reset');
   }
 
-  // Camera scanner methods
-  toggleCamera(): void {
-    this.isCameraEnabled = !this.isCameraEnabled;
-    console.log('Camera enabled:', this.isCameraEnabled);
-  }
-
-  onCameraScan(result: string): void {
-    console.log('Camera scan result:', result);
-    this.onScan(result);
-    // Optionally disable camera after successful scan
-    // this.isCameraEnabled = false;
-  }
-
-  onScanError(error: any): void {
-    console.error('Scanner error:', error);
-  }
-
-  onScanFailure(error: any): void {
-    console.warn('Scanner failure:', error);
-  }
-
-  onScanComplete(result: any): void {
-    console.log('Scan complete:', result);
-  }
-
-  onCameraChange(device: MediaDeviceInfo): void {
-    this.selectedDevice = device;
-    console.log('Camera changed to:', device.label);
-  }
 }

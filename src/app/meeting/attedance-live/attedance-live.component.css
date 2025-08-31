@@ -35,50 +35,6 @@
   flex-direction: column;
 }
 
-/* Scanner Flag Overlay - Enhanced */
-.scanner-container {
-  position: fixed;
-  top: 80px;
-  left: 50%;
-  transform: translateX(-50%);
-  z-index: 1000;
-  pointer-events: none;
-}
-
-.flag-container {
-  padding: var(--space-6) var(--space-8);
-  border-radius: var(--radius-xl);
-  text-align: center;
-  font-weight: var(--font-bold);
-  font-size: var(--text-2xl);
-  box-shadow: var(--shadow-2xl);
-  opacity: 0.95;
-  animation: fade-in-out 2s ease-in-out;
-  border: 3px solid rgba(255, 255, 255, 0.3);
-}
-
-.flag {
-  color: white;
-  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
-}
-
-.GREEN {
-  background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
-}
-
-.YELLOW {
-  background: linear-gradient(135deg, #ffc107 0%, #fd7e14 100%);
-  color: var(--gray-800);
-}
-
-.YELLOW .flag {
-  color: var(--gray-800);
-  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
-}
-
-.RED {
-  background: linear-gradient(135deg, #dc3545 0%, #e83e8c 100%);
-}
 
 /* Loading and Empty States */
 .church-loading {
@@ -230,24 +186,11 @@
     justify-content: center;
   }
   
-  .flag-container {
-    padding: var(--space-4) var(--space-6);
-    font-size: var(--text-xl);
-  }
-  
-  .scanner-container {
-    top: 60px;
-  }
 }
 
 @media (max-width: 480px) {
   .church-attendance-page {
     padding: var(--space-2);
-  }
-  
-  .flag-container {
-    padding: var(--space-3) var(--space-4);
-    font-size: var(--text-lg);
   }
   
   .attendance-table .mat-header-cell,
@@ -257,90 +200,5 @@
   }
 }
 
-/* Inline Scanner Styles - Replaces text input in grid */
-.scanner-grid-item {
-  display: flex;
-  align-items: center;
-}
-
-.inline-scanner-container {
-  position: relative;
-  width: 100%;
-  height: 120px; /* Increased height for better barcode scanning */
-  border-radius: 4px;
-  overflow: hidden;
-  background: var(--white);
-  border: 1px solid rgba(0, 0, 0, 0.42);
-  transition: border-color 0.3s;
-}
-
-.inline-scanner-container:hover {
-  border-color: rgba(0, 0, 0, 0.87);
-}
-
-/* Make the zxing-scanner fit the inline container */
-.inline-scanner-container zxing-scanner {
-  display: block;
-  width: 100%;
-  height: 100%;
-}
-
-.inline-scanner-container zxing-scanner video {
-  width: 100% !important;
-  height: 100% !important;
-  object-fit: cover;
-}
-
-.scanner-controls {
-  margin-top: var(--space-2);
-  display: flex;
-  justify-content: center;
-}
-
-.scanner-instructions {
-  text-align: center;
-  margin-top: var(--space-2);
-  color: var(--gray-600);
-  font-size: var(--text-xs);
-  padding: var(--space-1) 0;
-}
-
-.scanner-instructions mat-icon {
-  vertical-align: middle;
-  margin-right: var(--space-1);
-  color: var(--primary-color);
-  font-size: 16px;
-  width: 16px;
-  height: 16px;
-}
 
 /* Secondary button style */
-.church-btn-secondary {
-  background-color: var(--secondary-color);
-  color: var(--white);
-  border: 1px solid var(--secondary-color);
-}
-
-.church-btn-secondary:hover {
-  background-color: var(--secondary-dark);
-  border-color: var(--secondary-dark);
-}
-
-.church-btn-secondary:disabled {
-  background-color: var(--gray-300);
-  color: var(--gray-500);
-  border-color: var(--gray-300);
-  cursor: not-allowed;
-}
-
-/* Override mobile styles for camera section */
-@media (max-width: 768px) {
-  .camera-scanner-section {
-    padding: var(--space-2);
-    margin-top: var(--space-4);
-  }
-  
-  .camera-scanner-section .scanner-container {
-    max-width: 100%;
-  }
-}

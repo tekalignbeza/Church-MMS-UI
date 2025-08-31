@@ -1,16 +1,9 @@
-<!-- Scanner Flag Overlay -->
-<div class="scanner-container">
-  <div *ngIf="currentFlag" class="flag-container" [ngClass]="currentFlag">
-    <div class="flag">{{ currentFlag.toUpperCase() }}</div>
-  </div>
-</div>
-
 <div class="church-attendance-page">
   <div class="church-grid church-grid-cols-1">
     <!-- Search Section -->
     <div class="church-section">
       <div class="church-section-header">
-        <h2 class="church-section-title">Live Attendance - Barcode Scanner</h2>
+        <h2 class="church-section-title">Live Attendance</h2>
       </div>
       <div class="church-section-content">
         <form class="church-form">
@@ -25,40 +18,20 @@
                 <input matInput placeholder="Meeting Contact" disabled="true">
               </mat-form-field>
             </div>
-            <div class="church-form-group" *ngIf="!isCameraEnabled">
+            <div class="church-form-group">
               <mat-form-field appearance="outline">
-                <input #barcodeInput
+                <input #memberIdInput
                        matInput
                        type="text"
-                       placeholder="Scan member's barcode or Enter Member ID"
-                       (keydown.enter)="onScan(barcodeInput.value)"
+                       placeholder="Enter Member ID"
+                       (keydown.enter)="onManualSearch(memberIdInput.value)"
                        autocomplete="off">
-                <mat-icon matSuffix>qr_code_scanner</mat-icon>
+                <mat-icon matSuffix>person_search</mat-icon>
               </mat-form-field>
-            </div>
-            
-            <!-- Camera Scanner in same grid position -->
-            <div class="church-form-group scanner-grid-item" *ngIf="isCameraEnabled">
-              <div class="inline-scanner-container">
-                <zxing-scanner 
-                  #scanner
-                  [enable]="isCameraEnabled"
-                  [device]="selectedDevice"
-                  (scanSuccess)="onCameraScan($event)"
-                  (scanError)="onScanError($event)"
-                  (scanFailure)="onScanFailure($event)"
-                  (scanComplete)="onScanComplete($event)"
-                  [formats]="allowedFormats">
-                </zxing-scanner>
-              </div>
             </div>
           </div>
           <div class="church-form-actions">
-            <button class="church-btn church-btn-primary" type="button" (click)="onManualSearch()" *ngIf="!isCameraEnabled">Search by ID</button>
-            <button class="church-btn church-btn-secondary" type="button" (click)="toggleCamera()" [disabled]="!hasDevices">
-              <mat-icon>{{ isCameraEnabled ? 'videocam_off' : 'videocam' }}</mat-icon>
-              {{ isCameraEnabled ? 'Stop Camera' : 'Start Camera' }}
-            </button>
+            <button class="church-btn church-btn-primary" type="button" (click)="onManualSearch()">Search by ID</button>
             <button class="church-btn church-btn-outline" type="button" (click)="onReset()">Reset</button>
           </div>
         </form>
@@ -79,17 +52,17 @@
 
         <!-- Empty State -->
         <div *ngIf="!isLoading && dataSource.data.length === 0" class="church-empty">
-          <mat-icon class="church-empty-icon">qr_code_scanner</mat-icon>
-          <p>Scan member barcodes to record attendance</p>
+          <mat-icon class="church-empty-icon">person_search</mat-icon>
+          <p>Enter member ID to record attendance</p>
         </div>
 
         <!-- Attendance Table -->
         <div *ngIf="!isLoading && dataSource.data.length > 0" class="church-attendance-table">
           <table mat-table [dataSource]="dataSource" class="attendance-table">
-            <!-- Barcode Column -->
-            <ng-container matColumnDef="barcode">
-              <th mat-header-cell *matHeaderCellDef>Barcode</th>
-              <td mat-cell *matCellDef="let member">{{ member.barcode }}</td>
+            <!-- Member ID Column -->
+            <ng-container matColumnDef="memberId">
+              <th mat-header-cell *matHeaderCellDef>Member ID</th>
+              <td mat-cell *matCellDef="let member">{{ member.memberId }}</td>
             </ng-container>
           
             <!-- First Name Column -->
