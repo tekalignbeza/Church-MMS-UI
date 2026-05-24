@@ -85,7 +85,7 @@ export class MeetingService {
   }
 
   public getMeeitngAttendance(id :string):Observable<any>{
-    return this.httpClient.get(this.meetingUrl+"attendance/"+id);
+    return this.httpClient.get(this.meetingUrl+"attendanceByMeeting/"+id);
   }
 
   public searchMeetings(title?: string, date?: Date): Observable<MeetingDTO[]> {
