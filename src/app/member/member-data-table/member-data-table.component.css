@@ -2,6 +2,32 @@
    Member Data Table - Modern Church Design
    ======================================== */
 
+/* ID Card Back Download Button */
+.id-back-download {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: var(--space-3);
+}
+
+.id-back-download button {
+  font-size: var(--text-sm);
+  border-color: var(--primary-color);
+  color: var(--primary-color);
+}
+
+.id-back-download button mat-icon {
+  margin-right: var(--space-1);
+  font-size: 18px;
+  width: 18px;
+  height: 18px;
+}
+
+/* Disabled icon style */
+.disabled-icon {
+  opacity: 0.3 !important;
+  cursor: not-allowed !important;
+}
+
 /* Table Container */
 .church-table-wrapper {
   background: var(--white);

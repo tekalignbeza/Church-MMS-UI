@@ -19,7 +19,7 @@ import { AddMemberDialogComponent } from '../add-member-dialog/add-member-dialog
   styleUrls: ['./member-data-table.component.css']
 })
 export class MemberDataTableComponent implements OnInit, OnChanges {
-  displayedColumns: string[] = ['firstName', 'middleName', 'lastName', 'cellPhone', 'id', 'download', 'familyDetail'];
+  displayedColumns: string[] = ['firstName', 'middleName', 'lastName', 'cellPhone', 'id', 'photo', 'download', 'familyDetail'];
   dataSource: MemberDTO[] = [];
   memberData: MemberDTO;
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
@@ -199,6 +199,78 @@ export class MemberDataTableComponent implements OnInit, OnChanges {
         this.memberAdded.emit();
       }
     });
+  }
+
+  triggerPhotoUpload(member: MemberDTO) {
+    const fileInput = document.getElementById('photo-input-' + member.id) as HTMLInputElement;
+    if (fileInput) {
+      fileInput.value = ''; // Reset so same file can be re-selected
+      fileInput.click();
+    }
+  }
+
+  onPhotoSelected(event: any, member: MemberDTO) {
+    const file: File = event.target.files[0];
+    if (!file) return;
+
+    // Validate file size (5MB max)
+    if (file.size > 5 * 1024 * 1024) {
+      this.showSnackBar("File too large. Max 5MB allowed.", "Error");
+      return;
+    }
+
+    // Validate file type
+    if (!file.type.startsWith('image/')) {
+      this.showSnackBar("Only image files are allowed.", "Error");
+      return;
+    }
+
+    this.showSnackBar("Uploading photo & generating ID card...", "Info");
+    
+    this.memberApi.uploadPhoto(file, member.id).subscribe(
+      () => {
+        this.showSnackBar("ID card generated successfully!", "Success");
+        // Refresh member data to get updated idCard field
+        this.memberApi.getMember(member.id).subscribe(
+          (updated: any) => {
+            // Update the member's idCard in the local data
+            const idx = this.dataSource.findIndex(m => m.id === member.id);
+            if (idx >= 0) {
+              this.dataSource[idx].idCard = updated.idCard;
+              // Trigger change detection by replacing array
+              this.dataSource = [...this.dataSource];
+            }
+          }
+        );
+      },
+      error => {
+        console.error('Photo upload error:', error);
+        this.showSnackBar("Failed to upload photo. Please try again.", "Error");
+      }
+    );
+  }
+
+  downloadIdCardBack() {
+    const url = `${environment.apiBaseUrl}/member/idcard-back`;
+    fetch(url)
+      .then(response => {
+        if (!response.ok) throw new Error(`HTTP ${response.status}`);
+        return response.blob();
+      })
+      .then(blob => {
+        const link = document.createElement('a');
+        link.href = window.URL.createObjectURL(blob);
+        link.download = 'idcard-back.png';
+        document.body.appendChild(link);
+        link.click();
+        window.URL.revokeObjectURL(link.href);
+        document.body.removeChild(link);
+        this.showSnackBar("Card back downloaded", "Success");
+      })
+      .catch(error => {
+        console.error('Download back error:', error);
+        this.showSnackBar("Failed to download card back", "Error");
+      });
   }
 
 }
