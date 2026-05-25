@@ -142,6 +142,14 @@ export class MemberServiceService {
       )
   }
 
+  getMemberListPaginated(page: number = 0, size: number = 20): Observable<PageDTO<MemberDTO>> {
+    return this.http.get<PageDTO<MemberDTO>>(`${this.apiURL}/member/list?page=${page}&size=${size}`)
+      .pipe(
+        retry(0),
+        catchError(this.handleError)
+      )
+  }
+
   getMember(id): Observable<MemberDTO> {
     return this.http.get<MemberDTO>(this.apiURL + '/member/' + id)
       .pipe(

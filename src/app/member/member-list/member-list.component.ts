@@ -102,23 +102,16 @@ export class MemberListComponent implements OnInit {
     this.isLoading = true;
     this.currentPage = page;
     
-    // Load members using paginated family data for better performance
-    this.memberService.getFamilyListPaginated(page, this.pageSize).subscribe(
-      (pageData: PageDTO<FamilyDTO>) => {
-        const allMembers: MemberDTO[] = [];
-        pageData.content.forEach(family => {
-          if (family.memberDTOList && family.memberDTOList.length > 0) {
-            allMembers.push(...family.memberDTOList);
-          }
-        });
-        
-        this.searchResults = allMembers;
+    // Load members directly using paginated member endpoint
+    this.memberService.getMemberListPaginated(page, this.pageSize).subscribe(
+      (pageData: PageDTO<MemberDTO>) => {
+        this.searchResults = pageData.content;
         this.totalElements = pageData.totalElements;
         this.isLoading = false;
       },
       error => {
-        console.error('Error loading members with pagination:', error);
-        // Fallback: try the old method
+        console.error('Error loading members with new endpoint:', error);
+        // Fallback: try the legacy family-based method
         this.loadAllMembersLegacy();
       }
     );
