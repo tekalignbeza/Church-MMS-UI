@@ -51,6 +51,7 @@
         <app-member-data-table 
           *ngIf="!isLoading"
           [memberList]="searchResults" 
+          [showActionButtons]="true"
           (memberAdded)="onMemberAdded()">
         </app-member-data-table>
         
