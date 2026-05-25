@@ -41,7 +41,9 @@
     <ng-container matColumnDef="photo">
       <th mat-header-cell *matHeaderCellDef> Photo </th>
       <td mat-cell *matCellDef="let element">
-        <mat-icon (click)="triggerPhotoUpload(element); $event.stopPropagation()"
+        <mat-spinner *ngIf="uploadingMemberId === element.id" [diameter]="24"></mat-spinner>
+        <mat-icon *ngIf="uploadingMemberId !== element.id"
+                  (click)="triggerPhotoUpload(element); $event.stopPropagation()"
                   [color]="element.idCard ? 'primary' : 'warn'"
                   [matTooltip]="element.idCard ? 'Update Photo & Regenerate ID' : 'Upload Photo & Generate ID'"
                   style="cursor: pointer;">

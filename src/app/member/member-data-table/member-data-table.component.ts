@@ -26,6 +26,7 @@ export class MemberDataTableComponent implements OnInit, OnChanges {
   @Input() memberList: MemberDTO[] = [];
   @Input() showActionButtons: boolean = false;
   @Output() memberAdded = new EventEmitter<void>();
+  uploadingMemberId: any = null;
   ngOnInit() {
     // Check if we're loading from a specific family context
     if(this.dataService.family!=undefined && this.dataService.family.memberDTOList){
@@ -225,7 +226,7 @@ export class MemberDataTableComponent implements OnInit, OnChanges {
       return;
     }
 
-    this.showSnackBar("Uploading photo & generating ID card...", "Info");
+    this.uploadingMemberId = member.id;
     
     this.memberApi.uploadPhoto(file, member.id).subscribe(
       () => {
@@ -240,12 +241,15 @@ export class MemberDataTableComponent implements OnInit, OnChanges {
               // Trigger change detection by replacing array
               this.dataSource = [...this.dataSource];
             }
-          }
+            this.uploadingMemberId = null;
+          },
+          () => { this.uploadingMemberId = null; }
         );
       },
       error => {
         console.error('Photo upload error:', error);
         this.showSnackBar("Failed to upload photo. Please try again.", "Error");
+        this.uploadingMemberId = null;
       }
     );
   }
